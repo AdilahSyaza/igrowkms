@@ -67,6 +67,10 @@
                         <div class="container my-3 bg-light">
                           <label for="exampleFormControlTextarea1" style="font-size: 2em;" >Sharing</label>
                         </div>
+                        <div class="col-12">
+                          <a href="{% url 'group:MyGroup' %}" class="link-primary">My Group</a> 
+                        </div>
+                        <br/>
 
                         <!-- <div class="col-12">
                           <a href="" class="link-primary">New Sharing</a> 
@@ -95,7 +99,7 @@
         <th scope="row" value="{{ feed.Message }}">{{ feed.Message }}</th>
         <td>
           {% if feed.Creator.Email == request.session.Email %}
-          <a href="{% url 'sharing:UpdateSharing' feed.id %}" class="card-link">Edit</a> || <a href="{% url 'sharing:DeleteSharing' feed.id %}" class="card-link">Delete</a>
+          <a href="{% url 'sharing:UpdateSharing' feed.id %}" class="card-link" target="_blank">Edit</a> || <a href="{% url 'sharing:DeleteSharing' feed.id %}" class="card-link">Delete</a>
           {% endif %}
         </td>
         <th>

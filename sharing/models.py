@@ -16,7 +16,7 @@ class Feed(models.Model):
     Message = models.CharField(max_length=255, blank=True)
     Photo = models.ImageField(upload_to ='images/')
     Video = models.FileField(upload_to='uploads/', null=True)
-    Graph = models.FileField(upload_to='uploads/')
+    # Graph = models.FileField(upload_to='uploads/')
     created_at = models.DateTimeField(default=datetime.now, blank=True)
     Group = models.ForeignKey(Group, on_delete=models.CASCADE)
     Creator = models.ForeignKey(Person, on_delete=models.CASCADE)

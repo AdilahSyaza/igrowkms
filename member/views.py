@@ -111,6 +111,7 @@ def view(request):
     if request.method=='POST':
        t = Person.objects.get(Email=person.Email)
        t.Email=request.POST['Email']
+       request.session['Email'] = t.Email
        t.Password=request.POST['Password']
        t.Username=request.POST.get('Username')
        t.Name=request.POST.get('Name')
@@ -132,19 +133,6 @@ def view(request):
 #member
 def mainMember(request):
     return render(request,'MainMember.html')
-
-
-# def member(request):
-#     if request.method=='POST':
-#         Name=request.POST.get('Name')
-#         Study=request.POST.get('Study')
-#         Lives=request.POST.get('Lives')
-#         Member(Name=Name,Study=Study,Lives=Lives).save(),
-#         messages.success(request,'The new member ' + request.POST['Name'] + " is create succesfully..!")
-#         return render(request,'member.html')
-#     else :
-#         return render(request,'member.html')
-
 
 def sendMemberRequest(request, userID):
     
@@ -241,14 +229,6 @@ def unfriend(request, pk):
         return render(request, 'friendlist.html')
     else:
         return render(request, 'friendlist.html')
-
-
-def myMember(request):
-    #try:
-    #    member=Member.objects.filter(Name=request.session['Name'])
-        return render(request,'MyMember.html')#{'member':member})
-    #except Member.DoesNotExist:
-     #   raise Http404('Data does not exist')
 
 def MainSearchbar(request):
     if request.method == 'GET':

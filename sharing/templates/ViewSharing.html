@@ -48,16 +48,16 @@
                             
                             <div class="col-12">
                               <label for="inputTitle" class="container text-left">Title</label>
-                              <input type="text" class="form-control" id="title" name="Title" value="{{ feed.Title }}">
+                              <input type="text" class="form-control" id="title" name="Title" value="{{ feed.Title }}" required>
                             </div>
                             <div class="col-md-6">
                               <label for="inputNewSharing" class="form-label">Message</label>
-                              <input class="form-control" id="inputSharing" name="Message" rows="10" cols="10" value="{{ feed.Message }}"></textarea>
+                              <input class="form-control" id="inputSharing" name="Message" rows="10" cols="10" value="{{ feed.Message }}" required></textarea>
                             </div>
                             <br/><br/>
                             <div class="col-12">
                               <label for="inputImage" class="form-label">Photo</label>
-                              <input type="file" img src="/media/login/photo.png" class="form-control" id="inputImage" name="Photo" value="{{ feed.Photo }}">
+                              <input type="file" img src="/media/login/photo.png" class="form-control" id="inputImage" name="Photo" value="{{ feed.Photo }}" required>
                             </div>
                             <br/><br/>
                             <div class="col-12">
@@ -65,10 +65,6 @@
                               <input type="file" class="form-control" id="inputVideo" name="Video" placeholder="Enter video" value="{{ feed.Video }}">
                             </div>
                             <br/><br/>
-                            <div class="col-12">
-                              <label for="inputGraph" class="form-label">Graph</label>
-                              <input type="file" class="form-control" id="inputGraph" name="Graph " placeholder="Enter graph" value="{{ feed.Graph }}">
-                            </div>
 
                             <div class="col-12">
                               <button type="submit" class="btn btn-success" value="Sharing">Save</button>

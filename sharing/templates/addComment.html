@@ -74,7 +74,7 @@
                             {% csrf_token %}
                             <div class="col-md-6">
                               <label for="inputComment" class="form-label">Message</label>
-                              <input type="text" class="form-control" id="inputComment" name="Message" rows="10" cols="10" placeholder="Enter comment" value="{{ comment.Message }}"></textarea>
+                              <input type="text" class="form-control" id="inputComment" name="Message" rows="10" cols="10" placeholder="Enter comment" value="{{ comment.Message }}" required></textarea>
                             </div>
                             <br/><br/>
                             <div class="col-12">

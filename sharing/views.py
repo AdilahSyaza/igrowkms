@@ -38,8 +38,8 @@ def sharingGroup(request, pk):
         Message=request.POST.get('Message')
         Photo=request.POST.get('Photo')
         Video=request.POST.get('Video')
-        Graph=request.POST.get('Graph')
-        Feed(Title=Title,Message=Message,Photo=Photo,Video=Video,Graph=Graph,Group=group_forum,Creator=creator).save(),
+        # Graph=request.POST.get('Graph')
+        Feed(Title=Title,Message=Message,Photo=Photo,Video=Video,Group=group_forum,Creator=creator).save(),
         messages.success(request,'The new feed is save succesfully..!')
         return render(request,'sharing.html')
     else :
@@ -56,7 +56,7 @@ def updateSharing(request, pk):
        feed.Message=request.POST.get('Message')
        feed.Photo=request.POST.get('Photo')
        feed.Video=request.POST.get('Video')
-       feed.Graph=request.POST.get('Graph')
+    #    feed.Graph=request.POST.get('Graph')
        feed.save()
        messages.success(request,'The post of ' + request.POST['Title'] + " is updated succesfully..!")
        return render(request,'ViewSharing.html')

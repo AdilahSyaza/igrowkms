@@ -74,27 +74,23 @@
                             {% csrf_token %}
                             <div class="col-12">
                               <label for="inputTitle" class="container text-left">Title</label>
-                              <input type="text" class="form-control" id="title" placeholder="Enter title" name="Title" value="{{ feed.Title }}">
+                              <input type="text" class="form-control" id="title" placeholder="Enter title" name="Title" value="{{ feed.Title }}" required>
                             </div>
                             <div class="col-md-6">
                               <label for="inputNewSharing" class="form-label">Message</label>
-                              <textarea class="form-control" id="inputSharing" name="Message" rows="10" cols="10" placeholder="Enter feed" value="{{ feed.Message }}"></textarea>
+                              <textarea class="form-control" id="inputSharing" name="Message" rows="10" cols="10" placeholder="Enter feed" value="{{ feed.Message }}" required></textarea>
                             </div>
                             <br/><br/>
                             <div class="col-12">
                               <label for="inputImage" class="form-label">Photo</label>
-                              <input type="file" class="form-control" id="inputImage" name="Photo" placeholder="Enter image">
+                              <input type="file" class="form-control" id="inputImage" name="Photo" placeholder="Enter image" required>
                             </div>
                             <br/><br/>
                             <div class="col-12">
                               <label for="inputVideo" class="form-label">Video</label>
                               <input type="file" class="form-control" id="inputVideo" name="Video" placeholder="Enter video">
                             </div>
-                            <br/><br/>
-                            <div class="col-12">
-                              <label for="inputGraph" class="form-label">Graph</label>
-                              <input type="file" class="form-control" id="inputGraph" name="Graph " placeholder="Enter graph">
-                            </div>
+                            
                             <br/><br/><br/><br/>
                             <div class="col-12">
                               <button type="submit" class="btn btn-success " value="Sharing">Upload</button>

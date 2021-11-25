@@ -37,9 +37,7 @@ urlpatterns = [
     path('View',views.view,name="View"),
 
     path('MainMember', views.mainMember, name="MainMember"),
-    # path('Member',views.member, name="member"),
     path('Friendlist',views.friendlist, name="friendlist"),
-    path('MyMember',views.myMember, name="MyMember"),
     path('MainSearchbar/', views.MainSearchbar, name='MainSearchbar'),
     path('MainSearchbar/<str:pk>', views.v2MainSearchbar, name='v2MainSearchbar'),
     path('PendingMemberRequest', views.pendingMemberRequest, name='PendingMemberRequest'),

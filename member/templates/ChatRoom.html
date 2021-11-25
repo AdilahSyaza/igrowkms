@@ -164,7 +164,7 @@ setInterval(function(){
         {% csrf_token %}
         <input type="hidden" name="sender" id="sender" value="{{user.Username}}"/>
         <input type="hidden" name="room" id="room" value="{{room.id}}"/>
-        <input type="text" name="message" id="message" width="100px" />
+        <input type="text" name="message" id="message" width="100px" required/>
         <input type="submit" value="Send">
     </form>
 </div>

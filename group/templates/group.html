@@ -52,24 +52,24 @@
     </div>
   <br/>
 
-  <p class="h3 text-center align-content: center;">Group</p><br/>
+  <p class="h3 text-center align-content: center;">Create Group</p><br/>
   <!-- cuba enctype="multipart/form-data" -->
   <form method="POST" class="container text-left" enctype="multipart/form-data">
     <form class="row g-3">
       {% csrf_token %}
       <div class="col-md-4">
        <label for="inputName" class="form-label">Name : </label>
-       <input type="text" name="Name" value="{{ person.Email }}"  class="vTextField" maxlength="150" required="" id="id_Name">
+       <input type="text" name="Name"  class="vTextField" maxlength="150" required="" id="id_Name">
       </div>
        <br/>
        <div class="col-12">
         <label for="inputAbout" class="form-label">About : </label>
-        <input type="text" name="About" value="{{ person.Email }}"  class="vTextField" maxlength="150" required="" id="id_About">
+        <input type="text" name="About"  class="vTextField" maxlength="150" required="" id="id_About">
        </div>
       <br/>
        <div class="col-12">
         <label for="inputImage" class="form-label">Media : </label>
-        <input type="file" class="form-control" id="inputMedia" name="Photo" placeholder="Enter Media" accept=".doc, .docx, .pdf, .txt, image/*">
+        <input type="file" class="form-control" id="inputMedia" name="Photo" placeholder="Enter Media" accept=".doc, .docx, .pdf, .txt, image/*" required>
       </div>
       <br/>
       </div>
