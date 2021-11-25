@@ -15,7 +15,7 @@ class Person(models.Model):
     Password = models.CharField(max_length=150)
     Username = models.CharField(max_length=150)
     Name = models.CharField(max_length=150)
-    DateOfBirth = models.CharField(max_length=150)
+    DateOfBirth = models.DateField()
     Age = models.IntegerField ()
     District = models.CharField(max_length=150)
     State = models.CharField(max_length=150)

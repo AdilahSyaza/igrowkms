@@ -17,14 +17,33 @@
    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
  </head>
- 
-   
+
 
    <body>
+
+
+<script type="text/javascript">
+
+    function formValidate()
+  {
+    var age = document.getElementById("age").value;
+      if( isNaN(age) || age < 1  )
+     {
+       alert( "Please provide your age in correct format!" );
+      //  age.focus();
+      document.getElementById("age").focus()
+       return false;
+     }
+     return true;
+  }
+
+</script>
+
+
    <p class="h3 text-center align-content: center;">Templates Registration Form</p>
    <hr/>
    <br/>
-<form method="POST" class="container text-center" >
+<form method="POST" class="container text-center" id="post-form">
   {% csrf_token %}
 
     <!-- Email and Password -->
@@ -36,7 +55,7 @@
 
       <div class="form-group col-md-6">
         <label for="inputPassword" class="container text-left" >Password</label>
-        <input type="password" class="form-control" id="Password" placeholder="Enter password" name="Pwd" required>
+        <input type="password" class="form-control" id="Password" placeholder="Enter password" name="Pwd" minlength="8" maxlength="20" required>
         <small id="passwordHelpInline" class="text-muted">Must be 8-20 characters long.</small>
       </div>
     </div>
@@ -49,7 +68,7 @@
     </div>
     <div class="form-group col-md-6">
         <label for="inputName" class="container text-left" >Name</label>
-        <input type="text" class="form-control" id="name" placeholder="Enter name" name="Name">
+        <input type="text" class="form-control" id="name" placeholder="Enter name" name="Name" required>
       </div>
   </div>
 
@@ -57,18 +76,18 @@
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputDOB" class="container text-left">Date Of Birth</label>
-      <input type="text" class="form-control" id="dateofbirth" placeholder="Enter date of birth" name="DateOfBirth" >
+      <input type="date" class="form-control" id="dateofbirth" placeholder="Enter date of birth" name="DateOfBirth" required>
     </div>
     <div class="form-group col-md-6">
       <label for="inputAge" class="container text-left" >Age</label>
-      <input type="text" class="form-control" id="age" placeholder="Enter age" name="Age">
+      <input type="text" class="form-control" id="age" placeholder="Enter age" name="Age" required>
     </div>
   </div>
 
   <!-- Gender and marital status -->
 <legend class="col-form-label col-sm-2 pt-0 text-left">Gender</legend>
       <div class="custom-control custom-radio text-left">
-        <input type="radio" id="customRadio1" name="Gender" class="custom-control-input" value="M">
+        <input type="radio" id="customRadio1" name="Gender" class="custom-control-input" value="M" required checked>
         <label class="custom-control-label" for="customRadio1">Male</label>
       </div>
       <div class="custom-control custom-radio text-left">
@@ -79,17 +98,17 @@
     <div class="form-row">
     <div class="form-group col-md-4">
         <label for="inputState"class="container text-left" name="MaritalStatus" >Marital Status</label>
-        <select id="MaritalStatus" class="form-control" name="MaritalStatus">
+        <select id="MaritalStatus" class="form-control" name="MaritalStatus" required>
           <option selected>Enter marital status</option>
             <option value="Married" name="MaritalStatus" >Married</option> 
-            <option value="Unmarried" name="MaritalStatus" >Unmarried</option>
+            <option value="Unmarried" name="MaritalStatus" selected>Unmarried</option>
             <option value="Divorced" name="MaritalStatus" >Divorced</option>
         </select>
       </div>
 
       <div class="form-group col-md-4">
         <label for="inputUserLevel"class="container text-left" name="UserLevel" >User Level</label>
-        <select id="UserLevel" class="form-control" name="UserLevel">
+        <select id="UserLevel" class="form-control" name="UserLevel" required>
             <option value="User" name="UserLevel" selected>User</option> 
             <option value="Admin" name="UserLevel" >Admin</option>
         </select>
@@ -100,7 +119,7 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputDistrict" class="container text-left">District</label>
-        <input type="text" class="form-control" id="district" placeholder="Enter district" name="District" >
+        <input type="text" class="form-control" id="district" placeholder="Enter district" name="District" required>
       </div>
       <div class="form-group col-md-6">
         <label for="inputState" class="container text-left" >State</label>
@@ -116,12 +135,12 @@
       </div>
       <div class="form-group col-md-6">
         <label for="inputAbout" class="container text-left" >About</label>
-        <input type="text" class="form-control" id="about" placeholder="Enter about" name="About">
+        <input type="text" class="form-control" id="about" placeholder="Enter about" name="About" required>
       </div>
     </div>
     <!-- Submit -->
     <!-- <button type="submit" class="btn btn-success" value="Registration">Register</button> -->
-    <button type="submit" class="btn btn-success" value="Reg">Register</button>
+    <button type="submit" class="btn btn-success" value="Reg" onclick="return formValidate()">Register</button>
 <br/><br/>
 {% if messages %}
 {% for msg in messages %}
