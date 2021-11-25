@@ -67,9 +67,11 @@
             <tr>
               <!-- <th scope="col">Programme ID</th> -->
               <th scope="col">Programme Name</th>
+              <th scope="col">Speaker</th>
               <th scope="col">Description</th>
               <th scope="col">Date</th>
-              <th scope="col">Session</th>
+              <th scope="col">Start Time</th>
+              <th scope="col">End Time</th>
               <th colspan="2" style="text-align: center;" scope="col">Action</th>
               <th scope="col"> &nbsp; </th>
             </tr>
@@ -80,9 +82,11 @@
             <tr class="table">
               <!-- <th scope="row" value="{{ data.pk }}">{{ data.Session }}</th> -->
               <th scope="row" value="{{ data.ProgrammeName }}">{{ data.ProgrammeName }}</th>
+              <th scope="row" value="{{ data.Speaker }}">{{ data.Speaker }}</th>
               <th scope="row" value="{{ data.Description }}">{{ data.Description }}</th>
               <th scope="row" value="{{ data.Date }}">{{ data.Date }}</th>
-              <th scope="row" value="{{ data.Session }}">{{ data.Session }}</th>
+              <th scope="row" value="{{ data.StartTime }}">{{ data.StartTime }}</th>
+              <th scope="row" value="{{ data.EndTime }}">{{ data.EndTime }}</th>
               {% if person.Email == data.PIC.Email %}
               <th><a href="{% url 'workshop:UpdateWorkshop' data.id %}" class="card-link">Edit</a></th>
               <th><a href="{% url 'workshop:DeleteWorkshop' data.id %}" class="card-link">Delete</a></th>              

@@ -10,9 +10,12 @@ class Workshop(models.Model):
     class Meta:
         db_table = 'Workshop'
     ProgrammeName = models.CharField(max_length=150,default="")
+    Speaker=models.CharField(max_length=150, default="")
     Description=models.CharField(max_length=150,default="")
     Date = models.DateField()
-    Session = models.CharField(max_length=150)
+    StartTime = models.TimeField()
+    EndTime = models.TimeField()
+    # Session = models.CharField(max_length=150)
     # nanti next version or bila share version ni, sila remove null=true okay
     PIC = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
 

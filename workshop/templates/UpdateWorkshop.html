@@ -64,6 +64,11 @@
       </div>
       <br/><br/>
       <div class="col-md-6">
+        <label for="inputSpeaker" class="form-label">Speaker : </label>
+        <input class="form-control" id="inputSpeaker" value="{{ data.Speaker }}" name="Speaker" rows="10" cols="10" placeholder="Enter Speaker"></textarea>
+      </div>
+      <br/><br/>
+      <div class="col-md-6">
         <label for="inputDescription" class="form-label">Description : </label>
         <input class="form-control" id="inputDescription" value="{{ data.Description }}" name="Description" rows="10" cols="10" placeholder="Enter description"></textarea>
       </div>
@@ -74,8 +79,15 @@
       </div>
       <br/><br/>
       <div class="col-md-6">
-        <label for="inputSession" class="form-label">Session : </label>
-        <input class="form-control" id="inputSession" value="{{ data.Session }}" name="Session" rows="10" cols="10" placeholder="Enter session"></textarea>
+        <!-- <p><b> Current Start Time : {{ data.StartTime }}</b></p> -->
+        <label for="inputStartTime" class="form-label">New Start Time : </label>
+        <input class="form-control" id="inputStartTime" value="{{ data.StartTime|time:'h:i:s' }}" name="StartTime" rows="10" cols="10" type="time"></textarea>
+      </div>
+      <br/><br/>
+      <div class="col-md-6">
+        <!-- <p><b> Current End Time : {{ data.EndTime }}</b></p> -->
+        <label for="inputEndTime" class="form-label">New End Time :</label>
+        <input class="form-control" id="inputEndTime" value="{{ data.EndTime|time:'h:i:s' }}" name="EndTime" rows="10" cols="10" type="time"></textarea>
       </div>
       <br/>
       <div class="col-12">

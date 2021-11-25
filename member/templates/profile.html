@@ -60,7 +60,7 @@
   
   {% csrf_token %}
       <div class="form-row field-Email mb-3 row">
-      {% for person in person %}
+      
         <div>
           <label class="required" for="id_Email">Email:</label>
             <input type="text" name="Email" value="{{ person.Email }}"  class="vTextField" maxlength="150" required="" id="id_Email">
@@ -69,7 +69,8 @@
       <div class="form-row field-Password mb-3 row">
         <div>
         <label class="required" for="id_Password">Password:</label>
-            <input type="text" name="Password" value="{{ person.Password }}" class="vTextField" maxlength="150" required="" id="id_Password">
+            <input type="text" name="Password" value="{{ person.Password }}" class="vTextField" minlength="8" maxlength="20" required="" id="id_Password">
+            <small id="passwordHelpInline" class="text-muted">Must be 8-20 characters long.</small>
         </div>
       </div>
       <div class="form-row field-Username mb-3 row">
@@ -87,7 +88,7 @@
       <div class="form-row field-DateOfBirth mb-3 row">
         <div>
           <label class="required" for="id_DateOfBirth">Date Of Birth:</label>
-            <input type="text" name="DateOfBirth" value="{{ person.DateOfBirth }}" class="vTextField" maxlength="150" required="" id="id_DateOfBirth">
+            <input type="date" name="DateOfBirth" value="{{ person.DateOfBirth|date:"Y-m-d" }}" class="vTextField" maxlength="150" required="" id="id_DateOfBirth">
         </div>
       </div>
       <div class="form-row field-Age mb-3 row">
@@ -122,22 +123,61 @@
       </div>
       <div class="form-row field-Gender mb-3 row">
         <div>
-          <label class="required" for="id_Gender">Gender:</label>
-            <input type="text" name="Gender" value="{{ person.Gender }}" class="vTextField" maxlength="1" required="" id="id_Gender">
+          <label class="required" for="id_Gender">Current Gender:</label>
+            <input type="text" name="Gender" value="{{ person.Gender }}" class="vTextField" maxlength="1" required="" id="id_Gender" disabled>
         </div>
+
+        <div>
+          <label class="required" for="id_Gender">Gender:</label>
+      <div class="custom-control custom-radio text-left">
+        <input type="radio" id="customRadio1" name="Gender" class="custom-control-input" value="M" required checked>
+        <label class="custom-control-label" for="customRadio1">Male</label>
+      </div>
+        <div class="custom-control custom-radio text-left">
+          <input type="radio" id="customRadio2" name="Gender" class="custom-control-input" value="F">
+          <label class="custom-control-label" for="customRadio2">Female</label>
+        </div>
+        </div>
+      
+        
       </div>
       <div class="form-row field-MaritalStatus mb-3 row">
           <div>
-           <label class="required" for="id_MaritalStatus">Marital Status:</label>
-            <input type="text" name="MaritalStatus" value="{{ person.MaritalStatus }}" class="vTextField" maxlength="150" required="" id="id_MaritalStatus">
+           <label class="required" for="id_MaritalStatus">Current Marital Status:</label>
+            <input type="text" name="MaritalStatus" value="{{ person.MaritalStatus }}" class="vTextField" maxlength="150" required="" id="id_MaritalStatus" disabled>
           </div>
+          <label for="inputState"class="container text-left" name="MaritalStatus" >Marital Status</label>
+        <select id="MaritalStatus" class="form-control" name="MaritalStatus" required>
+          <option selected>Choose marital status</option>
+            <option value="Married" name="MaritalStatus" >Married</option> 
+            <option value="Unmarried" name="MaritalStatus" selected>Unmarried</option>
+            <option value="Divorced" name="MaritalStatus" >Divorced</option>
+        </select>
       </div>
  
-    {% endfor %}
+    
 
-    <button type="submit" class="btn btn-success" href="{% url 'View' %}">Edit</button>
+    <button type="submit" class="btn btn-success" href="{% url 'View' %}" onclick="return formValidate()">Edit</button>
  
 </form>
+
+<script type="text/javascript">
+
+  function formValidate()
+{
+  var age = document.getElementById("age").value;
+    if( isNaN(age) || age < 1  )
+   {
+     alert( "Please provide your age in correct format!" );
+    //  age.focus();
+    document.getElementById("age").focus()
+     return false;
+   }
+   return true;
+}
+
+</script>
+
 </html>
 
 

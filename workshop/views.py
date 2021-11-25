@@ -37,10 +37,13 @@ def createWorkshop(request):
     if request.method=='POST':
         pic=Person.objects.get(Email=request.session['Email'])
         ProgrammeName=request.POST.get('ProgrammeName')
+        Speaker=request.POST.get('Speaker')
         Description=request.POST.get('Description')
         Date=request.POST.get('Date')
-        Session=request.POST.get('Session')
-        Workshop(ProgrammeName=ProgrammeName,Description=Description,Date=Date,Session=Session,PIC=pic).save()
+        # Session=request.POST.get('Session')
+        StartTime=request.POST.get('StartTime')
+        EndTime=request.POST.get('EndTime')
+        Workshop(ProgrammeName=ProgrammeName,Speaker=Speaker,Description=Description,Date=Date,StartTime=StartTime,EndTime=EndTime,PIC=pic).save()
         messages.success(request,'The ' + request.POST['ProgrammeName'] + " is save succesfully..!")
         return render(request,'CreateWorkshop.html')
     else :
@@ -51,9 +54,11 @@ def updateWorkshop(request, pk):
     workshop=Workshop.objects.get(id=pk)
     if request.method=='POST':
         workshop.ProgrammeName=request.POST.get('ProgrammeName')
+        workshop.Speaker=request.POST.get('Speaker')
         workshop.Description=request.POST.get('Description')
         workshop.Date=request.POST.get('Date')
-        workshop.Session=request.POST.get('Session')
+        workshop.StartTime=request.POST.get('StartTime')
+        workshop.EndTime=request.POST.get('EndTime')
         workshop.save()
         messages.success(request,'The ' + request.POST['ProgrammeName'] + " is updated succesfully..!")
         return render(request,'UpdateWorkshop.html')

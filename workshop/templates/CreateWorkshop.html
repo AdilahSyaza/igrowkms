@@ -60,24 +60,34 @@
       {% csrf_token %}
       <div class="col-md-6">
         <label for="inputProgrammeName" class="form-label">Programme Name : </label>
-        <input class="form-control" id="inputProgrammeName" name="ProgrammeName" rows="10" cols="10" placeholder="Enter programme name"></textarea>
+        <input class="form-control" id="inputProgrammeName" name="ProgrammeName" rows="10" cols="10" placeholder="Enter programme name" required></textarea>
+      </div>
+      <br/><br/>
+      <div class="col-md-6">
+        <label for="inputSpeaker" class="form-label">Speaker Name : </label>
+        <input class="form-control" id="inputSpeaker" name="Speaker" rows="10" cols="10" placeholder="Enter speaker name" required></textarea>
       </div>
       <br/><br/>
       <div class="col-md-6">
         <label for="inputDescription" class="form-label">Description : </label>
-        <input class="form-control" id="inputDescription" name="Description" rows="10" cols="10" placeholder="Enter description"></textarea>
+        <input class="form-control" id="inputDescription" name="Description" rows="10" cols="10" placeholder="Enter description" required></textarea>
       </div>
       <br/><br/>
       <div class="col-md-6">
         <label for="inputDate" class="form-label">Date : </label>
-        <input class="form-control" id="inputDate" name="Date" rows="10" cols="10" type="date"></textarea>
+        <input class="form-control" id="inputDate" name="Date" rows="10" cols="10" type="date" required></textarea>
       </div>
       <br/><br/>
       <div class="col-md-6">
-        <label for="inputSession" class="form-label">Session : </label>
-        <input class="form-control" id="inputSession" name="Session" rows="10" cols="10" placeholder="Enter session"></textarea>
+        <label for="inputStartTime" class="form-label">Start Time : </label>
+        <input type="time" class="form-control" id="inputStartTime" name="StartTime" rows="10" cols="10" placeholder="Enter start time" required></textarea>
       </div>
-      <br/>
+      <br/><br/>
+      <div class="col-md-6">
+        <label for="inputEndTime" class="form-label">End Time : </label>
+        <input type="time" class="form-control" id="inputEndTime" name="EndTime" rows="10" cols="10" placeholder="Enter end time" required></textarea>
+      </div>
+      <br/><br/>
       <div class="col-12">
         <button type="submit" class="btn btn-success" value="Workshop">Create</button>
       </div>

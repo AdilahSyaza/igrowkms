@@ -64,6 +64,11 @@
       </div>
       <br/><br/>
       <div class="col-md-6">
+        <label for="inputSpeaker" class="form-label">Speaker : </label>
+        <input class="form-control" id="inputSpeaker" value="{{ workshop.Speaker }}" name="Speaker" rows="10" cols="10" disabled></textarea>
+      </div>
+      <br/><br/>
+      <div class="col-md-6">
         <label for="inputDescription" class="form-label">Description : </label>
         <input class="form-control" id="inputDescription" value="{{ workshop.Description }}" name="Description" rows="10" cols="10" disabled></textarea>
       </div>
@@ -74,10 +79,15 @@
       </div>
       <br/><br/>
       <div class="col-md-6">
-        <label for="inputSession" class="form-label">Session : </label>
-        <input class="form-control" id="inputSession" value="{{ workshop.Session }}" name="Session" rows="10" cols="10" placeholder="Enter session" disabled></textarea>
+        <label for="inputStartTime" class="form-label">Start Time : </label>
+        <input class="form-control" id="inputStartTime" value="{{ workshop.StartTime|time:'h:i:s' }}" name="StartTime" rows="10" cols="10" type="time" disabled></textarea>
       </div>
-      <br/>
+      <br/><br/>
+      <div class="col-md-6">
+        <label for="inputEndTime" class="form-label">End Time : </label>
+        <input class="form-control" id="inputEndTime" value="{{ workshop.EndTime|time:'h:i:s' }}" name="EndTime" rows="10" cols="10" type="time" disabled></textarea>
+      </div>
+      <br/><br/>
       <div class="col-12">
         <button type="submit" class="btn btn-success" value="DeleteWorkshop">Delete</button>
       </div>

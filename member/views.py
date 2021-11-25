@@ -107,11 +107,10 @@ def logout(request):
 
 #profile
 def view(request):
-    person = Person.objects.filter(Email=request.session['Email'])
+    person = Person.objects.get(Email=request.session['Email'])
     if request.method=='POST':
-       t = Person.objects.get(Email=request.session['Email'])
-    #    Pwd=encryptPassword(request.POST.get['Pwd'])
-    #    t.Password=encryptPassword(request.POST['Password'])
+       t = Person.objects.get(Email=person.Email)
+       t.Email=request.POST['Email']
        t.Password=request.POST['Password']
        t.Username=request.POST.get('Username')
        t.Name=request.POST.get('Name')
