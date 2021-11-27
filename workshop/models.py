@@ -37,7 +37,7 @@ class Booking(models.Model):
     # Name = models.CharField(max_length=150)
     ProgrammeName = models.CharField(max_length=150,default="")
     Date = models.DateField()
-    Session = models.CharField(max_length=150)
+    # Session = models.CharField(max_length=150)
     # nanti next version or bila share version ni, sila remove null=true okay
     BookWorkshop = models.ForeignKey(Workshop, on_delete=models.CASCADE, null=True)
     Participant = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)

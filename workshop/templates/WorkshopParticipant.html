@@ -51,6 +51,7 @@
  <br/>
     <p class="h4 text-center">Participants of Workshop</p>
     <br/>
+    <h9>Number of Participant: {{ participant_count }}</h9>
     {% csrf_token %}
     {% block body %}
   <form method="POST" class="center">
@@ -66,6 +67,7 @@
               <th scope="col">Username</th>
               <th scope="col">Occupation</th>
               <th scope="col">Gender</th>
+              <th scope="col">Action</th>
               
             </tr>
           </thead>
@@ -77,13 +79,16 @@
               <th scope="row" value="{{ data.Participant.Name }}">{{ data.Participant.Name }}</th>
               <th scope="row" value="{{ data.Participant.Username }}">{{ data.Participant.Username }}</th>
               <th scope="row" value="{{ data.Participant.Occupation }}">{{ data.Participant.Occupation }}</th>
-              <th scope="row" value="{{ data.Participant.Gender }}">{{ data.Participant.Gender }}</th>             
+              <th scope="row" value="{{ data.Participant.Gender }}">{{ data.Participant.Gender }}</th>
+              <th>
+                <a href="{% url 'ViewProfile' data.Participant.id %}" class="card-link" target="_blank">View Profile</a>
+              </th>                
             </tr>
             {% endfor %}
           </tbody>
         </table>
 
-        <p>Number of Participant: {{ participant_count }}</p>
+        
   </div>
 </form>
 {% endblock body %}

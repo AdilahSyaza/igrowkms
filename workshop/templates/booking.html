@@ -81,8 +81,12 @@
         <input class="form-control" id="inputDate" name="Date" rows="10" cols="10" type="date" value="{{data.Date|date:"Y-m-d" }}" readonly></textarea>
       </div><br/>
     <div class="col-md-4">
-      <label for="inputSession" class="form-label">Session : </label>
-        <input class="form-control" id="inputSession" name="Session" rows="10" cols="10" value="{{ data.Session }}" readonly></textarea>
+      <label for="inputStartTime" class="form-label">Start Time : </label>
+        <input class="form-control" id="inputStartTime" name="StartTime" rows="10" cols="10" value="{{ data.StartTime }}" disable></textarea>
+    </div>
+    <div class="col-md-4">
+      <label for="inputEndTime" class="form-label">End Time : </label>
+        <input class="form-control" id="inputEndTime" name="EndTime" rows="10" cols="10" value="{{ data.EndTime }}" disable></textarea>
     </div>
     
 <br/><br/>

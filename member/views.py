@@ -127,7 +127,12 @@ def view(request):
        return render(request,'homepage.html')
     else:
         # decryptPass = deryptPassword(person.Password)
-        return render(request, 'profile.html',{'person': person})  
+        return render(request, 'profile.html',{'person': person})
+
+
+def viewProfile(request, id):
+    participantProfile=Person.objects.get(id=id)
+    return render(request, 'ViewProfile.html',{'participantProfile':participantProfile})
 
 
 #member

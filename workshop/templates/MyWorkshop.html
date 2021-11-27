@@ -68,7 +68,7 @@
               <th scope="col">Date</th>
               <th scope="col">Start Time</th>
               <th scope="col">End Time</th>
-              <th colspan="2" style="text-align: center;" scope="col">Action</th>
+              <th colspan="3" style="text-align: center;" scope="col">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -84,7 +84,7 @@
               <th scope="row" value="{{ data.EndTime|time:'h:i:s' }}">{{ data.EndTime }}</th>
               <th><a href="{% url 'workshop:UpdateWorkshop' data.id %}" class="card-link">Edit</a></th>
               <th><a href="{% url 'workshop:DeleteWorkshop' data.id %}" class="card-link">Delete</a></th>
-              <th><a href="{% url 'workshop:WorkshopParticipant' data.id %}" class="card-link">View Participant List</a></th>                 
+              <th><a href="{% url 'workshop:WorkshopParticipant' data.id %}" class="card-link" target="_blank">View Participant List</a></th>                 
             </tr>
             {% endfor %}
           </tbody>

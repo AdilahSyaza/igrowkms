@@ -48,6 +48,8 @@ urlpatterns = [
     path('send', views.send, name='send'),
     path('getMessages/<str:room>/', views.getMessages, name='getMessages'),
 
+    path('ViewProfile/<str:id>',views.viewProfile,name="ViewProfile"),
+
     url(r'^api/users_list/$', UserList.as_view(), name='user_list'),
     url(r'^api/users_list/(?P<Person>\d+)/$', UserDetail.as_view(), name='user_list'),
     url(r'^api/auth/$', UserAuthentication.as_view(), name='User Authentication API') 

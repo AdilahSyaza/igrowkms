@@ -98,8 +98,8 @@ def booking(request, pk):
         try:
             ProgrammeName=request.POST.get('ProgrammeName')
             Date=request.POST.get('Date')
-            Session=request.POST.get('Session')
-            Booking(ProgrammeName=ProgrammeName,Date=Date,Session=Session,BookWorkshop=workshop,Participant=person).save()
+            # Session=request.POST.get('Session')
+            Booking(ProgrammeName=ProgrammeName,Date=Date,BookWorkshop=workshop,Participant=person).save()
             messages.success(request,'The booking of ' + request.POST['ProgrammeName'] + " is saved succesfully..!")
             return render(request,'booking.html')
     
