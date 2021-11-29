@@ -22,6 +22,7 @@ class Workshop(models.Model):
     def save(self):
         super().save()
         super().save(using='farming')
+        return self.id
 
     def deleteRecordFarming(self):
         super().delete(using='farming')
@@ -49,4 +50,26 @@ class Booking(models.Model):
     class Meta:
         
         unique_together = [['BookWorkshop', 'Participant']]
+
+
+class SoilTag(models.Model):
+
+    class Meta:
+        db_table = 'SoilTag'
+
+    SoilTagWorkshop = models.ForeignKey(Workshop, on_delete=models.CASCADE)
+    soilTag = models.CharField(max_length=150)
+
+    def save(self):
+        super().save()
+        super().save(using='farming')
+    
+    def deleteRecordFarming(self):
+        super().delete(using='farming')
+        
+    def deleteRecordIgrow(self):
+        super().delete()
+
+    class Meta:
+        unique_together = [['SoilTagWorkshop', 'soilTag' ]]
 

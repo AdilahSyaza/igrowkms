@@ -25,6 +25,12 @@ urlpatterns = [
     path('MyWorkshop',views.viewWorkshop, name="MyWorkshop"),
     path('WorkshopParticipant/<str:id>',views.WorkshopParticipant, name="WorkshopParticipant"),
 
+    path('Workshop_SoilTag/<str:soilTag>',views.Workshop_SoilTag, name="Workshop_SoilTag"),
+    path('Workshop_PlantTag',views.Workshop_PlantTag, name="Workshop_PlantTag"),
+    path('Workshop_LocationTag',views.Workshop_LocationTag, name="Workshop_LocationTag"),
+    path('Workshop_DemographicTag',views.Workshop_DemographicTag, name="Workshop_DemographicTag"),
+
+
 
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
 

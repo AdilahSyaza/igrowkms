@@ -51,6 +51,12 @@
  <br/>
     <p class="h4 text-center">Workshop</p>
     <br/>
+    {% if person.UserLevel == 'User' %}
+      <a href="{% url 'workshop:Workshop_SoilTag' context.Clay %}" class="link-primary" target="_blank">Soil Tags</a> ||
+      <!-- <a href="{% url 'workshop:Workshop_PlantTag' %}" class="link-primary" target="_blank">Plant Tags</a> || -->
+      <!-- <a href="{% url 'workshop:Workshop_LocationTag' %}" class="link-primary" target="_blank">Location Tags</a> || -->
+      <!-- <a href="{% url 'workshop:Workshop_DemographicTag' %}" class="link-primary" target="_blank">Demographic Tags</a> || -->
+      {% endif %}
     {% csrf_token %}
     {% block body %}
   <form method="POST" class="center">
@@ -60,6 +66,7 @@
       <a href="{% url 'workshop:CreateWorkshop' %}" class="link-primary">Create</a> || 
       <a href="{% url 'workshop:MyWorkshop' %}" class="link-primary">View Your Workshop</a> 
       {% endif %}
+      
       <br/><br/>
       <div class="row">
         <table class="table">
@@ -113,38 +120,14 @@
       {% endif %}
 </form>
 {% endblock body %}
+
+<!-- <script type="text/javascript">
+
+  function SoilTag()
+{
+  document.getElementById("SoilTagDiv").innerHTML = "<a href="{% url 'workshop:Workshop_SoilTag' context.Clay %}" class="link-primary" target="_blank">Clay</a>";
+}
+
+</script> -->
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

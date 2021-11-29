@@ -89,7 +89,23 @@
         <label for="inputEndTime" class="form-label">New End Time :</label>
         <input class="form-control" id="inputEndTime" value="{{ data.EndTime|time:'h:i:s' }}" name="EndTime" rows="10" cols="10" type="time"></textarea>
       </div>
-      <br/>
+      <br/><br/>
+      <div class="col-md-6">
+        {% if soilTag %}
+          <b>Current tags:</b> 
+          {% for soilTag in soilTag %}
+            <p><b>{{soilTag.soilTag}}</b></p>
+          {% endfor %}
+        {% endif %}
+        <label for="inputSoil" class="form-label">Update Soil Tag : </label><br>
+        <input type="checkbox" name="SoilTag" value="Clay" id="clay"><label for="clay">Clay</label><br>
+        <input type="checkbox" name="SoilTag" value="Sandy" id="sandy"><label for="sandy">Sandy</label><br>
+        <input type="checkbox" name="SoilTag" value="Silty" id="silty"><label for="silty">Silty</label><br>
+        <input type="checkbox" name="SoilTag" value="Peaty" id="peaty"><label for="peaty">Peaty</label><br>
+        <input type="checkbox" name="SoilTag" value="Chalky" id="chalky"><label for="chalky">Chalky</label><br>
+        <input type="checkbox" name="SoilTag" value="Loamy" id="loamy"><label for="loamy">Loamy</label><br>
+      </div>
+      <br/><br/>
       <div class="col-12">
         <button type="submit" class="btn btn-success" value="Workshop">Save</button>
       </div>
