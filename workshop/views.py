@@ -26,15 +26,15 @@ def workshop(request):
             data=Workshop.objects.all()
             # cuba
             person=Person.objects.get(Email=request.session['Email'])
-            context = {
-                "Clay": "Clay",
-                "Sandy": "Sandy",
-                "Silty": "Silty",
-                "Peaty": "Peaty",
-                "Chalky": "Chalky",
-                "Loamy": "Loamy"
-            }
-            return render(request,'workshop.html', {'person':person,'data':data, 'context':context})
+            # context = {
+            #     "Clay": "Clay",
+            #     "Sandy": "Sandy",
+            #     "Silty": "Silty",
+            #     "Peaty": "Peaty",
+            #     "Chalky": "Chalky",
+            #     "Loamy": "Loamy"
+            # }
+            return render(request,'workshop.html', {'person':person,'data':data})
         except Workshop.DoesNotExist:
             raise Http404('Data does not exist')
             
@@ -88,18 +88,29 @@ def updateWorkshop(request, pk):
         currentSoilTag=SoilTag.objects.filter(SoilTagWorkshop=workshop)
         farmingSoilTag2=SoilTag.objects.filter(SoilTagWorkshop=workshop_farming)
 
-        if soilTag:
-            for currentSoilTag in currentSoilTag:
-                currentSoilTag.deleteRecordFarming()
-            for farmingSoilTag2 in farmingSoilTag2:
-                farmingSoilTag2.deleteRecordIgrow()
-                # currentSoilTag.deleteRecordFarmin()
+        # if soilTag:
+        #     for currentSoilTag in currentSoilTag:
+        #         currentSoilTag.deleteRecordFarming()
+        #     for farmingSoilTag2 in farmingSoilTag2:
+        #         farmingSoilTag2.deleteRecordIgrow()
        
         newSoilTags = request.POST.getlist('SoilTag')
 
-        for newSoilTag in newSoilTags:
-            SoilTag(SoilTagWorkshop=workshop_obj, soilTag = newSoilTag).save()
+        try:
+            if soilTag:
+                for currentSoilTag in currentSoilTag:
+                    currentSoilTag.deleteRecordFarming()
+                for farmingSoilTag2 in farmingSoilTag2:
+                    farmingSoilTag2.deleteRecordIgrow()
 
+            for newSoilTag in newSoilTags:
+                SoilTag(SoilTagWorkshop=workshop_obj, soilTag = newSoilTag).save()
+
+        # sebenarnya tak yah dah exception IntegrityError ni, sebab mmg takkan sampai sini sebab kita dah delete dulu baru save
+        except IntegrityError:
+            messages.error(request,'The workshop is already been tagged with the chosen tag(s)!')
+            # messages.success(request,'The ' + request.POST['ProgrammeName'] + " is updated succesfully..!")
+            # return render(request,'UpdateWorkshop.html')
 
         messages.success(request,'The ' + request.POST['ProgrammeName'] + " is updated succesfully..!")
         return render(request,'UpdateWorkshop.html')
@@ -179,15 +190,41 @@ def WorkshopParticipant(request, id):
         raise Http404('Data does not exist')
 
 
+def Workshop_GeneralSoilTag(request):
+    try:
+        person=Person.objects.get(Email=request.session['Email'])
+        data=Workshop.objects.all()
+        # for setdata in dataWorkshopFilter:
+        #     data=Workshop.objects.filter(id=setdata.SoilTagWorkshop.id)
+            # Workshop.objects.get
+            # data=Workshop.objects.filter(id=dataWorkshopFilter.SoilTagWorkshop.id)
+
+        context = {
+            "Clay": "Clay",
+            "Sandy": "Sandy",
+            "Silty": "Silty",
+            "Peaty": "Peaty",
+            "Chalky": "Chalky",
+            "Loamy": "Loamy"
+        }
+            
+            # return render(request,'WorkshopSoilTag.html', {'person':person,'data':data})
+        return render(request,'workshop_soilTags.html', {'person':person,'data':data, 'context':context})
+
+    except Workshop.DoesNotExist:
+        raise Http404('Data does not exist')
+
+
 def Workshop_SoilTag(request, soilTag):
         try:
             person=Person.objects.get(Email=request.session['Email'])
             dataWorkshopFilter=SoilTag.objects.filter(soilTag=soilTag)
-            for setdata in dataWorkshopFilter:
-                data=Workshop.objects.filter(id=setdata.SoilTagWorkshop.id)
-            # Workshop.objects.get
-            # data=Workshop.objects.filter(id=dataWorkshopFilter.SoilTagWorkshop.id)
-
+            if dataWorkshopFilter:
+                for setdata in dataWorkshopFilter:
+                    data=Workshop.objects.filter(id=setdata.SoilTagWorkshop.id)
+            else:
+                data = ''
+            
             context = {
                 "Clay": "Clay",
                 "Sandy": "Sandy",
@@ -198,7 +235,7 @@ def Workshop_SoilTag(request, soilTag):
             }
             
             # return render(request,'WorkshopSoilTag.html', {'person':person,'data':data})
-            return render(request,'workshop.html', {'person':person,'data':data, 'context':context})
+            return render(request,'workshop_soilTags.html', {'person':person,'data':data, 'context':context, 'soilTag':soilTag})
         except Workshop.DoesNotExist:
             raise Http404('Data does not exist')
 

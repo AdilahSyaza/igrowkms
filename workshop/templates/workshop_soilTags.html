@@ -50,13 +50,20 @@
   <br/>
  <br/>
     <p class="h4 text-center">Workshop</p>
-    <br/>
+    <div class="container">
+      {% if soilTag %}
+        <h7 style="text-align: center;"><i>Filtered by {{ soilTag }} tag </i></h7>
+      {% endif %}
+  </div>
+    <br/><br/>
     <hr>
     <div class="container">
-      <a href="{% url 'workshop:Workshop_GeneralSoilTag' %}" class="link-primary" target="_blank">Soil Tags</a> ||
-      <!-- <a href="{% url 'workshop:Workshop_PlantTag' %}" class="link-primary" target="_blank">Plant Tags</a> || -->
-      <!-- <a href="{% url 'workshop:Workshop_LocationTag' %}" class="link-primary" target="_blank">Location Tags</a> || -->
-      <!-- <a href="{% url 'workshop:Workshop_DemographicTag' %}" class="link-primary" target="_blank">Demographic Tags</a> || -->
+      <a href="{% url 'workshop:Workshop_SoilTag' context.Clay %}" class="link-primary" target="_blank">Clay</a> ||
+      <a href="{% url 'workshop:Workshop_SoilTag' context.Sandy %}" class="link-primary" target="_blank">Sandy</a> ||
+      <a href="{% url 'workshop:Workshop_SoilTag' context.Silty %}" class="link-primary" target="_blank">Silty</a> ||
+      <a href="{% url 'workshop:Workshop_SoilTag' context.Peaty %}" class="link-primary" target="_blank">Peaty</a> ||
+      <a href="{% url 'workshop:Workshop_SoilTag' context.Chalky %}" class="link-primary" target="_blank">Chalky</a> ||
+      <a href="{% url 'workshop:Workshop_SoilTag' context.Loamy %}" class="link-primary" target="_blank">Loamy</a> ||
     </div>
     <hr>
     {% csrf_token %}
@@ -74,7 +81,7 @@
         <table class="table">
           <thead>
             <tr>
-              <!-- <th scope="col">Programme ID</th> -->
+              
               <th scope="col">Programme Name</th>
               <th scope="col">Speaker</th>
               <th scope="col">Description</th>
@@ -113,8 +120,13 @@
             {% endfor %}
           </tbody>
         </table>
-        <!-- userLevel = request.session.['UserLevel'] -->
+        
   </div>
+  <div class="container">
+    {% if data == '' %}
+      <h7 style="text-align: center;"><i>No workshop related to this tag </i></h7>
+    {% endif %}
+</div>
   {% if messages %}
       {% for msg in messages %}
       <b>{{msg}}</b>
@@ -122,5 +134,14 @@
       {% endif %}
 </form>
 {% endblock body %}
+
+<!-- <script type="text/javascript">
+
+  function SoilTag()
+{
+  document.getElementById("SoilTagDiv").innerHTML = "<a href="{% url 'workshop:Workshop_SoilTag' context.Clay %}" class="link-primary" target="_blank">Clay</a>";
+}
+
+</script> -->
 
 </html>
