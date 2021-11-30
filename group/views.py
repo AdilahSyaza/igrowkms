@@ -104,3 +104,24 @@ def joinGroup(request, pk):
     except IntegrityError:
         messages.error(request,'You already joined group ' + groupName + '!')
         return redirect('group:MainGroup')
+
+
+def deleteGroup(request, pk):
+    
+    try:
+        group=Group.objects.get(id=pk)
+        group2=Group.objects.get(id=pk)
+        
+        data=Group.objects.all()
+        if request.method=='POST':
+            group.deleteRecordIgrow()
+            group2.deleteRecordFarming()
+            messages.success(request,'The ' + group.Name + " is deleted succesfully..!")
+            return redirect('group:MyGroup')
+        
+        else:
+            return render(request, 'deleteGroup.html', {'group':group})
+        
+    except Group.DoesNotExist:
+        messages.success(request,'No record of the workshop!')
+        return redirect('group:MyGroup')

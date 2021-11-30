@@ -35,6 +35,9 @@
         <li class="nav-item" role="presentation">
          <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'View' %}" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
         </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'Logout' %}" role="tab" aria-controls="logout" aria-selected="true">Logout</a>
+         </li>
        </li>
      </ul>
    </div>
@@ -88,8 +91,8 @@
                             <label for="exampleFormControlTextarea1" style="font-size: 2em;" >Groud ID: {{data.id}}</label>
                           </div>
     </div>
-                          <div class="col-12">
-                            <a href="{% url 'sharing:SharingGroup' data.id %}" class="link-primary">New Sharing</a> 
+                          <div class="container">
+                            <a href="{% url 'sharing:SharingGroup' data.id %}" class="link-primary" target="_blank">New Sharing</a> 
                           </div><br/>
 
 

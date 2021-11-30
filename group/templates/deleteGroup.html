@@ -53,38 +53,30 @@
     </div>
   <br/>
   <br>
-  <p class="h3 text-center align-content: center;">Feed Delete Confirmation </p><br/>
+  <p class="h3 text-center align-content: center;">Workshop</p><br/>
   {% block content %}
   <form method="POST" class="container text-left" >
     <form class="row g-3">
       {% csrf_token %}
       <div class="col-md-6">
-        <label for="inputTitle" class="form-label">Title : </label>
-        <input class="form-control" id="title" value="{{ feed.Title }}" name="Title" rows="10" cols="10" disabled></textarea>
+        <label for="inputName" class="form-label">Group Name : </label>
+        <input class="form-control" id="inputName" value="{{ group.Name }}" name="Name" rows="10" cols="10" disabled></textarea>
+      </div>
+      <br/><br/>
+      
+      <div class="col-md-6">
+        <label for="inputAbout" class="form-label">About : </label>
+        <input class="form-control" id="inputAbout" value="{{ group.About }}" name="About" rows="10" cols="10" disabled></textarea>
       </div>
       <br/><br/>
       <div class="col-md-6">
-        <label for="inputNewSharing" class="form-label">Message : </label>
-        <input class="form-control" id="inputSharing" value="{{ feed.Message }}" name="Message" rows="10" cols="10" disabled></textarea>
+        <label for="inputMedia" class="form-label">Media : </label>
+        <input class="form-control" type="file" id="inputMedia" value="{{ group.Media }}"  disabled></textarea>
       </div>
       <br/><br/>
-      <div class="col-md-6">
-        <label for="inputImage" class="form-label">Date : </label>
-        <input class="form-control" type="file" img src="/media/login/photo.png" id="inputImage" value="{{ feed.Photo }}"  disabled></textarea>
-      </div>
-      <br/><br/>
-      <div class="col-md-6">
-        <label for="inputVideo" class="form-label">Video : </label>
-        <input type="file" class="form-control" id="inputVideo" value="{{ feed.Video }}" name="Video" rows="10" cols="10" placeholder="Enter video" disabled></textarea>
-      </div>
-      <br/><br/>
-      <div class="col-md-6">
-        <label for="inputGraph" class="form-label">Graph : </label>
-        <input type="file" class="form-control" id="inputGraph" value="{{ feed.Graph }}" name="Graph" rows="10" cols="10" placeholder="Enter graph" disabled></textarea>
-      </div>
-      <br/>
+      
       <div class="col-12">
-        <button type="submit" class="btn btn-success" value="DeleteSharing">Delete</button>
+        <button type="submit" class="btn btn-success" value="DeleteWorkshop">Delete</button>
       </div>
       {% if messages %}
       {% for msg in messages %}

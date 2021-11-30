@@ -90,7 +90,7 @@
                   <th scope="col">About</th>
                   <th scope="col">Media</th>
                   <th scope="col">Owner</th>
-                  <th scope="col">Detail</th>
+                  <!-- <th scope="col">Detail</th> -->
                   <th scope="col">Action</th>
                   
                 </tr>
@@ -105,13 +105,13 @@
                   
                   <th scope="row" <a href="{{ MEDIA_URL }}">{{ MEDIA_URL }}</a></th>
                   <th scope="row" <a href="{{ group.Username.Name }}">{{ group.Username.Name }}</a></th>
-                  {% if group.Username.Email == request.session.Email %}
+                  <!-- {% if group.Username.Email == request.session.Email %}
                   <td>
                     <button type="submit" class="btn btn-success " value="Add">Add</button>
                   </td>
                   {% else %}
                   <td>&nbsp; </td>
-                  {% endif %}
+                  {% endif %} -->
                   {% if group.Username.Email != request.session.Email %}
                   <th>
                     <a href="{% url 'group:JoinGroup' group.id %}" class="card-link">Join</a>
@@ -131,7 +131,7 @@
 <hr>
 {% if messages %}
 {% for msg in messages %}
-<b>{{msg}}</b>
+<b>{{msg}}</b><br/>
 {% endfor %}
 {% endif %}
 <hr />

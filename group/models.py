@@ -24,8 +24,11 @@ class Group(models.Model):
         # return group
         return self.id
     
-    def __str__(self):
-        return self.About
+    def deleteRecordFarming(self):
+        super().delete(using='farming')
+        
+    def deleteRecordIgrow(self):
+        super().delete()
     
     class Meta:
         db_table = 'group'

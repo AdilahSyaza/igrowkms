@@ -47,6 +47,9 @@
          <li class="nav-item" role="presentation">
           <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'View' %}" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
          </li>
+         <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'Logout' %}" role="tab" aria-controls="logout" aria-selected="true">Logout</a>
+         </li>
         </li>
       </ul>
     </div>
@@ -79,7 +82,7 @@
                   <th scope="col">Group ID</th>
                   <th scope="col">Username</th>
                   <th scope="col">List Group</th>
-                  <th scope="col">Action</th>
+                  <th scope="col" colspan="2" style="text-align: center;">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -91,11 +94,19 @@
                   <th>
                     <a href="{% url 'sharing:Forum' group.id %}" class="card-link">View Group</a>
                   </th>
+                  <th>
+                    {% if group.Username.Email == request.session.Email %}
+                    <a href="{% url 'group:DeleteGroup' group.id %}" class="card-link">Delete Group</a>
+                    {% else %}
+                    <th scope="row"> &nbsp; </th>
+                    {% endif %}
+                  </th>
                 </tr>
                 {% endfor %}
               </tbody>
             </table>
         </div>
+        
 </form>
 
 <div class="container my-5 bg-light">
@@ -130,6 +141,7 @@
       </tbody>
     </table>
 </div>
+
 <hr>
 {% if messages %}
 {% for msg in messages %}

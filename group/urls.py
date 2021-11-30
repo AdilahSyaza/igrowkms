@@ -20,6 +20,7 @@ urlpatterns = [
     path('MyGroup',views.myGroup, name="MyGroup"),
     # path('ViewGroup',views.viewGroup, name="ViewGroup"),
     path('JoinGroup/<str:pk>',views.joinGroup, name="JoinGroup"),
+    path('DeleteGroup/<str:pk>',views.deleteGroup, name="DeleteGroup"),
  
 
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
