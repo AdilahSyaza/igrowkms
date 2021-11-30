@@ -23,6 +23,8 @@ from django.urls import include, path
 from group import views
 from sharing import views
 from workshop import views
+from rest_framework.authtoken import views
+from django.contrib.auth.views import LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,5 +33,6 @@ urlpatterns = [
     path('sharing/', include('sharing.urls')),
     path('workshop/', include('workshop.urls')),
     path('', include('member.urls')),
-    
+    path('api-token-auth/', views.obtain_auth_token, name = 'api-token-auth'),
+    path('login/', LoginView, name='login')
 ]
