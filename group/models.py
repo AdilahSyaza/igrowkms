@@ -13,7 +13,7 @@ class Group(models.Model):
     
     Name = models.CharField(max_length=150)
     About = models.CharField(max_length=1000)
-    Media = models.FileField(upload_to='uploads/',default="")
+    Media = models.ImageField(upload_to='uploads/',default="")
     Username = models.ForeignKey(Person, on_delete=models.CASCADE)
 
 
