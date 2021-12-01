@@ -50,14 +50,24 @@
   <br/>
  <br/>
     <p class="h4 text-center">Workshop</p>
-    <br/>
+    <div class="container">
+      {% if plantTag %}
+        <h7 style="text-align: center;"><i>Filtered by {{ plantTag }} tag </i></h7>
+      {% endif %}
+  </div>
+    <br/><br/>
+    {% if not plantTag %}
     <hr>
     <div class="container">
-      <h5>Filter Workshop By Tags: </h5>
-      <a href="{% url 'workshop:Workshop_GeneralSoilTag' %}" class="link-primary" target="_blank">Soil Tags</a> ||
-      <a href="{% url 'workshop:Workshop_GeneralPlantTag' %}" class="link-primary" target="_blank">Plant Tags</a> ||
+      <a href="{% url 'workshop:Workshop_PlantTag' context.Herb %}" class="link-primary" target="_blank">Herb</a> ||
+      <a href="{% url 'workshop:Workshop_PlantTag' context.Shrub %}" class="link-primary" target="_blank">Shrub</a> ||
+      <a href="{% url 'workshop:Workshop_PlantTag' context.Tree %}" class="link-primary" target="_blank">Tree</a> ||
+      <a href="{% url 'workshop:Workshop_PlantTag' context.Creeper %}" class="link-primary" target="_blank">Creeper</a> ||
+      <a href="{% url 'workshop:Workshop_PlantTag' context.Climber %}" class="link-primary" target="_blank">Climber</a> ||
+      <a href="{% url 'workshop:Workshop_PlantTag' context.Fruit %}" class="link-primary" target="_blank">Fruit</a> ||
     </div>
     <hr>
+    {% endif %}
     {% csrf_token %}
     {% block body %}
   <form method="POST" class="center">
@@ -73,7 +83,7 @@
         <table class="table">
           <thead>
             <tr>
-              <!-- <th scope="col">Programme ID</th> -->
+              
               <th scope="col">Programme Name</th>
               <th scope="col">Speaker</th>
               <th scope="col">Description</th>
@@ -112,8 +122,13 @@
             {% endfor %}
           </tbody>
         </table>
-        <!-- userLevel = request.session.['UserLevel'] -->
+        
   </div>
+  <div class="container">
+    {% if data == '' %}
+      <h7 style="text-align: center;"><i>No workshop related to this {{ plantTag }} tag </i></h7>
+    {% endif %}
+</div>
   {% if messages %}
       {% for msg in messages %}
       <b>{{msg}}</b>
@@ -121,5 +136,6 @@
       {% endif %}
 </form>
 {% endblock body %}
+
 
 </html>

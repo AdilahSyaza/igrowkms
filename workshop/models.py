@@ -73,3 +73,25 @@ class SoilTag(models.Model):
     class Meta:
         unique_together = [['SoilTagWorkshop', 'soilTag' ]]
 
+
+class PlantTag(models.Model):
+
+    class Meta:
+        db_table = 'PlantTag'
+
+    PlantTagWorkshop = models.ForeignKey(Workshop, on_delete=models.CASCADE)
+    plantTag = models.CharField(max_length=150)
+
+    def save(self):
+        super().save()
+        super().save(using='farming')
+    
+    def deleteRecordFarming(self):
+        super().delete(using='farming')
+        
+    def deleteRecordIgrow(self):
+        super().delete()
+
+    class Meta:
+        unique_together = [['PlantTagWorkshop', 'plantTag' ]]
+

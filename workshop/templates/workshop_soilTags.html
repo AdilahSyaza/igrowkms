@@ -56,6 +56,7 @@
       {% endif %}
   </div>
     <br/><br/>
+    {% if not soilTag %}
     <hr>
     <div class="container">
       <a href="{% url 'workshop:Workshop_SoilTag' context.Clay %}" class="link-primary" target="_blank">Clay</a> ||
@@ -66,6 +67,7 @@
       <a href="{% url 'workshop:Workshop_SoilTag' context.Loamy %}" class="link-primary" target="_blank">Loamy</a> ||
     </div>
     <hr>
+    {% endif %}
     {% csrf_token %}
     {% block body %}
   <form method="POST" class="center">
@@ -124,7 +126,7 @@
   </div>
   <div class="container">
     {% if data == '' %}
-      <h7 style="text-align: center;"><i>No workshop related to this tag </i></h7>
+      <h7 style="text-align: center;"><i>No workshop related to this {{ soilTag }} tag </i></h7>
     {% endif %}
 </div>
   {% if messages %}

@@ -51,7 +51,9 @@
  <br/>
     <p class="h4 text-center">Participants of Workshop</p>
     <br/>
-    <h9>Number of Participant: {{ participant_count }}</h9>
+    <div class="container">
+      <h9>Number of Participant: {{ participant_count }}</h9>
+    </div>
     {% csrf_token %}
     {% block body %}
   <form method="POST" class="center">
