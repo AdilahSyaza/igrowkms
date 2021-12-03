@@ -49,3 +49,48 @@ class GroupMembership(models.Model):
     class Meta:
         
         unique_together = [['GroupName', 'GroupMember']]
+
+
+class GroupSoilTag(models.Model):
+
+    class Meta:
+        db_table = 'GroupSoilTag'
+
+    SoilTagGroup = models.ForeignKey(Group, on_delete=models.CASCADE)
+    soilTag = models.CharField(max_length=150)
+
+    def save(self):
+        super().save()
+        super().save(using='farming')
+    
+    def deleteRecordFarming(self):
+        super().delete(using='farming')
+        
+    def deleteRecordIgrow(self):
+        super().delete()
+
+    class Meta:
+        unique_together = [['SoilTagGroup', 'soilTag' ]]
+
+
+class GroupPlantTag(models.Model):
+
+    class Meta:
+        db_table = 'PlantTag'
+
+    PlantTagGroup = models.ForeignKey(Group, on_delete=models.CASCADE)
+    plantTag = models.CharField(max_length=150)
+
+    def save(self):
+        super().save()
+        super().save(using='farming')
+    
+    def deleteRecordFarming(self):
+        super().delete(using='farming')
+        
+    def deleteRecordIgrow(self):
+        super().delete()
+
+    class Meta:
+        unique_together = [['PlantTagGroup', 'plantTag' ]]
+

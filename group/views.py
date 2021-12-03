@@ -12,7 +12,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from cryptography.fernet import Fernet
 from django.db import IntegrityError
-from .models import Group, GroupMembership
+from .models import Group, GroupMembership, GroupSoilTag, GroupPlantTag
 from .forms import GroupForm
 from member.models import Person
 
@@ -34,28 +34,32 @@ def mainGroup(request):
 
 def group(request):
     Username=Person.objects.get(Email=request.session['Email'])
-    # UserMember=Username
     
     if request.method=='POST':
         Name=request.POST.get('Name')
         About=request.POST.get('About')
-        # Media=request.POST.get('Media')
         Media = request.FILES['Photo']
-        # cuba
         fss =FileSystemStorage()
         file = fss.save(Media.name, Media)
-        # uploaded_file = fss.url()
-        # group = Group(Name=Name,About=About,Media=Media,Username=Username).save()
+
         groupID = Group(Name=Name,About=About,Media=Media,Username=Username).save()
-        # Group(Name=Name,About=About,Media=Media,Username=Username).save()
-        # GroupMembership(GroupName=group, GroupMember=UserMember).save()
+        group = Group.objects.get(id=groupID)
+
+        soilTags = request.POST.getlist('SoilTag')
+        plantTags = request.POST.getlist('PlantTag')
+
+        for soilTag in soilTags:
+            GroupSoilTag(SoilTagGroup=group, soilTag = soilTag).save()
+
+        for plantTag in plantTags:
+            GroupPlantTag(PlantTagGroup=group, plantTag = plantTag).save()
+
         messages.success(request,'The new group ' + request.POST['Name'] + " is create succesfully..!")
         
-        # return render(request,'group.html')
-        # cuba
         return redirect('group:JoinGroup', groupID)
     else :
         return render(request,'group.html')
+
 
 def myGroup(request):
     try:
@@ -125,3 +129,60 @@ def deleteGroup(request, pk):
     except Group.DoesNotExist:
         messages.success(request,'No record of the workshop!')
         return redirect('group:MyGroup')
+
+
+def updateGroup(request, pk):
+    try:
+        group=Group.objects.get(id=pk)
+        group_farming = Group.objects.get(id=pk)
+        soilTag=GroupSoilTag.objects.filter(SoilTagGroup=group)
+        plantTag=GroupPlantTag.objects.filter(PlantTagGroup=group)
+        if request.method=='POST':
+            group.Name=request.POST.get('Name')
+            group.About=request.POST.get('About')
+            group.Media = request.POST.get('Photo')
+            
+            group_id=group.save()
+            group_obj = Group.objects.get(id=group_id)
+
+            # soilTags = request.POST.getlist('SoilTag')
+            currentSoilTag=GroupSoilTag.objects.filter(SoilTagGroup=group)
+            farmingSoilTag2=GroupSoilTag.objects.filter(SoilTagGroup=group_farming)
+
+            currentPlantTag=GroupPlantTag.objects.filter(PlantTagGroup=group)
+            farmingPlantTag2=GroupPlantTag.objects.filter(PlantTagGroup=group_farming)
+
+        
+            newSoilTags = request.POST.getlist('SoilTag')
+            newPlantTags = request.POST.getlist('PlantTag')
+
+            try:
+                if soilTag:
+                    for currentSoilTag in currentSoilTag:
+                        currentSoilTag.deleteRecordFarming()
+                    for farmingSoilTag2 in farmingSoilTag2:
+                        farmingSoilTag2.deleteRecordIgrow()
+
+                for newSoilTag in newSoilTags:
+                    GroupSoilTag(SoilTagGroup=group_obj, soilTag = newSoilTag).save()
+
+                if plantTag:
+                    for currentPlantTag in currentPlantTag:
+                        currentPlantTag.deleteRecordFarming()
+                    for farmingPlantTag2 in farmingPlantTag2:
+                        farmingPlantTag2.deleteRecordIgrow()
+
+                for newPlantTag in newPlantTags:
+                    GroupPlantTag(PlantTagGroup=group_obj, plantTag = newPlantTag).save()
+
+            except IntegrityError:
+                messages.error(request,'The group is already been tagged with the chosen tag(s)!')
+
+            messages.success(request,'The ' + request.POST['Name'] + " is updated succesfully..!")
+            # return render(request,'MyGroup.html')
+            return redirect('group:MyGroup')
+        else :
+            return render(request,'UpdateGroup.html', {'data':group, 'soilTag':soilTag, 'plantTag':plantTag})
+    
+    except Group.DoesNotExist:
+            raise Http404('Data does not exist')

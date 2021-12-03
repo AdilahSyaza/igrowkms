@@ -82,7 +82,7 @@
                   <th scope="col">Group ID</th>
                   <th scope="col">Username</th>
                   <th scope="col">List Group</th>
-                  <th scope="col" colspan="2" style="text-align: center;">Action</th>
+                  <th scope="col" colspan="3" style="text-align: center;">Action</th>
                 </tr>
               </thead>
               <tbody>
@@ -94,13 +94,14 @@
                   <th>
                     <a href="{% url 'sharing:Forum' group.id %}" class="card-link">View Group</a>
                   </th>
-                  <th>
-                    {% if group.Username.Email == request.session.Email %}
-                    <a href="{% url 'group:DeleteGroup' group.id %}" class="card-link">Delete Group</a>
+                  {% if group.Username.Email == request.session.Email %}
+                    <th><a href="{% url 'group:DeleteGroup' group.id %}" class="card-link">Delete Group</a></th>
+                    <th><a href="{% url 'group:UpdateGroup' group.id %}" class="card-link">Edit Group</a></th>
                     {% else %}
                     <th scope="row"> &nbsp; </th>
+                    <th scope="row"> &nbsp; </th>
                     {% endif %}
-                  </th>
+                  
                 </tr>
                 {% endfor %}
               </tbody>
@@ -140,6 +141,7 @@
         
       </tbody>
     </table>
+</div>
 </div>
 
 <hr>
