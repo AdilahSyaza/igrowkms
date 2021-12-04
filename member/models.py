@@ -148,4 +148,38 @@ class Users(models.Model):
         return f"{self.username} - {self.password}"
 
 
+class SoilTag(models.Model):
+    
+    class Meta:
+        db_table = 'SoilTag'  
+
+    SoilTagName = models.CharField(max_length=50)
+
+    def save(self):
+        super().save()
+        super().save(using='farming')
+
+    def deleteRecordFarming(self):
+        super().delete(using='farming')
+        
+    def deleteRecordIgrow(self):
+        super().delete()
+
+
+class PlantTag(models.Model):
+    
+    class Meta:
+        db_table = 'PlantTag'  
+
+    PlantTagName = models.CharField(max_length=50)
+
+    def save(self):
+        super().save()
+        super().save(using='farming')
+
+    def deleteRecordFarming(self):
+        super().delete(using='farming')
+        
+    def deleteRecordIgrow(self):
+        super().delete()
 

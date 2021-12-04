@@ -50,6 +50,9 @@ urlpatterns = [
 
     path('ViewProfile/<str:id>',views.viewProfile,name="ViewProfile"),
 
+    path("add-soilTag/", views.add_SoilTag, name="add_SoilTag"),
+    path("add-plantTag/", views.add_PlantTag, name="add_PlantTag"),
+
     url(r'^api/users_list/$', UserList.as_view(), name='user_list'),
     url(r'^api/users_list/(?P<Person>\d+)/$', UserDetail.as_view(), name='user_list'),
     url(r'^api/auth/$', UserAuthentication.as_view(), name='User Authentication API') 

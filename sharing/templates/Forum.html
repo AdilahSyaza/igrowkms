@@ -88,7 +88,7 @@
                 {% csrf_token %}
                           <div class="container my-3 bg-light">
                             <label for="exampleFormControlTextarea1" style="font-size: 2em;" >{{data.Name}}</label> <br/>
-                            <label for="exampleFormControlTextarea1" style="font-size: 2em;" >Groud ID: {{data.id}}</label>
+                            <!-- <label for="exampleFormControlTextarea1" style="font-size: 2em;" >Groud ID: {{data.id}}</label> -->
                           </div>
     </div>
                           <div class="container">
@@ -122,6 +122,24 @@
                 height="30"
                 alt=""
             />
+            {% if feed.soilTagging.all %}
+              <i>Soil Tagging:</i>
+              <i>
+              {% for soilTags in feed.soilTagging.all %}
+              {{soilTags.soilTag.SoilTagName}}  {% if not forloop.last %},{% endif %} 
+              {% endfor %}
+            </i>
+            {% endif %}
+
+            {% if feed.plantTagging.all %}
+              <i>Plant Tagging:</i>
+              <i>
+              {% for plantTags in feed.plantTagging.all %}
+              {{plantTags.plantTag.PlantTagName}}  {% if not forloop.last %},{% endif %} 
+              {% endfor %}
+            </i>
+            {% endif %}
+
             {% if feed.Creator.Email == request.session.Email %}
             <a href="{% url 'sharing:UpdateSharing' feed.id %}" class="card-link">Edit</a>
             <a href="{% url 'sharing:DeleteSharing' feed.id %}" class="card-link">Delete</a>

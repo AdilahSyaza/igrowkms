@@ -11,7 +11,7 @@ from django.db.models.signals import post_save
 from django.db import IntegrityError
 from django.dispatch import receiver
 from cryptography.fernet import Fernet
-from .models import Person, MemberRequest,Memberlist, Room, Message, SensorData, Plants
+from .models import Person, MemberRequest,Memberlist, Room, Message, SensorData, SoilTag, PlantTag
 from django.http import HttpResponse, JsonResponse
 
 # def encryptPassword(password):
@@ -277,6 +277,24 @@ def getMessages(request, room):
 
     messages = Message.objects.filter(room=room.id)
     return JsonResponse({"messages":list(messages.values())})
+
+
+def add_SoilTag(request):
+    if request.method=='POST':
+        soilTag = request.POST.get("SoilTag")
+        SoilTag(SoilTagName=soilTag).save()
+        return render(request, "soilTag.html", {"msg":"soil Tag added!"})
+    else:
+        return render(request, "soilTag.html")
+
+
+def add_PlantTag(request):
+    if request.method=='POST':
+        plantTag = request.POST.get("PlantTag")
+        PlantTag(PlantTagName=plantTag).save()
+        return render(request, "plantTag.html", {"msg":"Plant Tag added!"})
+    else:
+        return render(request, "plantTag.html")
 
 
         

@@ -42,6 +42,7 @@
   </div>
 <br/>
                           {% block content %}
+                          <div class="container">
                           <label for="exampleFormControlTextarea1" style="font-size: 2em;" >View Sharing</label>
                           <form method="POST" class="container row g-3" >
                             {% csrf_token %}
@@ -66,14 +67,44 @@
                             </div>
                             <br/><br/>
 
+                            <div class="col-md-6">
+                              {% if currentSoilTag %}
+                                <b>Current tags:</b> 
+                                {% for currentSoilTag in currentSoilTag %}
+                                  <p><b>{{currentSoilTag.soilTag.SoilTagName}}</b></p>
+                                {% endfor %}
+                              {% endif %}
+                              <label for="inputSoil" class="form-label">New Soil Tag : </label><br>
+                              {% for soilTag in SoilTag %}
+                              <input type="checkbox" name="SoilTag" value="{{soilTag.id}}" id="soilTag"><label for="soilTag">{{soilTag.SoilTagName}}</label><br>
+                              {% endfor %}
+                            </div>
+                            <br/><br/>
+
+                            <div class="col-md-6">
+                              {% if currentPlantTag %}
+                                <b>Current tags:</b> 
+                                {% for currentPlantTag in currentPlantTag %}
+                                  <p><b>{{currentPlantTag.plantTag.PlantTagName}}</b></p>
+                                {% endfor %}
+                              {% endif %}
+                              <label for="inputPlant" class="form-label">New Plant Tag : </label><br>
+                              {% for plantTag in PlantTag %}
+                              <input type="checkbox" name="PlantTag" value="{{plantTag.id}}" id="plantTag"><label for="plantTag">{{plantTag.PlantTagName}}</label><br>
+                              {% endfor %}
+                            </div>
+                            <br/><br/>
+
                             <div class="col-12">
                               <button type="submit" class="btn btn-success" value="Sharing">Save</button>
                             </div>
 
                           </form>
+                        </div>
                           {% if messages %}
                           {% for msg in messages %}
                           <b>{{msg}}</b>
                           {% endfor %}
                           {% endif %}
+                      
                           {% endblock %}

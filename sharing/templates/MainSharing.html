@@ -44,16 +44,18 @@
        <a class="nav-link active" id="friends-tab" data-bs-toggle="tab" href="{% url 'MainMember' %}" role="tab" aria-controls="friends" aria-selected="true">Member</a>
       </li>
       <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="workshop-tab" data-bs-toggle="tab" href="{% url 'workshop:Workshop' %}"role="tab" aria-controls="workshop" aria-selected="true">Workshop</a>
+        <a class="nav-link active" id="workshop-tab" data-bs-toggle="tab" href="{% url 'workshop:Workshop' %}" role="tab" aria-controls="workshop" aria-selected="true">Workshop</a>
        </li>
        <li class="nav-item" role="presentation">
         <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'View' %}" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
        </li>
        <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'Logout' %}" role="tab" aria-controls="logout" aria-selected="true">Logout</a>
-       </li>
+         <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'Logout' %}" role="tab" aria-controls="logout" aria-selected="true">Logout</a>
+        </li>
+      </li>
     </ul>
   </div>
+ </b>
 <br/>
 {% block content %}
 <div class="container">
@@ -70,11 +72,14 @@
                         <div class="col-12">
                           <a href="{% url 'group:MyGroup' %}" class="link-primary">My Group</a> 
                         </div>
+                        <div class="col-12">
+                          <a href="{% url 'add_SoilTag' %}" class="link-primary">Add Soil Tag</a> 
+                        </div>
+                        <div class="col-12">
+                          <a href="{% url 'add_PlantTag' %}" class="link-primary">Add Plant Tag</a> 
+                        </div>
                         <br/>
 
-                        <!-- <div class="col-12">
-                          <a href="" class="link-primary">New Sharing</a> 
-                        </div><br/> -->
 {% endblock content %}
 {% block body %}
 
@@ -109,7 +114,7 @@
     </tbody>
     {% endfor %}
   </table>
-  
+ 
   </div>
   </div>
   </div>

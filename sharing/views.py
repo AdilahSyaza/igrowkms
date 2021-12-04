@@ -15,7 +15,8 @@ from django.dispatch import receiver
 from cryptography.fernet import Fernet
 from .models import Feed, Comment
 from group.models import Group
-from member.models import Person
+from member.models import Person, SoilTag, PlantTag
+from sharing.models import FeedSoilTagging, FeedPlantTagging
 
 # Create your views here.
 
@@ -24,44 +25,101 @@ from member.models import Person
 def mainSharing(request):
     try:
         feed=Feed.objects.all()
-        return render(request,'MainSharing.html',{'feed':feed})
+        soilTags = SoilTag.objects.all()
+        return render(request,'MainSharing.html',{'feed':feed ,'soilTags':soilTags})
     except Feed.DoesNotExist:
         raise Http404('Data does not exist')
 
 
 
 def sharingGroup(request, pk):
-    creator=Person.objects.get(Email=request.session['Email'])
+    
     group_forum = Group.objects.get(id=pk)
+    creator=Person.objects.get(Email=request.session['Email'])
+    soilTagList=SoilTag.objects.all()
+    plantTagList=PlantTag.objects.all()
+
     if request.method=='POST':
+        taggingSoil=SoilTag.objects.all()
         Title=request.POST.get('Title')
         Message=request.POST.get('Message')
         Photo=request.POST.get('Photo')
         Video=request.POST.get('Video')
         # Graph=request.POST.get('Graph')
-        Feed(Title=Title,Message=Message,Photo=Photo,Video=Video,Group=group_forum,Creator=creator).save(),
+        feed_id = Feed(Title=Title,Message=Message,Photo=Photo,Video=Video,Group=group_forum,Creator=creator).save()
+        feed = Feed.objects.get(id=feed_id)
+
+        soilTagsID = request.POST.getlist('SoilTag')
+        plantTagsID = request.POST.getlist('PlantTag')
+
+        for soilTagsID in soilTagsID:
+            soilTag = SoilTag.objects.get(id=soilTagsID)
+            FeedSoilTagging(FeedSoilTag = feed, soilTag=soilTag).save()
+
+        for plantTagsID in plantTagsID:
+            plantTag = PlantTag.objects.get(id=plantTagsID)
+            FeedPlantTagging(FeedPlantTag = feed, plantTag=plantTag).save()
+
         messages.success(request,'The new feed is save succesfully..!')
         return render(request,'sharing.html')
+
     else :
-        return render(request,'sharing.html')
+        # taggingSoil=SoilTag.objects.all()
+        return render(request,'sharing.html', {'SoilTag':soilTagList, 'PlantTag':plantTagList})
 
   
 
 def updateSharing(request, pk):
     # feed = Feed.objects.filter(id=pk)
     feed = Feed.objects.get(id=pk)
+    soilTag=FeedSoilTagging.objects.filter(FeedSoilTag=feed)
+    farming_soilTag=FeedSoilTagging.objects.filter(FeedSoilTag=feed)
+    soilTagList=SoilTag.objects.all()
+    plantTag=FeedPlantTagging.objects.filter(FeedPlantTag=feed)
+    plantTagList=PlantTag.objects.all()
+    
     if request.method=='POST':
-       
-       feed.Title=request.POST['Title']
-       feed.Message=request.POST.get('Message')
-       feed.Photo=request.POST.get('Photo')
-       feed.Video=request.POST.get('Video')
-    #    feed.Graph=request.POST.get('Graph')
-       feed.save()
-       messages.success(request,'The post of ' + request.POST['Title'] + " is updated succesfully..!")
-       return render(request,'ViewSharing.html')
+        feed.Title=request.POST['Title']
+        feed.Message=request.POST.get('Message')
+        feed.Photo=request.POST.get('Photo')
+        feed.Video=request.POST.get('Video')
+
+        newSoilTags = request.POST.getlist('SoilTag')
+        newPlantTags = request.POST.getlist('PlantTag')
+
+        currentSoilTag=FeedSoilTagging.objects.filter(FeedSoilTag=feed)
+        farmingSoilTag2=FeedSoilTagging.objects.filter(FeedSoilTag=feed)
+        currentPlantTag=FeedPlantTagging.objects.filter(FeedPlantTag=feed)
+        farmingPlantTag2=FeedPlantTagging.objects.filter(FeedPlantTag=feed)
+        
+
+        if soilTag:
+            for currentSoilTag in currentSoilTag:
+                currentSoilTag.deleteRecordFarming()
+            for farmingSoilTag2 in farmingSoilTag2:
+                farmingSoilTag2.deleteRecordIgrow()
+
+        for newSoilTag in newSoilTags:
+            new_soilTag = SoilTag.objects.get(id=newSoilTag)
+            FeedSoilTagging(FeedSoilTag = feed, soilTag=new_soilTag).save()
+
+        if plantTag:
+            for currentPlantTag in currentPlantTag:
+                currentPlantTag.deleteRecordFarming()
+            for farmingPlantTag2 in farmingPlantTag2:
+                farmingPlantTag2.deleteRecordIgrow()
+
+        for newPlantTag in newPlantTags:
+            new_plantTag = PlantTag.objects.get(id=newPlantTag)
+            FeedPlantTagging(FeedPlantTag = feed, plantTag=new_plantTag).save()
+
+        feed.save()
+
+        messages.success(request,'The post of ' + request.POST['Title'] + " is updated succesfully..!")
+        return render(request,'ViewSharing.html')
     else:
-        return render(request, 'ViewSharing.html', {'feed': feed})
+        return render(request, 'ViewSharing.html', {'feed': feed, 'SoilTag':soilTagList, 'currentSoilTag':soilTag, 'PlantTag':plantTagList, 'currentPlantTag':plantTag})
+
 
 def deleteSharing(request,pk):
     try:
@@ -85,7 +143,9 @@ def deleteSharing(request,pk):
 
 def viewForum(request, pk):
     data = Group.objects.get(id=pk)
+    # soilTags = FeedSoilTagging.objects.all()
     feed = Feed.objects.filter(Group = data)
+
     return render(request, 'Forum.html', {'feed': feed, 'data':data})
 
 
