@@ -94,51 +94,11 @@
                           <div class="container">
                             <a href="{% url 'sharing:SharingGroup' data.id %}" class="link-primary" target="_blank">New Sharing</a> 
                           </div><br/>
-                          {% if context_SoilTags %}
-                          <div class="container">
-                          <form method="POST" class="container row g-3" action="{% url 'sharing:Sharing_GeneralSoilTag' data.id %}" >
-                            {% csrf_token %}
-                            <div class="container">
-                              <label for="inputSoil" class="form-label">Soil Tag : </label><br>
-                              {% for soilTag in context_SoilTags.SoilTags %}
-                              <input type="radio" name="SoilTag" value="{{ soilTag.id }}">{{ soilTag.SoilTagName }} <br>
-                              {% endfor %}
-                            </div>
-                            <div class="col-12">
-                              <button type="submit" class="btn btn-success " value="Filter">Filter</button>
-                            </div>
-                          </form>  
-                        </div>
-                        {% elif context_PlantTags %}
-                        
-                          <div class="container">
-                          <form method="POST" class="container row g-3" action="{% url 'sharing:Sharing_PlantTag' data.id %}" >
-                            {% csrf_token %}
-                            <div class="container">
-                              <label for="inputPlant" class="form-label">Plant Tag : </label><br>
-                              {% for plantTag in context_PlantTags.PlantTags %}
-                              <input type="radio" name="PlantTag" value="{{ plantTag.id }}">{{ plantTag.PlantTagName }} <br>
-                              {% endfor %}
-                            </div>
-                            <div class="col-12">
-                              <button type="submit" class="btn btn-success " value="Filter">Filter</button>
-                            </div>
-                          </form>  
-                        </div>
-                        {% else %}
-                        <div class="container">
-                          <h5>Filter Sharing By Tags: </h5>
-                          <a href="{% url 'sharing:Sharing_GeneralSoilTag' data.id %}" class="link-primary" target="_blank">Enable Soil Tags</a> ||
-                          <a href="{% url 'sharing:Sharing_PlantTag' data.id %}" class="link-primary" target="_blank">Enable Plant Tags</a> ||
-                        </div>
-                          {% endif %}
-                          
 
-<!-- <div class="header">
-  <h2>Sharing</h2>
-</div> -->
 
-{% for feed in feed reversed %}
+                          <div class="container"><h9>Filter based on tags: {{chosen_plantTag.PlantTagName}}</h9></div>
+
+{% for feed in filtered_feed reversed %}
 <div class="container">
 <div class="row">
   <div class="leftcolumn">
@@ -147,37 +107,48 @@
     
       
         
-          <h1>{{feed.Title}}</h1>
-          <h4><i>By {{feed.Creator.Name}}</i></h4>
-          <h9>{{feed.created_at}}</h9>
+          <h1>{{feed.FeedPlantTag.Title}}</h1>
+          <h4><i>By {{feed.FeedPlantTag.Creator.Name}}</i></h4>
+          <h9>{{feed.FeedPlantTag.created_at}}</h9>
           <br/>
-          <p><b>{{feed.Message}}</b></p>
+          <p><b>{{feed.FeedPlantTag.Message}}</b></p>
           <img
-                src="{{ feed.Photo }}"
+                src="{{ feed.FeedPlantTag.Photo }}"
                 class="rounded-circle"
                 width="30"
                 height="30"
                 alt=""
             />
-            {% if feed.soilTagging.all %}
-              <i>Soil Tagging:</i>
-              <i>
-              {% for soilTags in feed.soilTagging.all %}
-              {{soilTags.soilTag.SoilTagName}}  {% if not forloop.last %},{% endif %} 
-              {% endfor %}
-            </i>
+
+          {%for ori_feed in ori_feed reversed%}
+
+          {% if feed.FeedPlantTag == ori_feed %}
+
+              {% if ori_feed.soilTagging.all %}
+                  <i>Soil Tagging:</i>
+                  <i>
+                  {% for soilTags in ori_feed.soilTagging.all %}
+                  {{soilTags.soilTag.SoilTagName}}  {% if not forloop.last %},{% endif %} 
+                  {% endfor %}
+                </i>
+              {% endif %}
+
+              {% if ori_feed.plantTagging.all %}
+                <i>Plant Tagging:</i>
+                <i>
+                {% for plantTags in ori_feed.plantTagging.all %}
+                {{plantTags.plantTag.PlantTagName}}  {% if not forloop.last %},{% endif %} 
+                {% endfor %}
+              </i>            
+              {% endif %}
+
+            <!-- endfor and endif for ori_feed -->
             {% endif %}
 
-            {% if feed.plantTagging.all %}
-              <i>Plant Tagging:</i>
-              <i>
-              {% for plantTags in feed.plantTagging.all %}
-              {{plantTags.plantTag.PlantTagName}}  {% if not forloop.last %},{% endif %} 
-              {% endfor %}
-            </i>
-            {% endif %}
+          {% endfor %}
+            <!-- endfor and endif for ori_feed -->
 
-            {% if feed.Creator.Email == request.session.Email %}
+            {% if feed.FeedPlantTag.Creator.Email == request.session.Email %}
             <a href="{% url 'sharing:UpdateSharing' feed.id %}" class="card-link">Edit</a>
             <a href="{% url 'sharing:DeleteSharing' feed.id %}" class="card-link">Delete</a>
             {% endif %}
@@ -186,37 +157,40 @@
             <hr>
             <h5>Comments...</h5>
             <br/>
-            {% if not feed.comments.all %}
+            {% if not feed.FeedPlantTag.comments.all %}
               No comments Yet... 
               <br/>
               <a href="{% url 'sharing:AddComment' feed.id %}">Add Comment</a>
             
-              {% else %}
+            {% else %}
               <a href="{% url 'sharing:AddComment' feed.id %}">Add Comment</a>
               <br/>
-                {% for comment in feed.comments.all %}
+                {% for comment in feed.FeedPlantTag.comments.all %}
                   <b>{{ comment.Commenter.Name }}</b>
-                {{ comment.Message }}
-                {% if request.session.Email == comment.Commenter.Email %}
-                <a href="{% url 'sharing:UpdateComment' comment.id %}" class="card-link">Edit</a>
-                <a href="{% url 'sharing:DeleteComment' comment.id %}" class="card-link">Delete</a>
-                {% endif %}
+                  {{ comment.Message }}
+                  {% if request.session.Email == comment.Commenter.Email %}
+                  <a href="{% url 'sharing:UpdateComment' comment.id %}" class="card-link">Edit</a>
+                  <a href="{% url 'sharing:DeleteComment' comment.id %}" class="card-link">Delete</a>
+                  {% endif %}
                 <br/>
                 <hr>
                 <br/>
-
                 {% endfor %}
 
 
-            {% endif %}
-
-        
-      </div>
-    {% endfor %}
+                {% endif %}
+    
+          </div>
+        {% endfor %}
   </div>
 </div>
 </div>
 
+{% if not filtered_feed %}
+<div class="container">
+    <h7 style="text-align: center;"><i>No sharing related to this {{ chosen_plantTag.PlantTagName }} tag </i></h7>
+</div>
+{% endif %}
 
 </body>
 </html>

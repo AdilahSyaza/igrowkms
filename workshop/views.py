@@ -226,10 +226,13 @@ def Workshop_SoilTag(request, soilTag):
             person=Person.objects.get(Email=request.session['Email'])
             dataWorkshopFilter=SoilTag.objects.filter(soilTag=soilTag)
             if dataWorkshopFilter:
-                for setdata in dataWorkshopFilter:
-                    data=Workshop.objects.filter(id=setdata.SoilTagWorkshop.id)
+                # for setdata in dataWorkshopFilter:
+                    # data=Workshop.objects.filter(id=setdata.SoilTagWorkshop.id)
+                # data=Workshop.objects.filter(id__in=[SoilTagWorkshop.id for SoilTagWorkshop in dataWorkshopFilter])
+                Filtered_data = dataWorkshopFilter
+
             else:
-                data = ''
+                Filtered_data = ''
             
             context = {
                 "Clay": "Clay",
@@ -241,7 +244,7 @@ def Workshop_SoilTag(request, soilTag):
             }
             
             # return render(request,'WorkshopSoilTag.html', {'person':person,'data':data})
-            return render(request,'workshop_soilTags.html', {'person':person,'data':data, 'context':context, 'soilTag':soilTag})
+            return render(request,'workshop_soilTags.html', {'person':person,'Filtered_data':Filtered_data, 'context':context, 'soilTag':soilTag})
         except Workshop.DoesNotExist:
             raise Http404('Data does not exist')
 

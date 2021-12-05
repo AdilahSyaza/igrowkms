@@ -24,6 +24,11 @@ urlpatterns = [
     path('UpdateComment/<str:pk>',views.updateComment, name="UpdateComment"),
     path('DeleteComment/<str:pk>', views.deleteComment, name="DeleteComment"),
 
+    path('Forum/<str:pk>/Filter_SoilTag',views.Sharing_GeneralSoilTag, name="Sharing_GeneralSoilTag"),
+    path('Forum/<str:pk>/Filter_PlantTag',views.Sharing_PlantTag, name="Sharing_PlantTag"),
+    # path('Sharing_PlantTag',views.Sharing_GeneralPlantTag, name="Sharing_GeneralPlantTag"),
+    # path('Sharing_PlantTag/<str:plantTag>',views.Sharing_PlantTag, name="Sharing_PlantTag"),
+
 
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
 

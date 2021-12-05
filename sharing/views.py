@@ -167,11 +167,6 @@ def addComment(request, pk):
     else :
         return render(request,'addComment.html', {'feed':feed})
 
-# def viewFeed(request, pk_feed, pk_group):
-
-#     group = Group.objects.get(id=pk_group)
-#     feed = Feed.objects.get(id=pk_feed,Group=group)
-#     return render(request,'Forum.html', {'feed':feed})
 
 def updateComment(request, pk):
    
@@ -209,3 +204,88 @@ def deleteComment(request,pk):
     except Comment.DoesNotExist:
         messages.success(request,'No record of the comment!')
         return redirect('sharing:Forum', group_id)
+
+
+
+def Sharing_GeneralSoilTag(request, pk):
+
+    data = Group.objects.get(id=pk)
+    feed = Feed.objects.filter(Group = data)
+
+    if request.method=='POST':
+        
+        soilTagsID = request.POST.get('SoilTag')
+        soilTagging = SoilTag.objects.get(id=soilTagsID)
+        # plantTagsID = request.POST.getlist('PlantTag')
+        # feedFiltered = FeedSoilTagging.objects.filter(FeedSoilTag = feed)
+
+        # filtered_feedSoilTagging = FeedSoilTagging.objects.filter(FeedSoilTag=feed).filter(soilTag=soilTagging)
+        # filtered_feedSoilTagging = feedFiltered.filter(soilTag=soilTagging)
+        
+        # filtered_feed = FeedSoilTagging.objects.filter(id__in = [FeedSoilTag.id for FeedSoilTag in Feed.objects.filter(Group = data)])
+        # filtered_feedSoilTagging = filtered_feed.filter(soilTag = soilTagging)
+
+        
+        filtered_Soiltag = FeedSoilTagging.objects.filter(soilTag=soilTagging)
+        # filtered_feed = filtered_Soiltag.filter(FeedSoilTag=feed)
+        # filtered_feed = filtered_Soiltag.filter(id__in = [FeedSoilTag.id for FeedSoilTag in feed])
+        filtered_feed = filtered_Soiltag.filter(FeedSoilTag__in=feed)
+
+        return render(request,'FilteredForum.html', {'data':data, 'filtered_feed':filtered_feed, 'chosen_soilTag':soilTagging, 'ori_feed':feed})
+
+    else:
+
+        context = {
+            'SoilTags': SoilTag.objects.all(), 
+            # 'PlantTags' : PlantTag.objects.all(),
+        }
+
+        return render(request, 'Forum.html', {'feed': feed, 'data':data, 'context_SoilTags':context})    
+
+
+def Sharing_PlantTag(request, pk):
+
+    data = Group.objects.get(id=pk)
+    feed = Feed.objects.filter(Group = data)
+
+    if request.method=='POST':
+        
+        plantTagsID = request.POST.get('PlantTag')
+        plantTagging = PlantTag.objects.get(id=plantTagsID)
+        
+        filtered_Planttag = FeedPlantTagging.objects.filter(plantTag=plantTagging)
+        filtered_feed = filtered_Planttag.filter(FeedPlantTag__in=feed)
+
+        return render(request,'PlantFilteredForum.html', {'data':data, 'filtered_feed':filtered_feed, 'chosen_plantTag':plantTagging, 'ori_feed':feed})
+
+    else:
+        context = {
+            # 'SoilTags': SoilTag.objects.all(), 
+            'PlantTags' : PlantTag.objects.all(),
+        }
+
+        return render(request, 'Forum.html', {'feed': feed, 'data':data, 'context_PlantTags':context})   
+
+
+# def Sharing_PlantTag(request, plantTag):
+#         try:
+#             person=Person.objects.get(Email=request.session['Email'])
+#             dataWorkshopFilter=PlantTag.objects.filter(plantTag=plantTag)
+#             if dataWorkshopFilter:
+#                 for setdata in dataWorkshopFilter:
+#                     data=Workshop.objects.filter(id=setdata.PlantTagWorkshop.id)
+#             else:
+#                 data = ''
+            
+#             context = {
+#             "Herb": "Herb",
+#             "Shrub": "Shrub",
+#             "Tree": "Tree",
+#             "Creeper": "Creeper",
+#             "Climber": "Climber",
+#             "Fruit": "Fruit"
+#         }
+            
+#             return render(request,'workshop_plantTags.html', {'person':person,'data':data, 'context':context, 'plantTag':plantTag})
+#         except Workshop.DoesNotExist:
+#             raise Http404('Data does not exist')
