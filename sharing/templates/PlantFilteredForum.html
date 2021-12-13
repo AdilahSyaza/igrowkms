@@ -134,7 +134,7 @@
               {% endif %}
 
               {% if ori_feed.plantTagging.all %}
-                <i>Plant Tagging:</i>
+                
                 <i>
                 {% for plantTags in ori_feed.plantTagging.all %}
                 {{plantTags.plantTag.PlantTagName}}  {% if not forloop.last %},{% endif %} 

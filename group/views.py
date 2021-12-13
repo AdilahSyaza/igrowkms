@@ -12,9 +12,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from cryptography.fernet import Fernet
 from django.db import IntegrityError
-from .models import Group, GroupMembership, GroupSoilTag, GroupPlantTag
+from .models import Group, GroupMembership, GroupPlantTagging, GroupSoilTagging
 from .forms import GroupForm
-from member.models import Person
+from member.models import Person, SoilTag, PlantTag
 
 
 #group
@@ -32,8 +32,11 @@ def mainGroup(request):
     except Group.DoesNotExist:
         raise Http404('Data does not exist')
 
+
 def group(request):
     Username=Person.objects.get(Email=request.session['Email'])
+    soilTagList=SoilTag.objects.all()
+    plantTagList=PlantTag.objects.all()
     
     if request.method=='POST':
         Name=request.POST.get('Name')
@@ -45,20 +48,22 @@ def group(request):
         groupID = Group(Name=Name,About=About,Media=Media,Username=Username).save()
         group = Group.objects.get(id=groupID)
 
-        soilTags = request.POST.getlist('SoilTag')
-        plantTags = request.POST.getlist('PlantTag')
+        soilTagsID = request.POST.getlist('SoilTag')
+        plantTagsID = request.POST.getlist('PlantTag')
 
-        for soilTag in soilTags:
-            GroupSoilTag(SoilTagGroup=group, soilTag = soilTag).save()
+        for soilTagsID in soilTagsID:
+            soilTag = SoilTag.objects.get(id=soilTagsID)
+            GroupSoilTagging(GroupSoilTag = group, soilTag=soilTag).save()
 
-        for plantTag in plantTags:
-            GroupPlantTag(PlantTagGroup=group, plantTag = plantTag).save()
+        for plantTagsID in plantTagsID:
+            plantTag = PlantTag.objects.get(id=plantTagsID)
+            GroupPlantTagging(GroupPlantTag = group, plantTag=plantTag).save()
 
         messages.success(request,'The new group ' + request.POST['Name'] + " is create succesfully..!")
         
         return redirect('group:JoinGroup', groupID)
     else :
-        return render(request,'group.html')
+        return render(request,'group.html', {'SoilTag':soilTagList, 'PlantTag':plantTagList})
 
 
 def myGroup(request):
@@ -134,23 +139,26 @@ def deleteGroup(request, pk):
 def updateGroup(request, pk):
     try:
         group=Group.objects.get(id=pk)
-        group_farming = Group.objects.get(id=pk)
-        soilTag=GroupSoilTag.objects.filter(SoilTagGroup=group)
-        plantTag=GroupPlantTag.objects.filter(PlantTagGroup=group)
+        # group_farming = Group.objects.get(id=pk)
+        soilTag=GroupSoilTagging.objects.filter(GroupSoilTag=group)
+        plantTag=GroupPlantTagging.objects.filter(GroupPlantTag=group)
+        
+        soilTag=GroupSoilTagging.objects.filter(GroupSoilTag=group)
+        soilTagList=SoilTag.objects.all()
+
+        plantTag=GroupPlantTagging.objects.filter(GroupPlantTag=group)
+        plantTagList=PlantTag.objects.all()
+
         if request.method=='POST':
             group.Name=request.POST.get('Name')
             group.About=request.POST.get('About')
             group.Media = request.POST.get('Photo')
-            
-            group_id=group.save()
-            group_obj = Group.objects.get(id=group_id)
+                    
+            currentSoilTag=GroupSoilTagging.objects.filter(GroupSoilTag=group)
+            farmingSoilTag2=GroupSoilTagging.objects.filter(GroupSoilTag=group)
 
-            # soilTags = request.POST.getlist('SoilTag')
-            currentSoilTag=GroupSoilTag.objects.filter(SoilTagGroup=group)
-            farmingSoilTag2=GroupSoilTag.objects.filter(SoilTagGroup=group_farming)
-
-            currentPlantTag=GroupPlantTag.objects.filter(PlantTagGroup=group)
-            farmingPlantTag2=GroupPlantTag.objects.filter(PlantTagGroup=group_farming)
+            currentPlantTag=GroupPlantTagging.objects.filter(GroupPlantTag=group)
+            farmingPlantTag2=GroupPlantTagging.objects.filter(GroupPlantTag=group)
 
         
             newSoilTags = request.POST.getlist('SoilTag')
@@ -164,8 +172,10 @@ def updateGroup(request, pk):
                         farmingSoilTag2.deleteRecordIgrow()
 
                 for newSoilTag in newSoilTags:
-                    GroupSoilTag(SoilTagGroup=group_obj, soilTag = newSoilTag).save()
+                    new_soilTag = SoilTag.objects.get(id=newSoilTag)
+                    GroupSoilTagging(GroupSoilTag=group, soilTag = new_soilTag).save()
 
+                
                 if plantTag:
                     for currentPlantTag in currentPlantTag:
                         currentPlantTag.deleteRecordFarming()
@@ -173,16 +183,73 @@ def updateGroup(request, pk):
                         farmingPlantTag2.deleteRecordIgrow()
 
                 for newPlantTag in newPlantTags:
-                    GroupPlantTag(PlantTagGroup=group_obj, plantTag = newPlantTag).save()
+                    new_plantTag = PlantTag.objects.get(id=newPlantTag)
+                    GroupPlantTagging(GroupPlantTag = group, plantTag=new_plantTag).save()
+
 
             except IntegrityError:
                 messages.error(request,'The group is already been tagged with the chosen tag(s)!')
+            
+            group.save()
 
             messages.success(request,'The ' + request.POST['Name'] + " is updated succesfully..!")
             # return render(request,'MyGroup.html')
             return redirect('group:MyGroup')
         else :
-            return render(request,'UpdateGroup.html', {'data':group, 'soilTag':soilTag, 'plantTag':plantTag})
+            return render(request,'UpdateGroup.html', {'data':group, 'SoilTag':soilTagList, 'currentSoilTag':soilTag, 'PlantTag':plantTagList, 'currentPlantTag':plantTag})
     
     except Group.DoesNotExist:
             raise Http404('Data does not exist')
+
+
+def Group_SoilTag(request):
+
+    person=Person.objects.get(Email=request.session['Email'])
+    group=Group.objects.all()
+    fss =FileSystemStorage()
+    uploaded_file = fss.url(group)
+        
+
+    if request.method=='POST':
+        
+        soilTagsID = request.POST.get('SoilTag')
+        soilTagging = SoilTag.objects.get(id=soilTagsID)
+
+        filteredGroup = GroupSoilTagging.objects.filter(soilTag=soilTagging)
+        # filteredGroup = filtered_Soiltag.filter(GroupSoilTag__in=feed)
+
+        return render(request,'SoilFilteredGroup.html', {'filteredGroup':filteredGroup, 'chosen_soilTag':soilTagging, 'ori_group':group})
+
+    else:
+
+        context = {
+            'SoilTags': SoilTag.objects.all(), 
+        }
+
+        # return render(request, 'MainGroup.html', {'data':groupData, 'context_SoilTags':context})   
+        return render(request,'MainGroup.html',{'group':group, 'uploaded_file':uploaded_file, 'person':person, 'context_SoilTags':context}) 
+
+
+def Group_PlantTag(request):
+
+    person=Person.objects.get(Email=request.session['Email'])
+    group=Group.objects.all()
+    fss =FileSystemStorage()
+    uploaded_file = fss.url(group)
+
+    if request.method=='POST':
+        
+        plantTagsID = request.POST.get('PlantTag')
+        plantTagging = PlantTag.objects.get(id=plantTagsID)
+
+        filteredGroup = GroupPlantTagging.objects.filter(plantTag=plantTagging)
+
+        return render(request,'PlantFilteredGroup.html', {'filteredGroup':filteredGroup, 'chosen_plantTag':plantTagging, 'ori_group':group})
+
+    else:
+
+        context = {
+            'PlantTags' : PlantTag.objects.all(),
+        }
+        
+        return render(request,'MainGroup.html',{'group':group, 'uploaded_file':uploaded_file, 'person':person, 'context_PlantTags':context}) 

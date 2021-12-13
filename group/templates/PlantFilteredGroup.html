@@ -75,49 +75,10 @@
                             <a href="{% url 'group:MyGroup' %}" class="link-primary">My Group</a> 
                           </div>
                           <br/>
-                          
-                          {% if context_SoilTags %}
-                          <div class="container">
-                          <form method="POST" class="container row g-3" action="{% url 'group:Group_SoilTag' %}" >
-                            {% csrf_token %}
-                            <div class="container">
-                              <label for="inputSoil" class="form-label">Soil Tag : </label><br>
-                              {% for soilTag in context_SoilTags.SoilTags %}
-                              <input type="radio" name="SoilTag" value="{{ soilTag.id }}">{{ soilTag.SoilTagName }} <br>
-                              {% endfor %}
-                            </div>
-                            <div class="col-12">
-                              <button type="submit" class="btn btn-success " value="Filter">Filter</button>
-                            </div>
-                          </form>  
-                        </div>
-                        {% elif context_PlantTags %}
-                        
-                          <div class="container">
-                          <form method="POST" class="container row g-3" action="{% url 'group:Group_PlantTag' %}" >
-                            {% csrf_token %}
-                            <div class="container">
-                              <label for="inputPlant" class="form-label">Plant Tag : </label><br>
-                              {% for plantTag in context_PlantTags.PlantTags %}
-                              <input type="radio" name="PlantTag" value="{{ plantTag.id }}">{{ plantTag.PlantTagName }} <br>
-                              {% endfor %}
-                            </div>
-                            <div class="col-12">
-                              <button type="submit" class="btn btn-success " value="Filter">Filter</button>
-                            </div>
-                          </form>  
-                        </div>
-                        {% else %}
-                        <div class="container">
-                          <h5>Filter Sharing By Tags: </h5>
-                          <a href="{% url 'group:Group_SoilTag' %}" class="link-primary" target="_blank">Enable Soil Tags</a> ||
-                          <a href="{% url 'group:Group_PlantTag' %}" class="link-primary" target="_blank">Enable Plant Tags</a> ||
-                        </div>
-                          {% endif %}
-
-{% endblock content %}
-
-{% block body %}
+                          <div class="container"><h9>Filter based on tags: {{chosen_plantTag.PlantTagName}}</h9></div>
+                          <br/>
+                          {% endblock content %}
+                          {% block body %}
 
 <form action="{% url 'group:Group' %}" method="POST" class="center">
   {% csrf_token %}
@@ -131,56 +92,65 @@
                   <th scope="col">About</th>
                   <th scope="col">Media</th>
                   <th scope="col">Owner</th>
-                  <th scope="col">Tagging Details</th>
+                  <th scope="col">Tagging Detail</th>
                   <th scope="col">Action</th>
                   
                 </tr>
               </thead>
               <tbody>
-                {% for group in group %}
+                {% for group in filteredGroup %}
                 <tr>
-                  <th scope="row" value="{{ group.Name }}">{{ group.Name }}</th>
-                  <th scope="row" value="{{ group.About }}">{{ group.About }}</th>
-                  <!-- <th scope="row" value="{{ group.Media }}">{{ group.Media }}</th> -->
-                  <!-- <th scope="row" <a href="{{ uploaded_file }}">{{ uploaded_file }}</a></th> -->
-                  
+                  <th scope="row" value="{{ group.GroupPlantTag.Name }}">{{ group.GroupPlantTag.Name }}</th>
+                  <th scope="row" value="{{ group.GroupPlantTag.About }}">{{ group.GroupPlantTag.About }}</th>              
                   <th scope="row" <a href="{{ MEDIA_URL }}">{{ MEDIA_URL }}</a></th>
-                  <th scope="row" <a href="{{ group.Username.Name }}">{{ group.Username.Name }}</a></th>
+                  <th scope="row" <a href="{{ group.GroupPlantTag.Username.Name }}">{{ group.GroupPlantTag.Username.Name }}</a></th>
                   <th>
-                    {% if group.soilTagging.all %}
-                      <!-- <i>Soil Tagging:</i> -->
-                      <i>
-                      {% for soilTags in group.soilTagging.all %}
-                      {{soilTags.soilTag.SoilTagName}}  {% if not forloop.last %},{% endif %} 
-                      {% endfor %}
-                    </i>
-                    {% endif %}
+                      {%for ori_group in ori_group %}
 
-                    {% if group.plantTagging.all %}
-                      <!-- <i>Plant Tagging:</i> -->
-                      <i>
-                      {% for plantTags in group.plantTagging.all %}
-                      {{plantTags.plantTag.PlantTagName}}  {% if not forloop.last %},{% endif %} 
-                      {% endfor %}
-                    </i>
-                    {% endif %}
+                      {% if group.GroupPlantTag == ori_group %}
+
+                        {% if ori_group.soilTagging.all %}
+                            
+                            <i>
+                            {% for soilTags in ori_group.soilTagging.all %}
+                            {{soilTags.soilTag.SoilTagName}}  {% if not forloop.last %},{% endif %} 
+                            {% endfor %}
+                          </i>
+                        {% endif %}
+
+                        {% if ori_group.plantTagging.all %}
+                          
+                          <i>
+                          {% for plantTags in ori_group.plantTagging.all %}
+                          {{plantTags.plantTag.PlantTagName}}  {% if not forloop.last %},{% endif %} 
+                          {% endfor %}
+                        </i>            
+                        {% endif %}
+
+                      {% endif %}
+
+                      {% endfor %} 
                   </th>
-                  {% if group.Username.Email != request.session.Email %}
+                  {% if group.GroupPlantTag.Username.Email != request.session.Email %}
                   <th>
-                    <a href="{% url 'group:JoinGroup' group.id %}" class="card-link">Join</a>
+                    <a href="{% url 'group:JoinGroup' group.GroupPlantTag.id %}" class="card-link">Join</a>
                   </th>
                   {% else %}
                   <th>&nbsp; </th>
                   {% endif %}
-                  <!-- <td>
-                    <button type="submit" class="btn btn-success " value="Add">Add</button>
-                  </td> -->
                 </tr>
                 {% endfor %}
               </tbody>
             </table>
       </div>
 </form>
+
+{% if not filteredGroup %}
+<div class="container">
+    <h7 style="text-align: center;"><i>No group related to this {{ chosen_plantTag.PlantTagName }} tag </i></h7>
+</div>
+{% endif %}
+
 <hr>
 {% if messages %}
 {% for msg in messages %}

@@ -22,6 +22,10 @@ urlpatterns = [
     path('JoinGroup/<str:pk>',views.joinGroup, name="JoinGroup"),
     path('DeleteGroup/<str:pk>',views.deleteGroup, name="DeleteGroup"),
     path('UpdateGroup/<str:pk>',views.updateGroup, name="UpdateGroup"),
+
+    path('MainGroup/Filter_SoilTag',views.Group_SoilTag, name="Group_SoilTag"),
+    path('MainGroup/Filter_PlantTag',views.Group_PlantTag, name="Group_PlantTag"),
+
  
 
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

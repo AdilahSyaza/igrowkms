@@ -74,38 +74,35 @@
         <input type="file" class="form-control" value="{{ data.Media }}" id="inputMedia" name="Photo" accept=".doc, .docx, .pdf, .txt, image/*" required>
       </div>
       <br/><br/>
+
       <div class="col-md-6">
-        {% if soilTag %}
-          <b>Current tags:</b> 
-          {% for soilTag in soilTag %}
-            <p><b>{{soilTag.soilTag}}</b></p>
+        {% if currentSoilTag %}
+          <b>Current soil tags:</b> 
+          {% for currentSoilTag in currentSoilTag %}
+            <p><b>{{currentSoilTag.soilTag.SoilTagName}}</b></p>
           {% endfor %}
         {% endif %}
-        <label for="inputSoil" class="form-label">Update Soil Tag : </label><br>
-        <input type="checkbox" name="SoilTag" value="Clay" id="clay"><label for="clay">Clay</label><br>
-        <input type="checkbox" name="SoilTag" value="Sandy" id="sandy"><label for="sandy">Sandy</label><br>
-        <input type="checkbox" name="SoilTag" value="Silty" id="silty"><label for="silty">Silty</label><br>
-        <input type="checkbox" name="SoilTag" value="Peaty" id="peaty"><label for="peaty">Peaty</label><br>
-        <input type="checkbox" name="SoilTag" value="Chalky" id="chalky"><label for="chalky">Chalky</label><br>
-        <input type="checkbox" name="SoilTag" value="Loamy" id="loamy"><label for="loamy">Loamy</label><br>
+        <label for="inputSoil" class="form-label">New Soil Tag : </label><br>
+        {% for soilTag in SoilTag %}
+        <input type="checkbox" name="SoilTag" value="{{soilTag.id}}" id="{{soilTag.id}}"><label for="{{soilTag.id}}">{{soilTag.SoilTagName}}</label><br>
+        {% endfor %}
       </div>
       <br/><br/>
+
       <div class="col-md-6">
-        {% if plantTag %}
-          <b>Current tags:</b> 
-          {% for plantTag in plantTag %}
-            <p><b>{{plantTag.plantTag}}</b></p>
+        {% if currentPlantTag %}
+          <b>Current plant tags:</b> 
+          {% for currentPlantTag in currentPlantTag %}
+            <p><b>{{currentPlantTag.plantTag.PlantTagName}}</b></p>
           {% endfor %}
         {% endif %}
-        <label for="inputPlant" class="form-label">Update Plant Tag : </label><br>
-        <input type="checkbox" name="PlantTag" value="Herb" id="herb"><label for="herb">Herb</label><br>
-        <input type="checkbox" name="PlantTag" value="Shrub" id="shrub"><label for="shrub">Shrub</label><br>
-        <input type="checkbox" name="PlantTag" value="Tree" id="tree"><label for="tree">Tree</label><br>
-        <input type="checkbox" name="PlantTag" value="Creeper" id="creeper"><label for="creeper">Creeper</label><br>
-        <input type="checkbox" name="PlantTag" value="Climber" id="climber"><label for="climber">Climber</label><br>
-        <input type="checkbox" name="PlantTag" value="Fruit" id="fruit"><label for="fruit">Fruit</label><br>
+        <label for="inputPlant" class="form-label">New Plant Tag : </label><br>
+        {% for plantTag in PlantTag %}
+        <input type="checkbox" name="PlantTag" value="{{plantTag.id}}" id="{{plantTag.id}}"><label for="{{plantTag.id}}">{{plantTag.PlantTagName}}</label><br>
+        {% endfor %}
       </div>
       <br/><br/>
+      
       <div class="col-12">
         <button type="submit" class="btn btn-success" value="Workshop">Save</button>
       </div>

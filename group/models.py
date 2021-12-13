@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.contrib.syndication.views import Feed
-from member.models import Person
+from member.models import Person, SoilTag, PlantTag
 
 # Create your models here.
 
@@ -51,46 +51,62 @@ class GroupMembership(models.Model):
         unique_together = [['GroupName', 'GroupMember']]
 
 
-class GroupSoilTag(models.Model):
+# class GroupSoilTag(models.Model):
 
-    class Meta:
-        db_table = 'GroupSoilTag'
+#     class Meta:
+#         db_table = 'GroupSoilTag'
 
-    SoilTagGroup = models.ForeignKey(Group, on_delete=models.CASCADE)
-    soilTag = models.CharField(max_length=150)
+#     SoilTagGroup = models.ForeignKey(Group, on_delete=models.CASCADE)
+#     soilTag = models.CharField(max_length=150)
+
+#     def save(self):
+#         super().save()
+#         super().save(using='farming')
+    
+#     def deleteRecordFarming(self):
+#         super().delete(using='farming')
+        
+#     def deleteRecordIgrow(self):
+#         super().delete()
+
+#     class Meta:
+#         unique_together = [['SoilTagGroup', 'soilTag' ]]
+
+
+class GroupSoilTagging(models.Model):
+
+    GroupSoilTag = models.ForeignKey(Group, related_name="soilTagging", on_delete=models.CASCADE)    
+    soilTag = models.ForeignKey(SoilTag, on_delete=models.CASCADE)
+   
+    class Meta:  
+        unique_together = [['GroupSoilTag', 'soilTag']]
 
     def save(self):
         super().save()
         super().save(using='farming')
-    
+   
     def deleteRecordFarming(self):
         super().delete(using='farming')
         
     def deleteRecordIgrow(self):
         super().delete()
 
-    class Meta:
-        unique_together = [['SoilTagGroup', 'soilTag' ]]
 
+class GroupPlantTagging(models.Model):
 
-class GroupPlantTag(models.Model):
-
-    class Meta:
-        db_table = 'PlantTag'
-
-    PlantTagGroup = models.ForeignKey(Group, on_delete=models.CASCADE)
-    plantTag = models.CharField(max_length=150)
+    GroupPlantTag = models.ForeignKey(Group, related_name="plantTagging", on_delete=models.CASCADE)    
+    plantTag = models.ForeignKey(PlantTag, on_delete=models.CASCADE)
+   
+    class Meta:  
+        unique_together = [['GroupPlantTag', 'plantTag']]
 
     def save(self):
         super().save()
         super().save(using='farming')
-    
+   
     def deleteRecordFarming(self):
         super().delete(using='farming')
         
     def deleteRecordIgrow(self):
         super().delete()
-
-    class Meta:
-        unique_together = [['PlantTagGroup', 'plantTag' ]]
 
