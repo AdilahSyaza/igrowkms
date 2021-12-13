@@ -14,18 +14,21 @@ from cryptography.fernet import Fernet
 from .models import Person, MemberRequest,Memberlist, Room, Message, SensorData, SoilTag, PlantTag
 from django.http import HttpResponse, JsonResponse
 
-# def encryptPassword(password):
-#         key = Fernet.generate_key()
-#         fernet = Fernet(key)
-#         # pk = bytes(password, encoding)
-#         encryptedpass = fernet.encrypt(password.encode('ascii'))
-#         return encryptedpass
+def encryptPassword(password):
+        key = Fernet.generate_key()
+        fernet = Fernet(key)
+        # pk = bytes(password, encoding)
+        data = bytes(password, 'utf-8')
+        # encryptedpass = fernet.encrypt(password.encode('ascii'))
+        encryptedpass = fernet.encrypt(data)
+        return encryptedpass
 
-# def decryptPassword(password):
-#         key = Fernet.generate_key()
-#         fernet = Fernet(key)
-#         decryptedpass = fernet.decrypt(password).decode('ascii')
-#         return decryptedpass
+def decryptPassword(password):
+        key = Fernet.generate_key()
+        fernet = Fernet(key)
+        data = bytes(password, 'utf-8')
+        decryptedpass = fernet.decrypt(data)
+        return decryptedpass
 
 def Indexpage(request):
     return render(request, 'index.html')
@@ -36,60 +39,46 @@ def homepage(request):
 
 
 
-
 #user registration
 def UserReg(request):
-    try:
-        if request.method=='POST':
-            Email=request.POST['Email']
-            # Pwd=encryptPassword(request.POST['Pwd'])
-            Pwd=request.POST['Pwd']
-            Username=request.POST.get('Username')
-            Name=request.POST.get('Name')
-            DateOfBirth=request.POST.get('DateOfBirth')
-            Age=request.POST['Age']
-            District=request.POST['District']
-            State=request.POST['State']
-            Occupation=request.POST['Occupation']
-            About=request.POST['About']
-            Gen=request.POST.get('Gender')
-            MaritalStatus=request.POST.get('MaritalStatus')
-            UserLevel=request.POST.get('UserLevel')
-            Person(Email=Email,Password=Pwd,Username=Username,Name=Name,DateOfBirth=DateOfBirth,Age=Age,District=District,State=State,
-                Occupation=Occupation,About=About,Gender=Gen,MaritalStatus=MaritalStatus,UserLevel=UserLevel).save(),
-            messages.success(request,'The new user ' + request.POST['Username'] + " is save succesfully..!")
-            return render(request,'registration.html')
-        else :
-            return render(request,'registration.html')
-
-    except IntegrityError:
-        messages.error(request,'You email address has already registered!')
+    if request.method=='POST':
+        Email=request.POST['Email']
+        Pwd=encryptPassword(request.POST['Pwd'])
+        # Pwd=request.POST['Pwd']
+        Username=request.POST.get('Username')
+        Name=request.POST.get('Name')
+        DateOfBirth=request.POST.get('DateOfBirth')
+        Age=request.POST['Age']
+        District=request.POST['District']
+        State=request.POST['State']
+        Occupation=request.POST['Occupation']
+        About=request.POST['About']
+        Gen=request.POST.get('Gender')
+        MaritalStatus=request.POST.get('MaritalStatus')
+        UserLevel=request.POST.get('UserLevel')
+        Person(Email=Email,Password=Pwd,Username=Username,Name=Name,DateOfBirth=DateOfBirth,Age=Age,District=District,State=State,
+            Occupation=Occupation,About=About,Gender=Gen,MaritalStatus=MaritalStatus,UserLevel=UserLevel).save(),
+        messages.success(request,'The new user ' + request.POST['Username'] + " is save succesfully..!")
         return render(request,'registration.html')
-
-# def loginpage(request):
-#     if request.method == "POST":
-#         try:
-#             User = Person.objects.filter(Email = request.POST['Email'])
-            
-#             if (User.exists()):
-#                 UserExist = Person.objects.get(Email = request.POST['Email'])
-#                 password=decryptPassword(UserExist.Password)
-#             else:
-#                 messages.success(request,'Username/Password Invalid..!')
-#                 return render(request,'login.html')
-#             Userdetails = Person.objects.get(Email = request.POST['Email'], Password = password)
-#             print("Username", Userdetails)
-#             request.session['Email'] = Userdetails.Email
-#             person = Person.objects.filter(Email = request.POST['Email'])
-#             return render(request,'homepage.html',{'person' : person})
-#         except Person.DoesNotExist as e:
-#             messages.success(request,'Username/Password Invalid..!')
-#     return render(request,'login.html')
+    else :
+        return render(request,'registration.html')
 
 def loginpage(request):
     if request.method == "POST":
         try:
-            Userdetails = Person.objects.get(Email = request.POST['Email'], Password = (request.POST['Pwd']))
+            User = Person.objects.filter(Email = request.POST['Email'])
+            
+            if (User.exists()):
+                UserExist = Person.objects.get(Email = request.POST['Email'])
+                pwd = request.POST['Pwd']
+                password=decryptPassword(UserExist.Password)
+            else:
+                messages.success(request,'Username/Password Invalid..!')
+                return render(request,'login.html')
+            
+            if (pwd == password):
+                Userdetails = Person.objects.get(Email = request.POST['Email'])
+            
             print("Username", Userdetails)
             request.session['Email'] = Userdetails.Email
             person = Person.objects.filter(Email = request.POST['Email'])
