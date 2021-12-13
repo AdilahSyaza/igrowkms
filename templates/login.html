@@ -31,6 +31,17 @@
         <div class="form-group">
             <label for="exampleInputPassword1" class="container text-left" >Password</label>
             <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter password" name="Pwd" required>
+            <input type="checkbox" onclick="myFunction()">Show Password
+            <script>
+                function myFunction() {
+               var x = document.getElementById("exampleInputPassword1");
+               if (x.type === "password") {
+                 x.type = "text";
+               } else {
+                 x.type = "password";
+               }
+             } 
+             </script>
           </div>
         <button type="submit" class="btn btn-success" >Login</button>
     </table>
