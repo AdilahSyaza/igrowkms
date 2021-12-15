@@ -13,22 +13,19 @@ from django.dispatch import receiver
 from cryptography.fernet import Fernet
 from .models import Person, MemberRequest,Memberlist, Room, Message, SensorData, SoilTag, PlantTag
 from django.http import HttpResponse, JsonResponse
+from igrowKMS import encryption_util
 
-def encryptPassword(password):
-        key = Fernet.generate_key()
-        fernet = Fernet(key)
-        # pk = bytes(password, encoding)
-        data = bytes(password, 'utf-8')
-        # encryptedpass = fernet.encrypt(password.encode('ascii'))
-        encryptedpass = fernet.encrypt(data)
-        return encryptedpass
+# def encryptPassword(Pwd):
+#         key = Fernet.generate_key()
+#         fernet = Fernet(key)
+#         encrypted = fernet.encrypt(Pwd.encode())
+#         return encrypted
 
-def decryptPassword(password):
-        key = Fernet.generate_key()
-        fernet = Fernet(key)
-        data = bytes(password, 'utf-8')
-        decryptedpass = fernet.decrypt(data)
-        return decryptedpass
+# def deryptPassword(Pwd):
+#         key = Fernet.generate_key()
+#         fernet = Fernet(key)
+#         decrypted = fernet.decrypt(Pwd).decode()
+#         return decrypted
 
 def Indexpage(request):
     return render(request, 'index.html')
@@ -39,12 +36,12 @@ def homepage(request):
 
 
 
+
 #user registration
 def UserReg(request):
     if request.method=='POST':
         Email=request.POST['Email']
-        Pwd=encryptPassword(request.POST['Pwd'])
-        # Pwd=request.POST['Pwd']
+        Pwd=encryption_util.encrypt(request.POST['Pwd']) 
         Username=request.POST.get('Username')
         Name=request.POST.get('Name')
         DateOfBirth=request.POST.get('DateOfBirth')
@@ -55,9 +52,8 @@ def UserReg(request):
         About=request.POST['About']
         Gen=request.POST.get('Gender')
         MaritalStatus=request.POST.get('MaritalStatus')
-        UserLevel=request.POST.get('UserLevel')
         Person(Email=Email,Password=Pwd,Username=Username,Name=Name,DateOfBirth=DateOfBirth,Age=Age,District=District,State=State,
-            Occupation=Occupation,About=About,Gender=Gen,MaritalStatus=MaritalStatus,UserLevel=UserLevel).save(),
+            Occupation=Occupation,About=About,Gender=Gen,MaritalStatus=MaritalStatus).save(),
         messages.success(request,'The new user ' + request.POST['Username'] + " is save succesfully..!")
         return render(request,'registration.html')
     else :
@@ -66,26 +62,18 @@ def UserReg(request):
 def loginpage(request):
     if request.method == "POST":
         try:
-            User = Person.objects.filter(Email = request.POST['Email'])
-            
-            if (User.exists()):
-                UserExist = Person.objects.get(Email = request.POST['Email'])
-                pwd = request.POST['Pwd']
-                password=decryptPassword(UserExist.Password)
-            else:
-                messages.success(request,'Username/Password Invalid..!')
-                return render(request,'login.html')
-            
-            if (pwd == password):
-                Userdetails = Person.objects.get(Email = request.POST['Email'])
-            
+            Userdetails = Person.objects.get(Email = request.POST['Email'])
             print("Username", Userdetails)
             request.session['Email'] = Userdetails.Email
             person = Person.objects.filter(Email = request.POST['Email'])
-            return render(request,'homepage.html',{'person' : person})
+            if encryption_util.decrypt(Userdetails.Password)== request.POST['Pwd']:
+             return render(request,'homepage.html',{'person' : person})
+            else:
+             messages.success(request,'Pasword is incorrect')
         except Person.DoesNotExist as e:
-            messages.success(request,'Username/Password Invalid..!')
+            messages.success(request,'Username is not available')
     return render(request,'login.html')
+
 
 def logout(request):
     try:
