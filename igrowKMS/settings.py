@@ -128,6 +128,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+#Encryption
+ENCRYPT_KEY = b'tes4-Vdc4kwat6Uz_x0cNSAQ78EXUm3jt3gS1RWMYd4='
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
