@@ -201,16 +201,24 @@ def unfriend(request, pk):
     
     user=Person.objects.get(Email=request.session['Email'])
     user2=Person.objects.get(id=pk)
-    member1 = Memberlist.objects.get(to_person=user, from_person=user2)
-    member2 = Memberlist.objects.get(from_person=user, to_person=user2)
 
-    if request.method=='POST':
-        member1.deleteRecordIgrow()
-        member2.deleteRecordFarming()
-        messages.success(request, "You have unfriended " + user2.Name +" ..!")
-        return render(request, 'friendlist.html')
-    else:
-        return render(request, 'friendlist.html')
+    member1_igrow = Memberlist.objects.get(to_person=user, from_person=user2)
+    member2_igrow = Memberlist.objects.get(from_person=user, to_person=user2)
+
+    member1_farming = Memberlist.objects.get(to_person=user, from_person=user2)
+    member2_farming = Memberlist.objects.get(from_person=user, to_person=user2)
+
+    # if request.method=='POST':
+    member1_igrow.deleteRecordIgrow()
+    member2_igrow.deleteRecordIgrow()
+
+    member1_farming.deleteRecordFarming() 
+    member2_farming.deleteRecordFarming()
+
+    messages.success(request, "You have unfriended " + user2.Name +" ..!")
+    return render(request, 'friendlist.html')
+    # else:
+    #     return render(request, 'friendlist.html')
 
 def MainSearchbar(request):
     if request.method == 'GET':

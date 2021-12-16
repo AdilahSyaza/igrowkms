@@ -72,7 +72,7 @@
                           {% block body %}
 
                           
-<form method="POST" action="#" class="center">
+<form method="POST" class="center">
   {% csrf_token %}
         <div class="container">
           <div class="row">
@@ -95,7 +95,7 @@
                   <th scope="row" value="{{ person.from_person.State }}">{{ person.from_person.State }}</th>
                   <th scope="row" value="{{ person.from_person.Occupation }}">{{ person.from_person.Occupation }}</th>
                   <td>
-                    <button type="submit" class="btn btn-success " href="#{% url 'unfriend' person.from_person.id %} "value="Unfriend">Unfriend</button>
+                    <button type="button" class="btn btn-success"><a href="{% url 'unfriend' person.from_person.id %} "value="Unfriend">Unfriend </a> </button>
                   </td>
                   <td>
                     <button type="button" class="btn btn-success"> <a href="{% url 'ChatRoom' person.chatRoom.id %}" target="_blank">Chat </a> </button>
