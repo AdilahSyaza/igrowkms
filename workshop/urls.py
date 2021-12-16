@@ -25,10 +25,8 @@ urlpatterns = [
     path('MyWorkshop',views.viewWorkshop, name="MyWorkshop"),
     path('WorkshopParticipant/<str:id>',views.WorkshopParticipant, name="WorkshopParticipant"),
 
-    path('Workshop_SoilTag',views.Workshop_GeneralSoilTag, name="Workshop_GeneralSoilTag"),
-    path('Workshop_SoilTag/<str:soilTag>',views.Workshop_SoilTag, name="Workshop_SoilTag"),
-    path('Workshop_PlantTag',views.Workshop_GeneralPlantTag, name="Workshop_GeneralPlantTag"),
-    path('Workshop_PlantTag/<str:plantTag>',views.Workshop_PlantTag, name="Workshop_PlantTag"),
+    path('Workshop/Filter_SoilTag',views.Workshop_SoilTag, name="Workshop_SoilTag"),
+    path('Workshop/Filter_PlantTag',views.Workshop_PlantTag, name="Workshop_PlantTag"),
     # path('Workshop_LocationTag',views.Workshop_LocationTag, name="Workshop_LocationTag"),
     # path('Workshop_DemographicTag',views.Workshop_DemographicTag, name="Workshop_DemographicTag"),
 

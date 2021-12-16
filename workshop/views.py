@@ -12,8 +12,8 @@ from django.core.files.storage import FileSystemStorage
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from cryptography.fernet import Fernet
-from .models import Workshop, Booking, SoilTag, PlantTag
-from member.models import Person
+from .models import Workshop, Booking, WorkshopSoilTagging, WorkshopPlantTagging
+from member.models import Person, SoilTag, PlantTag
 from django.db import IntegrityError
 
 
@@ -31,6 +31,10 @@ def workshop(request):
             raise Http404('Data does not exist')
             
 def createWorkshop(request):
+
+    soilTagList=SoilTag.objects.all()
+    plantTagList=PlantTag.objects.all()
+
     if request.method=='POST':
         pic=Person.objects.get(Email=request.session['Email'])
         ProgrammeName=request.POST.get('ProgrammeName')
@@ -44,29 +48,39 @@ def createWorkshop(request):
         workshop_id = Workshop(ProgrammeName=ProgrammeName,Speaker=Speaker,Description=Description,Date=Date,StartTime=StartTime,EndTime=EndTime,PIC=pic).save()
         workshop = Workshop.objects.get(id=workshop_id)
 
-        soilTags = request.POST.getlist('SoilTag')
-        plantTags = request.POST.getlist('PlantTag')
+        soilTagsID = request.POST.getlist('SoilTag')
+        plantTagsID = request.POST.getlist('PlantTag')
 
-        for soilTag in soilTags:
-            SoilTag(SoilTagWorkshop=workshop, soilTag = soilTag).save()
+        for soilTagsID in soilTagsID:
+            soilTag = SoilTag.objects.get(id=soilTagsID)
+            WorkshopSoilTagging(WorkshopSoilTag = workshop, soilTag=soilTag).save()
 
-        for plantTag in plantTags:
-            PlantTag(PlantTagWorkshop=workshop, plantTag = plantTag).save()
+        for plantTagsID in plantTagsID:
+            plantTag = PlantTag.objects.get(id=plantTagsID)
+            WorkshopPlantTagging(WorkshopPlantTag = workshop, plantTag=plantTag).save()
 
         
-        messages.success(request,'The ' + request.POST['ProgrammeName'] + " is save succesfully..!")   
+        messages.success(request,'The new ' + request.POST['ProgrammeName'] + " is save succesfully..!")   
 
         return render(request,'CreateWorkshop.html')
     else :
-        return render(request,'CreateWorkshop.html')
+        return render(request,'CreateWorkshop.html', {'SoilTag':soilTagList, 'PlantTag':plantTagList})
 
 
 def updateWorkshop(request, pk):
     try:
         workshop=Workshop.objects.get(id=pk)
         workshop_farming = Workshop.objects.get(id=pk)
-        soilTag=SoilTag.objects.filter(SoilTagWorkshop=workshop)
-        plantTag=PlantTag.objects.filter(PlantTagWorkshop=workshop)
+        
+        # soilTag=WorkshopSoilTagging.objects.filter(WorkshopSoilTag=workshop)
+        # plantTag=WorkshopPlantTagging.objects.filter(WorkshopPlantTag=workshop)
+        
+        soilTag=WorkshopSoilTagging.objects.filter(WorkshopSoilTag=workshop)
+        soilTagList=SoilTag.objects.all()
+
+        plantTag=WorkshopPlantTagging.objects.filter(WorkshopPlantTag=workshop)
+        plantTagList=PlantTag.objects.all()
+
         if request.method=='POST':
             workshop.ProgrammeName=request.POST.get('ProgrammeName')
             workshop.Speaker=request.POST.get('Speaker')
@@ -74,15 +88,14 @@ def updateWorkshop(request, pk):
             workshop.Date=request.POST.get('Date')
             workshop.StartTime=request.POST.get('StartTime')
             workshop.EndTime=request.POST.get('EndTime')
-            workshop_id=workshop.save()
-            workshop_obj = Workshop.objects.get(id=workshop_id)
+            # workshop_id=workshop.save()
+            # workshop_obj = Workshop.objects.get(id=workshop_id)
 
-            # soilTags = request.POST.getlist('SoilTag')
-            currentSoilTag=SoilTag.objects.filter(SoilTagWorkshop=workshop)
-            farmingSoilTag2=SoilTag.objects.filter(SoilTagWorkshop=workshop_farming)
+            currentSoilTag=WorkshopSoilTagging.objects.filter(WorkshopSoilTag=workshop)
+            farmingSoilTag2=WorkshopSoilTagging.objects.filter(WorkshopSoilTag=workshop)
 
-            currentPlantTag=PlantTag.objects.filter(PlantTagWorkshop=workshop)
-            farmingPlantTag2=PlantTag.objects.filter(PlantTagWorkshop=workshop_farming)
+            currentPlantTag=WorkshopPlantTagging.objects.filter(WorkshopPlantTag=workshop)
+            farmingPlantTag2=WorkshopPlantTagging.objects.filter(WorkshopPlantTag=workshop)
 
         
             newSoilTags = request.POST.getlist('SoilTag')
@@ -96,8 +109,10 @@ def updateWorkshop(request, pk):
                         farmingSoilTag2.deleteRecordIgrow()
 
                 for newSoilTag in newSoilTags:
-                    SoilTag(SoilTagWorkshop=workshop_obj, soilTag = newSoilTag).save()
+                    new_soilTag = SoilTag.objects.get(id=newSoilTag)
+                    WorkshopSoilTagging(WorkshopSoilTag=workshop, soilTag = new_soilTag).save()
 
+                
                 if plantTag:
                     for currentPlantTag in currentPlantTag:
                         currentPlantTag.deleteRecordFarming()
@@ -105,7 +120,8 @@ def updateWorkshop(request, pk):
                         farmingPlantTag2.deleteRecordIgrow()
 
                 for newPlantTag in newPlantTags:
-                    PlantTag(PlantTagWorkshop=workshop_obj, plantTag = newPlantTag).save()
+                    new_plantTag = PlantTag.objects.get(id=newPlantTag)
+                    WorkshopPlantTagging(WorkshopPlantTag = workshop, plantTag=new_plantTag).save()
 
             # sebenarnya tak yah dah exception IntegrityError ni, sebab mmg takkan sampai sini sebab kita dah delete dulu baru save
             except IntegrityError:
@@ -113,10 +129,12 @@ def updateWorkshop(request, pk):
                 # messages.success(request,'The ' + request.POST['ProgrammeName'] + " is updated succesfully..!")
                 # return render(request,'UpdateWorkshop.html')
 
+            workshop.save()
+
             messages.success(request,'The ' + request.POST['ProgrammeName'] + " is updated succesfully..!")
             return render(request,'UpdateWorkshop.html')
         else :
-            return render(request,'UpdateWorkshop.html', {'data':workshop, 'soilTag':soilTag, 'plantTag':plantTag})
+            return render(request,'UpdateWorkshop.html', {'data':workshop, 'SoilTag':soilTagList, 'currentSoilTag':soilTag, 'PlantTag':plantTagList, 'currentPlantTag':plantTag})
     
     except Workshop.DoesNotExist:
             raise Http404('Data does not exist')
@@ -221,104 +239,47 @@ def Workshop_GeneralSoilTag(request):
         raise Http404('Data does not exist')
 
 
-def Workshop_SoilTag(request, soilTag):
-        try:
-            person=Person.objects.get(Email=request.session['Email'])
-            dataWorkshopFilter=SoilTag.objects.filter(soilTag=soilTag)
-            if dataWorkshopFilter:
-                # for setdata in dataWorkshopFilter:
-                    # data=Workshop.objects.filter(id=setdata.SoilTagWorkshop.id)
-                # data=Workshop.objects.filter(id__in=[SoilTagWorkshop.id for SoilTagWorkshop in dataWorkshopFilter])
-                Filtered_data = dataWorkshopFilter
+def Workshop_SoilTag(request):
+    
+    data=Workshop.objects.all()
+    person=Person.objects.get(Email=request.session['Email'])
 
-            else:
-                Filtered_data = ''
-            
-            context = {
-                "Clay": "Clay",
-                "Sandy": "Sandy",
-                "Silty": "Silty",
-                "Peaty": "Peaty",
-                "Chalky": "Chalky",
-                "Loamy": "Loamy"
-            }
-            
-            # return render(request,'WorkshopSoilTag.html', {'person':person,'data':data})
-            return render(request,'workshop_soilTags.html', {'person':person,'Filtered_data':Filtered_data, 'context':context, 'soilTag':soilTag})
-        except Workshop.DoesNotExist:
-            raise Http404('Data does not exist')
+    if request.method=='POST':
+        
+        soilTagsID = request.POST.get('SoilTag')
+        soilTagging = SoilTag.objects.get(id=soilTagsID)
 
+        filteredWorkshop = WorkshopSoilTagging.objects.filter(soilTag=soilTagging)
 
-def Workshop_GeneralPlantTag(request):
-    try:
-        person=Person.objects.get(Email=request.session['Email'])
-        data=Workshop.objects.all()
-        # for setdata in dataWorkshopFilter:
-        #     data=Workshop.objects.filter(id=setdata.SoilTagWorkshop.id)
-            # Workshop.objects.get
-            # data=Workshop.objects.filter(id=dataWorkshopFilter.SoilTagWorkshop.id)
+        return render(request,'SoilFilteredWorkshop.html', {'person':person, 'filteredWorkshop':filteredWorkshop, 'chosen_soilTag':soilTagging, 'ori_workshop':data})
 
+    else:
+        
         context = {
-            "Herb": "Herb",
-            "Shrub": "Shrub",
-            "Tree": "Tree",
-            "Creeper": "Creeper",
-            "Climber": "Climber",
-            "Fruit": "Fruit"
+            'SoilTags': SoilTag.objects.all(), 
         }
-            
-            # return render(request,'WorkshopSoilTag.html', {'person':person,'data':data})
-        return render(request,'workshop_plantTags.html', {'person':person,'data':data, 'context':context})
 
-    except Workshop.DoesNotExist:
-        raise Http404('Data does not exist')
+        return render(request,'workshop.html', {'person':person,'data':data, 'context_SoilTags':context})
 
 
-def Workshop_PlantTag(request, plantTag):
-        try:
-            person=Person.objects.get(Email=request.session['Email'])
-            dataWorkshopFilter=PlantTag.objects.filter(plantTag=plantTag)
-            if dataWorkshopFilter:
-                for setdata in dataWorkshopFilter:
-                    data=Workshop.objects.filter(id=setdata.PlantTagWorkshop.id)
-            else:
-                data = ''
-            
-            context = {
-            "Herb": "Herb",
-            "Shrub": "Shrub",
-            "Tree": "Tree",
-            "Creeper": "Creeper",
-            "Climber": "Climber",
-            "Fruit": "Fruit"
+def Workshop_PlantTag(request):
+    
+    data=Workshop.objects.all()
+    person=Person.objects.get(Email=request.session['Email'])
+
+    if request.method=='POST':
+        
+        plantTagsID = request.POST.get('PlantTag')
+        plantTagging = PlantTag.objects.get(id=plantTagsID)
+
+        filteredWorkshop = WorkshopPlantTagging.objects.filter(plantTag=plantTagging)
+
+        return render(request,'PlantFilteredWorkshop.html', {'person':person,'filteredWorkshop':filteredWorkshop, 'chosen_PlantTag':plantTagging, 'ori_workshop':data})
+
+    else:
+        
+        context = {
+            'PlantTags' : PlantTag.objects.all(),
         }
-            
-            return render(request,'workshop_plantTags.html', {'person':person,'data':data, 'context':context, 'plantTag':plantTag})
-        except Workshop.DoesNotExist:
-            raise Http404('Data does not exist')
 
-
-def Workshop_LocationTag(request):
-        try:
-            data=Workshop.objects.all()
-            # cuba
-            person=Person.objects.get(Email=request.session['Email'])
-            # person = Person.objects.filter(Email=request.session['Email'])
-            # return render(request,'workshop.html',{'data':data})
-            # return render(request,'workshop.html',{'data':data},{'person':person})
-            return render(request,'workshop.html', {'person':person,'data':data})
-        except Workshop.DoesNotExist:
-            raise Http404('Data does not exist')
-
-
-def Workshop_DemographicTag(request):
-        try:
-            data=Workshop.objects.all()
-            # cuba
-            person=Person.objects.get(Email=request.session['Email'])
-            # person = Person.objects.filter(Email=request.session['Email'])
-            # return render(request,'workshop.html',{'data':data})
-            # return render(request,'workshop.html',{'data':data},{'person':person})
-            return render(request,'workshop.html', {'person':person,'data':data})
-        except Workshop.DoesNotExist:
-            raise Http404('Data does not exist')
+        return render(request,'workshop.html', {'person':person,'data':data, 'context_PlantTags':context})

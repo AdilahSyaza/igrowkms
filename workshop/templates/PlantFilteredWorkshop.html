@@ -50,64 +50,83 @@
   <br/>
  <br/>
     <p class="h4 text-center">Workshop</p>
-    <div class="container">
-      {% if plantTag %}
-        <h7 style="text-align: center;"><i>Filtered by {{ plantTag }} tag </i></h7>
-      {% endif %}
-  </div>
-    <br/><br/>
-    {% if not plantTag %}
-    <hr>
-    <div class="container">
-      <a href="{% url 'workshop:Workshop_PlantTag' context.Herb %}" class="link-primary" target="_blank">Herb</a> ||
-      <a href="{% url 'workshop:Workshop_PlantTag' context.Shrub %}" class="link-primary" target="_blank">Shrub</a> ||
-      <a href="{% url 'workshop:Workshop_PlantTag' context.Tree %}" class="link-primary" target="_blank">Tree</a> ||
-      <a href="{% url 'workshop:Workshop_PlantTag' context.Creeper %}" class="link-primary" target="_blank">Creeper</a> ||
-      <a href="{% url 'workshop:Workshop_PlantTag' context.Climber %}" class="link-primary" target="_blank">Climber</a> ||
-      <a href="{% url 'workshop:Workshop_PlantTag' context.Fruit %}" class="link-primary" target="_blank">Fruit</a> ||
-    </div>
-    <hr>
-    {% endif %}
+    <br/>
     {% csrf_token %}
     {% block body %}
-  <form method="POST" class="center">
-    {% csrf_token %}
+  
     <div class="container">
       {% if person.UserLevel == 'Admin' %}
       <a href="{% url 'workshop:CreateWorkshop' %}" class="link-primary">Create</a> || 
       <a href="{% url 'workshop:MyWorkshop' %}" class="link-primary">View Your Workshop</a> 
       {% endif %}
+    </div>
+
+    <br/>
+    <div class="container"><h9>Filter based on tags: {{chosen_PlantTag.PlantTagName}}</h9></div>
+    <br/>
+
+      <form method="POST" class="center">
+        {% csrf_token %}
       
       <br/><br/>
+      <div class="container">
       <div class="row">
         <table class="table">
           <thead>
             <tr>
-              
+           
               <th scope="col">Programme Name</th>
               <th scope="col">Speaker</th>
               <th scope="col">Description</th>
               <th scope="col">Date</th>
               <th scope="col">Start Time</th>
               <th scope="col">End Time</th>
+              <th scope="col">Plant Tagging Detail</th>
               <th colspan="2" style="text-align: center;" scope="col">Action</th>
               <th scope="col"> &nbsp; </th>
             </tr>
           </thead>
           <tbody>
             {% csrf_token %}
-            {% for data in data %}
+            {% for data in filteredWorkshop %}
             <tr class="table">
-              <!-- <th scope="row" value="{{ data.pk }}">{{ data.Session }}</th> -->
-              <th scope="row" value="{{ data.ProgrammeName }}">{{ data.ProgrammeName }}</th>
-              <th scope="row" value="{{ data.Speaker }}">{{ data.Speaker }}</th>
-              <th scope="row" value="{{ data.Description }}">{{ data.Description }}</th>
-              <th scope="row" value="{{ data.Date }}">{{ data.Date }}</th>
-              <th scope="row" value="{{ data.StartTime }}">{{ data.StartTime }}</th>
-              <th scope="row" value="{{ data.EndTime }}">{{ data.EndTime }}</th>
-              {% if person.Email == data.PIC.Email %}
-              <th><a href="{% url 'workshop:UpdateWorkshop' data.id %}" class="card-link">Edit</a></th>
-              <th><a href="{% url 'workshop:DeleteWorkshop' data.id %}" class="card-link">Delete</a></th>              
+              <th scope="row" value="{{ data.WorkshopPlantTag.ProgrammeName }}">{{ data.WorkshopPlantTag.ProgrammeName }}</th>
+              <th scope="row" value="{{ data.WorkshopPlantTag.Speaker }}">{{ data.WorkshopPlantTag.Speaker }}</th>
+              <th scope="row" value="{{ data.WorkshopPlantTag.Description }}">{{ data.WorkshopPlantTag.Description }}</th>
+              <th scope="row" value="{{ data.WorkshopPlantTag.Date }}">{{ data.WorkshopPlantTag.Date }}</th>
+              <th scope="row" value="{{ data.WorkshopPlantTag.StartTime }}">{{ data.WorkshopPlantTag.StartTime }}</th>
+              <th scope="row" value="{{ data.WorkshopPlantTag.EndTime }}">{{ data.WorkshopPlantTag.EndTime }}</th>
+              <th>
+                {%for ori_workshop in ori_workshop %}
+                
+                  {% if data.WorkshopPlantTag == ori_workshop %}
+
+                  
+                    {% if ori_workshop.soilTagging.all %}
+                        
+                        <i>
+                        {% for soilTags in ori_workshop.soilTagging.all %}
+                        {{soilTags.soilTag.SoilTagName}}  {% if not forloop.last %},{% endif %} 
+                        {% endfor %}
+                      </i>
+                    {% endif %}
+                  
+                    {% if ori_workshop.plantTagging.all %}
+                        
+                        <i>
+                        {% for plantTags in ori_workshop.plantTagging.all %}
+                        {{plantTags.plantTag.PlantTagName}}  {% if not forloop.last %},{% endif %} 
+                        {% endfor %}
+                      </i>
+                    {% endif %}
+
+                  {% endif %}
+
+                {% endfor %} 
+            </th>
+              {% if person.Email == data.WorkshopPlantTag.PIC.Email %}
+              <th><a href="{% url 'workshop:UpdateWorkshop' data.WorkshopPlantTag.id %}" class="card-link">Edit</a></th>
+              <th><a href="{% url 'workshop:DeleteWorkshop' data.WorkshopPlantTag.id %}" class="card-link">Delete</a></th>              
               {% else %}
               <th scope="row"> &nbsp; </th>
               <th scope="row"> &nbsp; </th>
@@ -115,7 +134,7 @@
               
               {% if person.UserLevel == 'User' %}
               <th>
-                <a href="{% url 'workshop:Booking' data.id %}" class="card-link">Book</a>
+                <a href="{% url 'workshop:Booking' data.WorkshopPlantTag.id %}" class="card-link">Book</a>
               </th>
               {% endif %}
             </tr>
@@ -124,18 +143,24 @@
         </table>
         
   </div>
-  <div class="container">
-    {% if data == '' %}
-      <h7 style="text-align: center;"><i>No workshop related to this {{ plantTag }} tag </i></h7>
-    {% endif %}
 </div>
-  {% if messages %}
-      {% for msg in messages %}
-      <b>{{msg}}</b>
-      {% endfor %}
-      {% endif %}
-</form>
-{% endblock body %}
+ 
+</form> 
 
+<hr>
+{% if not filteredWorkshop %}
+<div class="container">
+    <h7 style="text-align: center;"><i>No workshop related to this {{ chosen_PlantTag.PlantTagName }} tag </i></h7>
+</div>
+{% endif %}
+
+<hr>
+
+{% if messages %}
+{% for msg in messages %}
+<b>{{msg}}</b>
+{% endfor %}
+{% endif %}
+{% endblock body %}
 
 </html>

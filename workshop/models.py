@@ -2,7 +2,7 @@ from django.db import models, migrations
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.contrib.syndication.views import Feed
-from member.models import Person
+from member.models import Person, SoilTag, PlantTag
 
 # Create your models here.
 
@@ -52,46 +52,40 @@ class Booking(models.Model):
         unique_together = [['BookWorkshop', 'Participant']]
 
 
-class SoilTag(models.Model):
+class WorkshopSoilTagging(models.Model):
 
-    class Meta:
-        db_table = 'SoilTag'
-
-    SoilTagWorkshop = models.ForeignKey(Workshop, on_delete=models.CASCADE)
-    soilTag = models.CharField(max_length=150)
+    WorkshopSoilTag = models.ForeignKey(Workshop, related_name="soilTagging", on_delete=models.CASCADE)    
+    soilTag = models.ForeignKey(SoilTag, on_delete=models.CASCADE)
+   
+    class Meta:  
+        unique_together = [['WorkshopSoilTag', 'soilTag']]
 
     def save(self):
         super().save()
         super().save(using='farming')
-    
+   
     def deleteRecordFarming(self):
         super().delete(using='farming')
         
     def deleteRecordIgrow(self):
         super().delete()
 
-    class Meta:
-        unique_together = [['SoilTagWorkshop', 'soilTag' ]]
 
+class WorkshopPlantTagging(models.Model):
 
-class PlantTag(models.Model):
-
-    class Meta:
-        db_table = 'PlantTag'
-
-    PlantTagWorkshop = models.ForeignKey(Workshop, on_delete=models.CASCADE)
-    plantTag = models.CharField(max_length=150)
+    WorkshopPlantTag = models.ForeignKey(Workshop, related_name="plantTagging", on_delete=models.CASCADE)    
+    plantTag = models.ForeignKey(PlantTag, on_delete=models.CASCADE)
+   
+    class Meta:  
+        unique_together = [['WorkshopPlantTag', 'plantTag']]
 
     def save(self):
         super().save()
         super().save(using='farming')
-    
+   
     def deleteRecordFarming(self):
         super().delete(using='farming')
         
     def deleteRecordIgrow(self):
         super().delete()
-
-    class Meta:
-        unique_together = [['PlantTagWorkshop', 'plantTag' ]]
 
