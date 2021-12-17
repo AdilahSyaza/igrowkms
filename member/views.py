@@ -264,22 +264,111 @@ def getMessages(request, room):
     return JsonResponse({"messages":list(messages.values())})
 
 
+def TagSuggestion(request):
+    person=Person.objects.get(Email=request.session['Email'])
+    soilTagList=SoilTag.objects.all()
+    plantTagList=PlantTag.objects.all()
+
+    return render(request,'MainTaggingSuggestion.html', {'person':person, 'soilTag':soilTagList, 'plantTag':plantTagList})
+
+
 def add_SoilTag(request):
-    if request.method=='POST':
-        soilTag = request.POST.get("SoilTag")
-        SoilTag(SoilTagName=soilTag).save()
-        return render(request, "soilTag.html", {"msg":"soil Tag added!"})
-    else:
-        return render(request, "soilTag.html")
+    
+    try:   
+        if request.method=='POST':
+            soilTag = request.POST.get("SoilTag")
+            SoilTag(SoilTagName=soilTag).save()
+            return render(request, "soilTag.html", {"msg":"soil Tag added!"})
+        else:
+            return render(request, "soilTag.html")
+
+    except IntegrityError:
+        return render(request, "soilTag.html", {"msg":"The " + soilTag +" Soil Tag has already been added before!"})        
 
 
 def add_PlantTag(request):
-    if request.method=='POST':
-        plantTag = request.POST.get("PlantTag")
-        PlantTag(PlantTagName=plantTag).save()
-        return render(request, "plantTag.html", {"msg":"Plant Tag added!"})
-    else:
-        return render(request, "plantTag.html")
+    try:
+        if request.method=='POST':
+            plantTag = request.POST.get("PlantTag")
+            PlantTag(PlantTagName=plantTag).save()
+            return render(request, "plantTag.html", {"msg":"Plant Tag added!"})
+        else:
+            return render(request, "plantTag.html")
+    except IntegrityError:
+        return render(request, "plantTag.html", {"msg":"The " + plantTag + " Tag has already been added before added!"})
 
+
+def UpdateSoilTag(request, id):
+    try:
+        soilTag=SoilTag.objects.get(id=id)
+
+        if request.method=='POST':
+
+            soilTag.SoilTagName= request.POST.get("SoilTag")       
+            soilTag.save()
+            return render(request, "UpdateSoilTag.html", {"msg":"Soil Tag has been updated!"})
+        else:
+            return render(request, "UpdateSoilTag.html", {'soilTag':soilTag})
+    except IntegrityError:
+        return render(request, "soilTag.html", {"msg":"The " + soilTag.SoilTagName + " tag is already in the record"})
+
+
+def DeleteSoilTag(request, id):
+    try:
+        soilTagList=SoilTag.objects.all()
+        plantTagList=PlantTag.objects.all()
+
+        soilTag_igrow=SoilTag.objects.get(id=id)
+        soilTag_farming=SoilTag.objects.get(id=id)
+
+        if request.method=='POST':
+
+            soilTag_igrow.deleteRecordIgrow()
+            soilTag_farming.deleteRecordFarming()
+
+            messages.success(request,'The ' + soilTag_igrow.SoilTagName + " is deleted succesfully..!")
+
+            return redirect('TagSuggestion')
+        else:
+            return render(request, "DeleteSoilTag.html", {'soilTag':soilTag_igrow})
+    except SoilTag.DoesNotExist:
+            raise Http404('Data does not exist')
+
+
+def UpdatePlantTag(request, id):
+    try:
+        plantTag=PlantTag.objects.get(id=id)
+
+        if request.method=='POST':
+
+            plantTag.PlantTagName= request.POST.get("PlantTag")       
+            plantTag.save()
+            return render(request, "UpdatePlantTag.html", {"msg":"Plant Tag has been updated!"})
+        else:
+            return render(request, "UpdatePlantTag.html", {'plantTag':plantTag})
+    except IntegrityError:
+        return render(request, "plantTag.html", {"msg":"The " + plantTag.PlantTagName + " tag is already in the record"})
+
+
+def DeletePlantTag(request, id):
+    try:
+        soilTagList=SoilTag.objects.all()
+        plantTagList=PlantTag.objects.all()
+
+        plantTag_igrow=PlantTag.objects.get(id=id)
+        plantTag_farming=PlantTag.objects.get(id=id)
+
+        if request.method=='POST':
+
+            plantTag_igrow.deleteRecordIgrow()
+            plantTag_farming.deleteRecordFarming()
+
+            messages.success(request,'The ' + plantTag_igrow.PlantTagName + " is deleted succesfully..!")
+
+            return redirect('TagSuggestion')
+        else:
+            return render(request, "DeletePlantTag.html", {'plantTag':plantTag_igrow})
+    except PlantTag.DoesNotExist:
+            raise Http404('Data does not exist')
 
         

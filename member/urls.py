@@ -35,6 +35,7 @@ urlpatterns = [
     path('Loginpage', views.loginpage, name="Loginpage"),
     path('Logout',views.logout, name="Logout"),
     path('View',views.view,name="View"),
+    path('MainTaggingSuggestion',views.TagSuggestion,name="TagSuggestion"),
 
     path('MainMember', views.mainMember, name="MainMember"),
     path('Friendlist',views.friendlist, name="friendlist"),
@@ -52,6 +53,10 @@ urlpatterns = [
 
     path("add-soilTag/", views.add_SoilTag, name="add_SoilTag"),
     path("add-plantTag/", views.add_PlantTag, name="add_PlantTag"),
+    path('UpdateSoilTag/<str:id>',views.UpdateSoilTag,name="UpdateSoilTag"),
+    path('DeleteSoilTag/<str:id>',views.DeleteSoilTag,name="DeleteSoilTag"),
+    path('UpdatePlantTag/<str:id>',views.UpdatePlantTag,name="UpdatePlantTag"),
+    path('DeletePlantTag/<str:id>',views.DeletePlantTag,name="DeletePlantTag"),
 
     url(r'^api/users_list/$', UserList.as_view(), name='user_list'),
     url(r'^api/users_list/(?P<Person>\d+)/$', UserDetail.as_view(), name='user_list'),

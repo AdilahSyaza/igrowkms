@@ -66,46 +66,65 @@
           <div class="col-8">
             <body>  
               {% csrf_token %}
-                        <div class="container my-3 bg-light">
-                          <label for="exampleFormControlTextarea1" style="font-size: 2em;" >Sharing</label>
-                        </div>
-                        <div class="col-12">
-                          <a href="{% url 'group:MyGroup' %}" class="link-primary">My Group</a> 
-                        </div>
+
+                {% if person.UserLevel == 'Admin' %}  
+                <hr>                   
+                <div class="col-12">          
+                  <a href="{% url 'add_SoilTag' %}" class="link-primary">Add Soil Tag</a>                        
+                </div>
+                        
+                <div class="col-12">                       
+                  <a href="{% url 'add_PlantTag' %}" class="link-primary">Add Plant Tag</a>                      
+                </div>    
+                <hr>             
+                {% endif %}
 
 {% endblock content %}
 {% block body %}
+<h4>Soil Tags</h4>
+<table class="table">
+      <thead>
+        <!-- <th scope="row"></th> -->
+        <th scope="row">Name</th>
+        {% if person.UserLevel == 'Admin' %}
+        <th colspan="2" scope="row" >Action</th>
+        {% endif %}
+      </thead>
+      <tbody>
+        {% csrf_token %}
+        {% for soilTag in soilTag%}
+        <tr class="table">
+          <th scope="row" value="{{ soilTag.SoilTagName }}">{{ soilTag.SoilTagName }}</th>
+          {% if person.UserLevel == 'Admin' %}
+          <th><a href="{% url 'UpdateSoilTag' soilTag.id %}" class="card-link">Edit</a></th>
+          <th><a href="{% url 'DeleteSoilTag' soilTag.id %}" class="card-link">Delete</a></th>
+          {% endif %}
+        </tr>
+        {% endfor %} 
+      </tbody>
+      
+    </table>
 
+  <h4>Plant Tags</h4>
 <table class="table">
     <thead>
-        <th scope="row">Group</th>
-        <th scope="row">Created By</th>
-        <th scope="row">Time Created</th>
-        <th scope="row">Title</th>
-        <th scope="row">Message</th>
-        <th scope="row">Detail</th>
-        <th scope="row">View</th>
+      <!-- <th scope="row"></th> -->
+      <th scope="row">Name</th>
+      <th colspan="2" scope="row">Action</th>
     </thead>
     <tbody>
       {% csrf_token %}
-      {% for feed in feed reversed%}
+      {% for plantTag in plantTag%}
       <tr class="table">
-        <th scope="row" value="{{ feed.Group.Name }}">{{ feed.Group.Name }}</th>
-        <th scope="row" value="{{ feed.Creator.Name }}">{{ feed.Creator.Name }}</th>
-        <th scope="row" value="{{ feed.created_at }}">{{ feed.created_at }}</th>
-        <th scope="row" value="{{ feed.Title }}">{{ feed.Title }}</th>
-        <th scope="row" value="{{ feed.Message }}">{{ feed.Message }}</th>
-        <td>
-          {% if feed.Creator.Email == request.session.Email %}
-          <a href="{% url 'sharing:UpdateSharing' feed.id %}" class="card-link" target="_blank">Edit</a> || <a href="{% url 'sharing:DeleteSharing' feed.id %}" class="card-link">Delete</a>
-          {% endif %}
-        </td>
-        <th>
-          <a href="{% url 'sharing:Forum' feed.Group.id %}" class="card-link">View Group Forum</a>
-        </th>
+        <th scope="row" value="{{ plantTag.PlantTagName }}">{{ plantTag.PlantTagName }}</th>
+        {% if person.UserLevel == 'Admin' %}
+          <th><a href="{% url 'UpdatePlantTag' plantTag.id %}" class="card-link">Edit</a></th>
+          <th><a href="{% url 'DeletePlantTag' plantTag.id %}" class="card-link">Delete</a></th>
+        {% endif %}
       </tr>
+      {% endfor %} 
     </tbody>
-    {% endfor %}
+    
   </table>
  
   </div>
@@ -122,6 +141,17 @@
 </div>
 
 </b>
+
+<div class="container">
+  <hr />
+  {% if messages %}
+  {% for msg in messages %}
+  <b>{{msg}}</b>
+  {% endfor %}
+  {% endif %}
+  <hr />
+</div>
+
 {% endblock body %}
 
 </html>

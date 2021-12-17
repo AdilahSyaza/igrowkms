@@ -34,12 +34,15 @@
         <a class="nav-link active" id="workshop-tab" data-bs-toggle="tab" href="{% url 'workshop:Workshop' %}"role="tab" aria-controls="workshop" aria-selected="true">Workshop</a>
        </li>
        <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="sugggestionTag-tab" data-bs-toggle="tab" href="{% url 'TagSuggestion' %}" role="tab" aria-controls="sugggestionTag" aria-selected="true">Suggestion</a>
+       </li>
+       <li class="nav-item" role="presentation">
         <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'View' %}" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
        </li>
        <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'Logout' %}" role="tab" aria-controls="logout" aria-selected="true">Logout</a>
+        <a class="nav-link active" id="logout-tab" data-bs-toggle="tab" href="{% url 'Logout' %}" role="tab" aria-controls="logout" aria-selected="true">Logout</a>
        </li>
-      
+   
     </ul>
   </div>
 <br/>
@@ -99,7 +102,7 @@
         <div class="card-body">
           <h5 class="card-title">Suggestion</h5>
           <p class="card-text">iGROW trainees can find farmers near them or their trainees friends because this system provides those features.</p>
-          <a href="#" class="card-link">Read More</a>
+          <a href="{% url 'TagSuggestion' %}" class="card-link">Read More</a>
         </div>
       </div>
     </div>
@@ -107,8 +110,8 @@
       <div class="card" style="width: 20rem;">
         <img src="https://image.freepik.com/free-vector/business-concept-sales-chart-flat-illustration_9041-213.jpg" class="card-img-top img-thumbnail" alt="...">
         <div class="card-body">
-          <h5 class="card-title">Sales</h5>
-          <p class="card-text">While making a posting, trainees can sell their crops or crop seeds. This is helping them in business.</p>
+          <h5 class="card-title">Promote Sales</h5>
+          <p class="card-text">While making a posting, trainees can promote to sell their crops or crop seeds. This is helping them in business.</p>
           <a href="{% url 'sharing:MainSharing' %}" class="card-link">Read More</a>
         </div>
       </div>

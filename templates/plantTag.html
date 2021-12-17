@@ -59,18 +59,18 @@
         <input type="text" class="form-control" id="PlantTag" placeholder="Enter tag" name="PlantTag" required>
       </div>
   </div>
-    <button type="submit" class="btn btn-success" value="PlantTag">Register</button>
+    <button type="submit" class="btn btn-success" value="PlantTag">Add</button>
 </form>
 <br/><br/>
-<hr />
-{% if msg %}
 
-<b>{{msg|upper}}</b>
+<div class="container">
+  <hr />
+  {% if msg %}
+    <b>{{msg|upper}}</b>
+  {% endif %}
+  <hr />
+</div>
 
-{% endif %}
-<hr />
-
-  
 </body>
 
 </html>

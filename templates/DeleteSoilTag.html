@@ -18,7 +18,7 @@
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
  </head>
 
- <br>
+ <b>
  <div>
    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist" >
      <li class="nav-item" role="presentation">
@@ -44,22 +44,22 @@
       </li>
    </ul>
  </div>
+</b>
 <br/>
-
 <body>
 
-   <p class="h3 text-center align-content: center;">Add Soil Tag</p>
+   <p class="h3 text-center align-content: center;">Delete Soil Tag: {{soilTag.SoilTagName}}</p>
    <hr/>
    <br/>
-<form method="POST" class="container text-center" action="{% url 'add_SoilTag' %}">
+<form method="POST" class="container text-center">
   {% csrf_token %}
 
     <div class="form-group col-md-6">
         <label for="SoilTag" class="container text-left" >Soil Tag</label>
-        <input type="text" class="form-control" id="SoilTag" placeholder="Enter tag" name="SoilTag" required>
+        <input type="text" class="form-control" id="SoilTag" value="{{soilTag.SoilTagName}}" name="SoilTag" disabled>
       </div>
   </div>
-    <button type="submit" class="btn btn-success" value="SoilTag">Add</button>
+    <button type="submit" class="btn btn-success" value="SoilTag">Delete</button>
 </form>
 <br/><br/>
 
@@ -70,7 +70,7 @@
   {% endif %}
   <hr />
 </div>
-  
+
 </body>
 
 </html>

@@ -153,7 +153,7 @@ class SoilTag(models.Model):
     class Meta:
         db_table = 'SoilTag'  
 
-    SoilTagName = models.CharField(max_length=50)
+    SoilTagName = models.CharField(max_length=50, unique=True)
 
     def save(self):
         super().save()
@@ -171,7 +171,7 @@ class PlantTag(models.Model):
     class Meta:
         db_table = 'PlantTag'  
 
-    PlantTagName = models.CharField(max_length=50)
+    PlantTagName = models.CharField(max_length=50, unique=True)
 
     def save(self):
         super().save()
