@@ -90,6 +90,33 @@
         <input class="form-control" id="inputEndTime" value="{{ data.EndTime|time:'h:i:s' }}" name="EndTime" rows="10" cols="10" type="time"></textarea>
       </div>
       <br/><br/>
+
+      <div class="col-md-6">
+        {% if currentLocationTag %}
+          <b>Current location tags:</b> 
+          {% for currentLocationTag in currentLocationTag %}
+            <p><b>{{currentLocationTag.locationTag.LocationTagName}}</b></p>
+          {% endfor %}
+        {% endif %}
+        <label for="inputLocation" class="form-label">Location : </label>
+        <select id="Location" name="Location" required>
+          <option value="{{locationTag.id}}" id="{{locationTag.id}}" selected>Johor</option>
+          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Kedah</option>
+          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Kelantan</option>
+          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Melaka</option>
+          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Negeri Sembilan</option>
+          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Pahang</option>
+          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Pulau Pinang</option>
+          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Perak</option>
+          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Perlis</option>
+          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Sabah</option>
+          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Sarawak</option>
+          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Selangor</option>
+          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Terengganu</option>
+          <option value="{{locationTag.id}}" id="{{locationTag.id}}">W.P. Kuala Lumpur</option>
+        </select>
+      </div>
+      <br/><br/>
       
       <div class="col-md-6">
         {% if currentSoilTag %}
