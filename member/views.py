@@ -35,6 +35,16 @@ def homepage(request):
     return render(request, 'homepage.html',{'person': person })
 
 
+def OurServices(request):
+    return render(request, 'OurServices.html')
+
+
+def About(request):
+    return render(request, 'About.html')
+
+
+def ContactUs(request):
+    return render(request, 'ContactUs.html')
 
 
 #user registration

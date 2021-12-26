@@ -36,6 +36,9 @@ urlpatterns = [
     path('Logout',views.logout, name="Logout"),
     path('View',views.view,name="View"),
     path('MainTaggingSuggestion',views.TagSuggestion,name="TagSuggestion"),
+    path('OurServices', views.OurServices, name="OurServices"),
+    path('About', views.About, name="About"),
+    path('ContactUs', views.ContactUs, name="ContactUs"),
 
     path('MainMember', views.mainMember, name="MainMember"),
     path('Friendlist',views.friendlist, name="friendlist"),
