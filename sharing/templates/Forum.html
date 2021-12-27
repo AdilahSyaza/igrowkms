@@ -152,15 +152,22 @@
           <h9>{{feed.created_at}}</h9>
           <br/>
           <p><b>{{feed.Message}}</b></p>
-          <img
-                src="{{MEDIA_URL}}/{{feed.Photo}}"
-                width="300"
-                height="300"
-                alt=""
-            />
-            <video width="500px" height="500px" controls>
+          {% if feed.Photo %}
+            <img
+                  style="border: 1px solid black;"
+                  src="{{MEDIA_URL}}/{{feed.Photo}}"
+                  width="300"
+                  height="300"
+                  alt="pic"
+              />
+              <br>
+          {% endif %}
+          {% if feed.Video %}
+            <video width="500px" height="500px" controls style="border: 1px solid black;">
               <source src="{{MEDIA_URL}}/{{feed.Video}}" type="video/mp4">
             </video>
+            <br>
+          {% endif %}
             {% if feed.soilTagging.all %}
               <i>Soil Tagging:</i>
               <i>
@@ -180,11 +187,12 @@
             {% endif %}
 
             {% if feed.Creator.Email == request.session.Email %}
+            <br>
             <a href="{% url 'sharing:UpdateSharing' feed.id %}" class="card-link">Edit</a>
             <a href="{% url 'sharing:DeleteSharing' feed.id %}" class="card-link">Delete</a>
             {% endif %}
 
-            <br/><br/>
+            <br/>
             <hr>
             <h5>Comments...</h5>
             <br/>

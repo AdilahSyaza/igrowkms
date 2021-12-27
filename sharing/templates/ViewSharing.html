@@ -58,12 +58,12 @@
                             <br/><br/>
                             <div class="col-12">
                               <label for="inputImage" class="form-label">Photo</label>
-                              <input type="file" class="form-control" id="inputImage" name="Photo" required>
+                              <input type="file" class="form-control" id="inputImage" name="Photo">
                             </div>
                             <br/><br/>
                             <div class="col-12">
                               <label for="inputVideo" class="form-label">Video</label>
-                              <input type="file" class="form-control" id="inputVideo" name="Video" placeholder="Enter video" required>
+                              <input type="file" class="form-control" id="inputVideo" name="Video" placeholder="Enter video">
                             </div>
                             <br/><br/>
 
@@ -101,10 +101,13 @@
 
                           </form>
                         </div>
+                        <div class="container">
                           {% if messages %}
                           {% for msg in messages %}
                           <b>{{msg}}</b>
                           {% endfor %}
                           {% endif %}
+                        </div>
+                          
                       
                           {% endblock %}
