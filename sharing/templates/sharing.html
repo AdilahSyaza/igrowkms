@@ -70,7 +70,7 @@
                         <div class="tab-pane fade show active" id="sharing" role="tabpanel" aria-labelledby="sharing-tab">
                         <div class="container my-3 bg-light">
                           <label for="exampleFormControlTextarea1" style="font-size: 2em;" >Sharing</label>
-                          <form method="POST" class="container row g-3" >
+                          <form method="POST" class="container row g-3" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="col-12">
                               <label for="inputTitle" class="container text-left">Title</label>
@@ -88,7 +88,7 @@
                             <br/><br/>
                             <div class="col-12">
                               <label for="inputVideo" class="form-label">Video</label>
-                              <input type="file" class="form-control" id="inputVideo" name="Video" placeholder="Enter video">
+                              <input type="file" class="form-control" id="inputVideo" name="Video" placeholder="Enter video" required>
                             </div>
                             <br/><br/> 
                             <div class="col-md-6">

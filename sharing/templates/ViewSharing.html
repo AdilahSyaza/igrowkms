@@ -44,7 +44,7 @@
                           {% block content %}
                           <div class="container">
                           <label for="exampleFormControlTextarea1" style="font-size: 2em;" >Update Sharing</label>
-                          <form method="POST" class="container row g-3" >
+                          <form method="POST" class="container row g-3" enctype="multipart/form-data">
                             {% csrf_token %}
                             
                             <div class="col-12">
@@ -58,12 +58,12 @@
                             <br/><br/>
                             <div class="col-12">
                               <label for="inputImage" class="form-label">Photo</label>
-                              <input type="file" img src="/media/login/photo.png" class="form-control" id="inputImage" name="Photo" value="{{ feed.Photo }}" required>
+                              <input type="file" class="form-control" id="inputImage" name="Photo" required>
                             </div>
                             <br/><br/>
                             <div class="col-12">
                               <label for="inputVideo" class="form-label">Video</label>
-                              <input type="file" class="form-control" id="inputVideo" name="Video" placeholder="Enter video" value="{{ feed.Video }}">
+                              <input type="file" class="form-control" id="inputVideo" name="Video" placeholder="Enter video" required>
                             </div>
                             <br/><br/>
 

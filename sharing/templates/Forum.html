@@ -153,12 +153,14 @@
           <br/>
           <p><b>{{feed.Message}}</b></p>
           <img
-                src="{{ feed.Photo }}"
-                class="rounded-circle"
-                width="30"
-                height="30"
+                src="{{MEDIA_URL}}/{{feed.Photo}}"
+                width="300"
+                height="300"
                 alt=""
             />
+            <video width="500px" height="500px" controls>
+              <source src="{{MEDIA_URL}}/{{feed.Video}}" type="video/mp4">
+            </video>
             {% if feed.soilTagging.all %}
               <i>Soil Tagging:</i>
               <i>

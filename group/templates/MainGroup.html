@@ -141,10 +141,7 @@
                 <tr>
                   <th scope="row" value="{{ group.Name }}">{{ group.Name }}</th>
                   <th scope="row" value="{{ group.About }}">{{ group.About }}</th>
-                  <!-- <th scope="row" value="{{ group.Media }}">{{ group.Media }}</th> -->
-                  <!-- <th scope="row" <a href="{{ uploaded_file }}">{{ uploaded_file }}</a></th> -->
-                  
-                  <th scope="row" <a href="{{ MEDIA_URL }}">{{ MEDIA_URL }}</a></th>
+                  <th><img src="{{MEDIA_URL}}/{{group.Media}}" width="120"/></th>
                   <th scope="row" <a href="{{ group.Username.Name }}">{{ group.Username.Name }}</a></th>
                   <th>
                     {% if group.soilTagging.all %}

@@ -43,9 +43,11 @@ def sharingGroup(request, pk):
         taggingSoil=SoilTag.objects.all()
         Title=request.POST.get('Title')
         Message=request.POST.get('Message')
-        Photo=request.POST.get('Photo')
-        Video=request.POST.get('Video')
-        # Graph=request.POST.get('Graph')
+        Photo=request.FILES['Photo']
+        Video=request.FILES['Video']
+        fss =FileSystemStorage()
+        # file = fss.save(Media.name, Media)
+        
         feed_id = Feed(Title=Title,Message=Message,Photo=Photo,Video=Video,Group=group_forum,Creator=creator).save()
         feed = Feed.objects.get(id=feed_id)
 
@@ -81,8 +83,9 @@ def updateSharing(request, pk):
     if request.method=='POST':
         feed.Title=request.POST['Title']
         feed.Message=request.POST.get('Message')
-        feed.Photo=request.POST.get('Photo')
-        feed.Video=request.POST.get('Video')
+        feed.Photo=request.FILES['Photo']
+        feed.Video=request.FILES['Video']
+        fss =FileSystemStorage()
 
         newSoilTags = request.POST.getlist('SoilTag')
         newPlantTags = request.POST.getlist('PlantTag')

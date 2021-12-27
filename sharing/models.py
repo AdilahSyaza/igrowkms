@@ -12,11 +12,10 @@ from member.models import Person, SoilTag, PlantTag
 class Feed(models.Model):
     class Meta:
         db_table = 'Feed'
-    Title = models.CharField(max_length=255, blank=True)
-    Message = models.CharField(max_length=255, blank=True)
-    Photo = models.ImageField(upload_to ='images/')
-    Video = models.FileField(upload_to='uploads/', null=True)
-    # Graph = models.FileField(upload_to='uploads/')
+    Title = models.CharField(max_length=255)
+    Message = models.CharField(max_length=255)
+    Photo = models.ImageField(upload_to ='uploads/', blank=True,null=True, default="")
+    Video = models.FileField(upload_to='uploads/', blank=True, null=True, default="")
     created_at = models.DateTimeField(default=datetime.now, blank=True)
     Group = models.ForeignKey(Group, on_delete=models.CASCADE)
     Creator = models.ForeignKey(Person, on_delete=models.CASCADE)

@@ -55,7 +55,7 @@
   <br>
   <p class="h3 text-center align-content: center;">Update Group</p><br/>
   {% block content %}
-  <form method="POST" class="container text-left" >
+  <form method="POST" class="container text-left" enctype="multipart/form-data">
     <form class="row g-3">
       {% csrf_token %}
       <div class="col-md-6">
@@ -70,8 +70,7 @@
       <br/><br/>
       <div class="col-md-6">
         <label for="inputMedia" class="form-label">Media : </label>
-        <!-- <input class="form-control" id="inputMedia" value="{{ data.Media }}" name="Media" rows="10" cols="10" ></textarea> -->
-        <input type="file" class="form-control" value="{{ data.Media }}" id="inputMedia" name="Photo" accept=".doc, .docx, .pdf, .txt, image/*" required>
+        <input type="file" class="form-control" id="inputMedia" name="Photo" accept=".doc, .docx, .pdf, .txt, image/*" required>
       </div>
       <br/><br/>
 
