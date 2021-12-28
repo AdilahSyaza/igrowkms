@@ -15,6 +15,7 @@ class Workshop(models.Model):
     Date = models.DateField()
     StartTime = models.TimeField()
     EndTime = models.TimeField()
+    State = models.CharField(max_length=100,default="")
     # Session = models.CharField(max_length=150)
     # nanti next version or bila share version ni, sila remove null=true okay
     PIC = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
