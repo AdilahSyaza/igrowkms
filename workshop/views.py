@@ -45,7 +45,8 @@ def createWorkshop(request):
         StartTime=request.POST.get('StartTime')
         EndTime=request.POST.get('EndTime')
         State=request.POST.get('State')
-        workshop_id = Workshop(ProgrammeName=ProgrammeName,Speaker=Speaker,Description=Description,Date=Date,StartTime=StartTime,EndTime=EndTime,State=State,PIC=pic).save()
+        Venue=request.POST.get('Venue')
+        workshop_id = Workshop(ProgrammeName=ProgrammeName,Speaker=Speaker,Description=Description,Date=Date,StartTime=StartTime,EndTime=EndTime,State=State,Venue=Venue,PIC=pic).save()
         workshop = Workshop.objects.get(id=workshop_id)
 
         soilTagsID = request.POST.getlist('SoilTag')
@@ -89,6 +90,7 @@ def updateWorkshop(request, pk):
             workshop.StartTime=request.POST.get('StartTime')
             workshop.EndTime=request.POST.get('EndTime')
             workshop.State=request.POST.get('State')
+            workshop.Venue=request.POST.get('Venue')
             # workshop_id=workshop.save()
             # workshop_obj = Workshop.objects.get(id=workshop_id)
 
@@ -239,6 +241,23 @@ def Workshop_GeneralSoilTag(request):
     except Workshop.DoesNotExist:
         raise Http404('Data does not exist')
 
+def Location(request):
+    if request.method=="POST":
+       person=Person.objects.get(Email=request.session['Email'])
+       Venue=request.POST.get('Venue')
+       State=request.POST.get('State')
+       searchvenue=Workshop.objects.filter(Venue=Venue)
+       searchstate=Workshop.objects.filter(State=State)
+       return render(request,'Location.html', {'person':person,'data':searchvenue,'data':searchstate})
+    try:
+            data=Workshop.objects.all()
+            person=Person.objects.get(Email=request.session['Email'])
+
+            return render(request,'Location.html', {'person':person,'data':data})
+    except Workshop.DoesNotExist:
+            raise Http404('Data does not exist')  
+        
+    
 
 def Workshop_SoilTag(request):
     

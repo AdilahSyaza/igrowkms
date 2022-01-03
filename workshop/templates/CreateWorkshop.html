@@ -111,6 +111,19 @@
       <br/><br/>
 
       <div class="col-md-6">
+        <label for="inputVenue" class="form-label">Venue : </label><br>
+        <input type="radio" id="venue1" name="Venue" value="Google Meet">
+        <label for="venue1"> Google Meet</label><br>
+        <input type="radio" id="venue2" name="Venue" value="WeBex">
+        <label for="venue2"> Webex</label><br>
+        <input type="radio" id="venue3" name="Venue" value="Zoom">
+        <label for="venue3"> Zoom</label><br>
+        <input type="radio" name="Venue" value="">Other <input type="text" name="other_reason" />
+      
+      </div>
+      <br/><br/>
+
+      <div class="col-md-6">
         <label for="inputSoil" class="form-label">Soil Tag : </label><br>
         {% for soilTag in SoilTag %}
         <input type="checkbox" name="SoilTag" value="{{soilTag.id}}" id="{{soilTag.id}}"><label for="{{soilTag.id}}">{{soilTag.SoilTagName}}</label><br>

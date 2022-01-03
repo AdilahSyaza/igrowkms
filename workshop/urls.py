@@ -29,7 +29,7 @@ urlpatterns = [
     path('Workshop/Filter_PlantTag',views.Workshop_PlantTag, name="Workshop_PlantTag"),
     # path('Workshop_LocationTag',views.Workshop_LocationTag, name="Workshop_LocationTag"),
     # path('Workshop_DemographicTag',views.Workshop_DemographicTag, name="Workshop_DemographicTag"),
-
+    path('Location',views.Location, name="Location"),
 
 
 ] + static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

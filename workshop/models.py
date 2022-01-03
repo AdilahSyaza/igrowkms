@@ -16,6 +16,7 @@ class Workshop(models.Model):
     StartTime = models.TimeField()
     EndTime = models.TimeField()
     State = models.CharField(max_length=100,default="")
+    Venue = models.CharField(max_length=100)
     # Session = models.CharField(max_length=150)
     # nanti next version or bila share version ni, sila remove null=true okay
     PIC = models.ForeignKey(Person, on_delete=models.SET_NULL, null=True)
@@ -31,7 +32,7 @@ class Workshop(models.Model):
     def deleteRecordIgrow(self):
         super().delete()
         
-
+   
 
 class Booking(models.Model):
     class Meta:

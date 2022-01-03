@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <style>
@@ -49,17 +49,25 @@
    </b>
   <br/>
  <br/>
-    <p class="h4 text-center">Workshop</p>
+    
+
+  <p class="h4 text-center">Workshop</p>
     <br/>
     {% csrf_token %}
     {% block body %}
-  
+    
     <div class="container">
       {% if person.UserLevel == 'Admin' %}
       <a href="{% url 'workshop:CreateWorkshop' %}" class="link-primary">Create</a> || 
       <a href="{% url 'workshop:MyWorkshop' %}" class="link-primary">View Your Workshop</a> 
       {% endif %}
     </div>
+  
+    <div class="container">
+            
+      <h5>Filter Workshop By Location and Venue:</h5>
+
+      <p><a href="{% url 'workshop:Location' %}">Location and Venue</a></p>
 
     {% if context_SoilTags %}
       <div class="container">
@@ -77,43 +85,57 @@
         </form>  
       </div>
       
-      {% elif context_PlantTags %}
-                        
-        <div class="container">
-          <form method="POST" class="container row g-3" action="{% url 'workshop:Workshop_PlantTag' %}" >
-            {% csrf_token %}
-            <div class="container">
-              <label for="inputPlant" class="form-label">Plant Tag : </label><br>
-                {% for plantTag in context_PlantTags.PlantTags %}
-                  <input type="radio" name="PlantTag" value="{{ plantTag.id }}">{{ plantTag.PlantTagName }} <br>
-                {% endfor %}
-            </div>
-          <div class="col-12">
-            <button type="submit" class="btn btn-success " value="Filter">Filter</button>
-          </div>
-          </form>  
-        </div>
-        
-        {% else %}
+    
         
           <div class="container">
+            
             <h5>Filter Workshop By Location and Venue:</h5>
 
             <p><a href="{% url 'workshop:Location' %}">Location and Venue</a></p>
             <h5>Filter Sharing By Tags: </h5>
               <a href="{% url 'workshop:Workshop_SoilTag' %}" class="link-primary" target="_blank">Enable Soil Tags</a> ||
               <a href="{% url 'workshop:Workshop_PlantTag' %}" class="link-primary" target="_blank">Enable Plant Tags</a> ||
+             
           </div>
     
         {% endif %}
 
       <form method="POST" class="center">
         {% csrf_token %}
+        
       
       <br/><br/>
+
+       <center>
       <div class="container">
       <div class="row">
-        <table class="table">
+        <table border="1" class="table">
+          <input type="radio" id="venue1" name="Venue" value="Google Meet">&nbsp; Google Meet &nbsp;
+          <input type="radio" id="venue2" name="Venue" value="WeBex"> &nbsp;Webex &nbsp;
+          <input type="radio" id="venue3" name="Venue" value="Zoom">&nbsp;Zoom &nbsp;
+          &nbsp;
+          <select id="inputLocation" name="State" required>
+              <option selected disabled=true>--select state --</option>
+              <option value="Johor" >Johor</option>
+              <option value="Kedah">Kedah</option>
+              <option value="Kelantan">Kelantan</option>
+              <option value="Melaka">Melaka</option>
+              <option value="Negeri Sembilan">Negeri Sembilan</option>
+              <option value="Pahang">Pahang</option>
+              <option value="Pulau Pinang">Pulau Pinang</option>
+              <option value="Perak">Perak</option>
+              <option value="Perlis">Perlis</option>
+              <option value="Sabah">Sabah</option>
+              <option value="Sarawak">Sarawak</option>
+              <option value="Selangor">Selangor</option>
+              <option value="Terengganu">Terengganu</option>
+              <option value="W.P. Kuala Lumpur">W.P. Kuala Lumpur</option>
+            </select>
+            &nbsp;&nbsp;
+              <button type="submit" class="btn btn-success " value="Filter">Filter</button>
+            <br>
+            <br>
+          </center>
           <thead>
             <tr>
               <!-- <th scope="col">Programme ID</th> -->
@@ -121,15 +143,19 @@
               <th scope="col">Speaker</th>
               <th scope="col">Description</th>
               <th scope="col">Date</th>
+              <th scope="col">Location</th>
+              <th scope="col">Venue</th>
               <th scope="col">Start Time</th>
               <th scope="col">End Time</th>
               <th scope="col">Tagging Details</th>
               <th colspan="2" style="text-align: center;" scope="col">Action</th>
-              <th scope="col"> &nbsp; </th>
+              
             </tr>
           </thead>
           <tbody>
+          
             {% csrf_token %}
+           
             {% for data in data %}
             <tr class="table">
               <!-- <th scope="row" value="{{ data.pk }}">{{ data.Session }}</th> -->
@@ -137,6 +163,8 @@
               <th scope="row" value="{{ data.Speaker }}">{{ data.Speaker }}</th>
               <th scope="row" value="{{ data.Description }}">{{ data.Description }}</th>
               <th scope="row" value="{{ data.Date }}">{{ data.Date }}</th>
+              <th scope="row" value="{{ data.State }}">{{ data.State }}</th>
+              <th scope="row" value="{{ data.Venue }}">{{ data.Venue }}</th>
               <th scope="row" value="{{ data.StartTime }}">{{ data.StartTime }}</th>
               <th scope="row" value="{{ data.EndTime }}">{{ data.EndTime }}</th>
               <th>
@@ -160,15 +188,10 @@
               <th><a href="{% url 'workshop:UpdateWorkshop' data.id %}" class="card-link">Edit</a></th>
               <th><a href="{% url 'workshop:DeleteWorkshop' data.id %}" class="card-link">Delete</a></th>              
               {% else %}
-              <th scope="row"> &nbsp; </th>
-              <th scope="row"> &nbsp; </th>
+             
               {% endif %}
               
-              {% if person.UserLevel == 'User' %}
-              <th>
-                <a href="{% url 'workshop:Booking' data.id %}" class="card-link">Book</a>
-              </th>
-              {% endif %}
+              
             </tr>
             {% endfor %}
           </tbody>
