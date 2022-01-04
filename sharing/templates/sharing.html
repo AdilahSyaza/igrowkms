@@ -94,14 +94,14 @@
                             <div class="col-md-6">
                               <label for="inputSoil" class="form-label">Soil Tag : </label><br>
                               {% for soilTag in SoilTag %}
-                              <input type="checkbox" name="SoilTag" value="{{soilTag.id}}" id="soilTag"><label for="soilTag">{{soilTag.SoilTagName}}</label><br>
+                              <input type="checkbox" name="SoilTag" value="{{soilTag.id}}" id="{{soilTag.id}}"><label for="{{soilTag.id}}">{{soilTag.SoilTagName}}</label><br>
                               {% endfor %}
                             </div>
                             <br/><br/> 
                             <div class="col-md-6">
                               <label for="inputPlant" class="form-label">Plant Tag : </label><br>
                               {% for plantTag in PlantTag %}
-                              <input type="checkbox" name="PlantTag" value="{{plantTag.id}}" id="plantTag"><label for="plantTag">{{plantTag.PlantTagName}}</label><br>
+                              <input type="checkbox" name="PlantTag" value="{{plantTag.id}}" id="{{plantTag.id}}"><label for="{{plantTag.id}}">{{plantTag.PlantTagName}}</label><br>
                               {% endfor %}
                             </div>
                             
