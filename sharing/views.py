@@ -14,7 +14,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from cryptography.fernet import Fernet
 from .models import Feed, Comment
-from group.models import Group
+from group.models import Group, GroupMembership
 from member.models import Person, SoilTag, PlantTag
 from sharing.models import FeedSoilTagging, FeedPlantTagging
 
@@ -25,8 +25,15 @@ from sharing.models import FeedSoilTagging, FeedPlantTagging
 def mainSharing(request):
     try:
         feed=Feed.objects.all()
+        user=Person.objects.get(Email=request.session['Email'])
+        user_group = GroupMembership.objects.filter(GroupMember_id=user)
+        
+        
+        # group = Group.objects.filter(GroupMember_id=user)
+        # feed=Feed.objects.filter(Group__in=user_group.GroupName)
+
         soilTags = SoilTag.objects.all()
-        return render(request,'MainSharing.html',{'feed':feed ,'soilTags':soilTags})
+        return render(request,'MainSharing.html',{'feed':feed ,'soilTags':soilTags, 'user_group':user_group})
     except Feed.DoesNotExist:
         raise Http404('Data does not exist')
 

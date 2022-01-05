@@ -88,7 +88,7 @@
     </thead>
     <tbody>
       {% csrf_token %}
-      {% for feed in feed reversed%}
+      <!-- {% for feed in feed reversed%}
       <tr class="table">
         <th scope="row" value="{{ feed.Group.Name }}">{{ feed.Group.Name }}</th>
         <th scope="row" value="{{ feed.Creator.Name }}">{{ feed.Creator.Name }}</th>
@@ -105,7 +105,31 @@
         </th>
       </tr>
     </tbody>
+    {% endfor %} -->
+    
+    {% for feed in feed reversed%}
+    {% for user_group in user_group %}
+    {% if user_group.GroupName == feed.Group  %}
+      <tr class="table">
+        <th scope="row" value="{{ feed.Group.Name }}">{{ feed.Group.Name }}</th>
+        <th scope="row" value="{{ feed.Creator.Name }}">{{ feed.Creator.Name }}</th>
+        <th scope="row" value="{{ feed.created_at }}">{{ feed.created_at }}</th>
+        <th scope="row" value="{{ feed.Title }}">{{ feed.Title }}</th>
+        <th scope="row" value="{{ feed.Message }}">{{ feed.Message }}</th>
+        <td>
+          {% if feed.Creator.Email == request.session.Email %}
+          <a href="{% url 'sharing:UpdateSharing' feed.id %}" class="card-link" target="_blank">Edit</a> || <a href="{% url 'sharing:DeleteSharing' feed.id %}" class="card-link">Delete</a>
+          {% endif %}
+        </td>
+        <th>
+          <a href="{% url 'sharing:Forum' feed.Group.id %}" class="card-link">View Group Forum</a>    
+      </th>
+        
+      </tr>
+    </tbody>
+    {% endif %}
     {% endfor %}
+    {% endfor %}    
   </table>
  
   </div>
