@@ -100,7 +100,8 @@ def view(request):
        t = Person.objects.get(Email=person.Email)
        t.Email=request.POST['Email']
        request.session['Email'] = t.Email
-       t.Password=request.POST['Password']
+       t.Password=encryption_util.encrypt(request.POST['Password'])
+    #    t.Password=request.POST['Password']
        t.Username=request.POST.get('Username')
        t.Name=request.POST.get('Name')
        t.DateOfBirth=request.POST.get('DateOfBirth')
@@ -114,8 +115,8 @@ def view(request):
        t.save()
        return render(request,'homepage.html')
     else:
-        # decryptPass = deryptPassword(person.Password)
-        return render(request, 'profile.html',{'person': person})
+        decryptPass = encryption_util.decrypt(person.Password)
+        return render(request, 'profile.html',{'person': person,'password':decryptPass})
 
 
 def viewProfile(request, id):

@@ -69,7 +69,7 @@
       <div class="form-row field-Password mb-3 row">
         <div>
         <label class="required" for="id_Password">Password:</label>
-            <input type="text" name="Password" value="{{ person.Password }}" class="vTextField" minlength="8" maxlength="20" required="" id="id_Password">
+            <input type="text" name="Password" value="{{ password }}" class="vTextField" minlength="8" maxlength="20" required="" id="id_Password">
             <small id="passwordHelpInline" class="text-muted">Must be 8-20 characters long.</small>
         </div>
       </div>
@@ -124,9 +124,12 @@
       <div class="form-row field-Gender mb-3 row">
         <div>
           <label class="required" for="id_Gender">Current Gender:</label>
-            <input type="text" name="Gender" value="{{ person.Gender }}" class="vTextField" maxlength="1" required="" id="id_Gender" disabled>
+            <input type="text" value="{{ person.Gender }}" class="vTextField" maxlength="1" required="" id="id_Gender" disabled>
         </div>
 
+      </div>
+
+      <div class="form-row field-Gender mb-3 row">
         <div>
           <label class="required" for="id_Gender">Gender:</label>
       <div class="custom-control custom-radio text-left">
@@ -138,14 +141,17 @@
           <label class="custom-control-label" for="customRadio2">Female</label>
         </div>
         </div>
-      
-        
+
       </div>
+
       <div class="form-row field-MaritalStatus mb-3 row">
           <div>
            <label class="required" for="id_MaritalStatus">Current Marital Status:</label>
-            <input type="text" name="MaritalStatus" value="{{ person.MaritalStatus }}" class="vTextField" maxlength="150" required="" id="id_MaritalStatus" disabled>
+            <input type="text" value="{{ person.MaritalStatus }}" class="vTextField" maxlength="150" required="" id="id_MaritalStatus" disabled>
           </div>
+          </div>
+          <div class="form-row field-MaritalStatus mb-3 row">
+          <div>
           <label for="inputState"class="container text-left" name="MaritalStatus" >Marital Status</label>
         <select id="MaritalStatus" class="form-control" name="MaritalStatus" required>
           <option selected>Choose marital status</option>
@@ -154,8 +160,7 @@
             <option value="Divorced" name="MaritalStatus" >Divorced</option>
         </select>
       </div>
- 
-    
+      </div>
 
     <button type="submit" class="btn btn-success" href="{% url 'View' %}" onclick="return formValidate()">Edit</button>
  
