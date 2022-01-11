@@ -115,6 +115,36 @@
         {% csrf_token %}
       
       <br/><br/>
+      <center>
+        <div class="container">
+        <div class="row">
+          <table border="1" class="table">
+            <input type="radio" id="venue1" name="Venue" value="Google Meet">&nbsp; Google Meet &nbsp;
+            <input type="radio" id="venue2" name="Venue" value="WeBex"> &nbsp;Webex &nbsp;
+            <input type="radio" id="venue3" name="Venue" value="Zoom">&nbsp;Zoom &nbsp;
+            &nbsp;
+            <select id="inputLocation" name="State" required>
+                <option selected disabled=true>--select state --</option>
+                <option value="Johor" >Johor</option>
+                <option value="Kedah">Kedah</option>
+                <option value="Kelantan">Kelantan</option>
+                <option value="Melaka">Melaka</option>
+                <option value="Negeri Sembilan">Negeri Sembilan</option>
+                <option value="Pahang">Pahang</option>
+                <option value="Pulau Pinang">Pulau Pinang</option>
+                <option value="Perak">Perak</option>
+                <option value="Perlis">Perlis</option>
+                <option value="Sabah">Sabah</option>
+                <option value="Sarawak">Sarawak</option>
+                <option value="Selangor">Selangor</option>
+                <option value="Terengganu">Terengganu</option>
+                <option value="W.P. Kuala Lumpur">W.P. Kuala Lumpur</option>
+              </select>
+              &nbsp;&nbsp;
+              <button type="submit" class="btn btn-success " value="Filter" onclick="document.location='Location.html' ">Filter</button>
+              <br>
+              <br>
+            </center>
       <div class="container">
       <div class="row">
         <table class="table">
@@ -127,6 +157,8 @@
               <th scope="col">Date</th>
               <th scope="col">Start Time</th>
               <th scope="col">End Time</th>
+              <th scope="col">Location</th>
+              <th scope="col">Venue</th>
               <th scope="col">Tagging Details</th>
               <th colspan="2" style="text-align: center;" scope="col">Action</th>
               
@@ -143,6 +175,8 @@
               <th scope="row" value="{{ data.Date }}">{{ data.Date }}</th>
               <th scope="row" value="{{ data.StartTime }}">{{ data.StartTime }}</th>
               <th scope="row" value="{{ data.EndTime }}">{{ data.EndTime }}</th>
+              <th scope="row" value="{{ data.State }}">{{ data.State }}</th>
+              <th scope="row" value="{{ data.Venue }}">{{ data.Venue }}</th>
               <th>
                 {% if data.soilTagging.all %}
                   <i>

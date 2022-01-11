@@ -22,13 +22,20 @@ from django.db import IntegrityError
 
 #workshop
 def workshop(request):
-        try:
+    if request.method=="POST":
+       person=Person.objects.get(Email=request.session['Email'])
+       Venue=request.POST.get('Venue')
+       State=request.POST.get('State')
+       searchvenue=Workshop.objects.filter(Venue=Venue)
+       searchstate=Workshop.objects.filter(State=State)
+       return render(request,'workshop.html', {'person':person,'data':searchvenue,'data':searchstate})
+    try:
             data=Workshop.objects.all()
             person=Person.objects.get(Email=request.session['Email'])
 
             return render(request,'workshop.html', {'person':person,'data':data})
-        except Workshop.DoesNotExist:
-            raise Http404('Data does not exist')
+    except Workshop.DoesNotExist:
+            raise Http404('Data does not exist') 
             
 def createWorkshop(request):
 
