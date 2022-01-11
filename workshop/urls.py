@@ -23,6 +23,8 @@ urlpatterns = [
     path('UpdateWorkshop/<str:pk>',views.updateWorkshop, name="UpdateWorkshop"),
     path('DeleteWorkshop/<str:pk>',views.deleteWorkshop, name="DeleteWorkshop"),
     path('MyWorkshop',views.viewWorkshop, name="MyWorkshop"),
+    path('MyBooking',views.viewBooking, name="MyBooking"),
+    path('CancelBooking/<str:pk>',views.deleteBooking, name="DeleteBooking"),
     path('WorkshopParticipant/<str:id>',views.WorkshopParticipant, name="WorkshopParticipant"),
 
     path('Workshop/Filter_SoilTag',views.Workshop_SoilTag, name="Workshop_SoilTag"),

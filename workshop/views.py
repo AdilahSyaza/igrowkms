@@ -194,6 +194,25 @@ def booking(request, pk):
 
 
 
+def deleteBooking(request, pk):
+    try:
+        booking=Booking.objects.get(id=pk)
+        booking2=Booking.objects.get(id=pk)
+        
+        # if request.method=='POST':
+        booking.deleteRecordIgrow()
+        booking2.deleteRecordFarming()
+        messages.success(request,'The booking of workshop ' + booking.ProgrammeName + " is cancelled succesfully..!")
+        return redirect('workshop:MyBooking')
+        
+        # else:
+        #     return render(request, 'deleteBooking.html', {'booking':booking})
+        
+    except Booking.DoesNotExist:
+        messages.success(request,'No record of the booking!')
+        return redirect('workshop:MyBooking')
+
+
 def viewWorkshop(request):
     try:
         user=Person.objects.get(Email=request.session['Email'])
@@ -203,6 +222,16 @@ def viewWorkshop(request):
         
         return render(request,'MyWorkshop.html',{'data':my_workshop})
     except Workshop.DoesNotExist:
+        raise Http404('Data does not exist')
+
+
+def viewBooking(request):
+    try:
+        user=Person.objects.get(Email=request.session['Email'])
+        my_booking=Booking.objects.filter(Participant=user)
+        
+        return render(request,'MyBooking.html',{'data':my_booking})
+    except Booking.DoesNotExist:
         raise Http404('Data does not exist')
 
 

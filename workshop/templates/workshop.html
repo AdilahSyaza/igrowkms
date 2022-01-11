@@ -49,7 +49,7 @@
    </b>
   <br/>
  <br/>
-    <p class="h4 text-center">Workshop</p>
+    <p class="h1 text-center">Workshop</p>
     <br/>
     {% csrf_token %}
     {% block body %}
@@ -58,6 +58,10 @@
       {% if person.UserLevel == 'Admin' %}
       <a href="{% url 'workshop:CreateWorkshop' %}" class="link-primary">Create</a> || 
       <a href="{% url 'workshop:MyWorkshop' %}" class="link-primary">View Your Workshop</a> 
+      {% else %}
+      <a href="{% url 'workshop:MyBooking' %}" class="link-primary">View Your Booking</a> 
+      <br/>
+      <br/>
       {% endif %}
     </div>
 
@@ -125,7 +129,7 @@
               <th scope="col">End Time</th>
               <th scope="col">Tagging Details</th>
               <th colspan="2" style="text-align: center;" scope="col">Action</th>
-              <th scope="col"> &nbsp; </th>
+              
             </tr>
           </thead>
           <tbody>
@@ -160,20 +164,18 @@
               <th><a href="{% url 'workshop:UpdateWorkshop' data.id %}" class="card-link">Edit</a></th>
               <th><a href="{% url 'workshop:DeleteWorkshop' data.id %}" class="card-link">Delete</a></th>              
               {% else %}
-              <th scope="row"> &nbsp; </th>
-              <th scope="row"> &nbsp; </th>
+                {% if person.UserLevel == 'User' %}
+                <th>
+                  <a href="{% url 'workshop:Booking' data.id %}" class="card-link">Book</a>
+                </th>
+                {% endif %}
               {% endif %}
-              
-              {% if person.UserLevel == 'User' %}
-              <th>
-                <a href="{% url 'workshop:Booking' data.id %}" class="card-link">Book</a>
-              </th>
-              {% endif %}
+        
             </tr>
             {% endfor %}
           </tbody>
         </table>
-        <!-- userLevel = request.session.['UserLevel'] -->
+        
   </div>
 </div>
   {% if messages %}
@@ -184,4 +186,6 @@
 </form>
 {% endblock body %}
 
+<br/>
+<hr>
 </html>

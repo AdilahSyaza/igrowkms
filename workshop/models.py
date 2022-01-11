@@ -48,6 +48,12 @@ class Booking(models.Model):
     def save(self):
         super().save()
         super().save(using='farming')
+
+    def deleteRecordFarming(self):
+        super().delete(using='farming')
+        
+    def deleteRecordIgrow(self):
+        super().delete()
     
     class Meta:
         
