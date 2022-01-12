@@ -66,6 +66,18 @@
       <div class="col-md-6">
         <label for="inputSpeaker" class="form-label">Speaker : </label>
         <input class="form-control" id="inputSpeaker" value="{{ data.Speaker }}" name="Speaker" rows="10" cols="10" placeholder="Enter Speaker"></textarea>
+        <div>
+        <br/><br/> 
+          <label class="required" for="id_Gender">Gender:</label>
+      <div class="custom-control custom-radio text-left">
+        <input type="radio" id="customRadio1" name="Gender" class="custom-control-input" value="Male" required>
+        <label class="custom-control-label" for="customRadio1">Male</label>
+      </div>
+        <div class="custom-control custom-radio text-left">
+          <input type="radio" id="customRadio2" name="Gender" class="custom-control-input" value="Female">
+          <label class="custom-control-label" for="customRadio2">Female</label>
+        </div>
+        </div>
       </div>
       <br/><br/>
       <div class="col-md-6">
@@ -99,22 +111,35 @@
           {% endfor %}
         {% endif %}
         <label for="inputLocation" class="form-label">Location : </label>
-        <select id="Location" name="Location" required>
-          <option value="{{locationTag.id}}" id="{{locationTag.id}}" selected>Johor</option>
-          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Kedah</option>
-          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Kelantan</option>
-          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Melaka</option>
-          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Negeri Sembilan</option>
-          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Pahang</option>
-          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Pulau Pinang</option>
-          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Perak</option>
-          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Perlis</option>
-          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Sabah</option>
-          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Sarawak</option>
-          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Selangor</option>
-          <option value="{{locationTag.id}}" id="{{locationTag.id}}">Terengganu</option>
-          <option value="{{locationTag.id}}" id="{{locationTag.id}}">W.P. Kuala Lumpur</option>
+        <select id="inputLocation" name="State" required>
+          <option value="Johor" id="{{locationTag.id}}">Johor</option>
+          <option value="Kedah" id="{{locationTag.id}}">Kedah</option>
+          <option value="Kelantan" id="{{locationTag.id}}">Kelantan</option>
+          <option value="Melaka" id="{{locationTag.id}}">Melaka</option>
+          <option value="Negeri Sembilan" id="{{locationTag.id}}">Negeri Sembilan</option>
+          <option value="Pahang" id="{{locationTag.id}}">Pahang</option>
+          <option value="Pulau Pinang" id="{{locationTag.id}}">Pulau Pinang</option>
+          <option value="Perak" id="{{locationTag.id}}">Perak</option>
+          <option value="Perlis" id="{{locationTag.id}}">Perlis</option>
+          <option value="Sabah}" id="{{locationTag.id}}">Sabah</option>
+          <option value="Sarawak}" id="{{locationTag.id}}">Sarawak</option>
+          <option value="Selangor" id="{{locationTag.id}}">Selangor</option>
+          <option value="Terengganu" id="{{locationTag.id}}">Terengganu</option>
+          <option value="W.P. Kuala Lumpur" id="{{locationTag.id}}">W.P. Kuala Lumpur</option>
         </select>
+      </div>
+      <br/><br/>
+
+      <div class="col-md-6">
+        <label for="inputVenue" class="form-label">Venue : </label><br>
+        <input type="radio" id="venue1" name="Venue" value="Google Meet">
+        <label for="venue1"> Google Meet</label><br>
+        <input type="radio" id="venue2" name="Venue" value="WeBex">
+        <label for="venue2"> Webex</label><br>
+        <input type="radio" id="venue3" name="Venue" value="Zoom">
+        <label for="venue3"> Zoom</label><br>
+        <input type="radio" name="Venue" value="">Other <input type="text" name="other_reason" />
+      
       </div>
       <br/><br/>
       
