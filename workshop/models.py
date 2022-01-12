@@ -13,6 +13,7 @@ class Workshop(models.Model):
     Speaker=models.CharField(max_length=150, default="")
     Description=models.CharField(max_length=150,default="")
     Date = models.DateField()
+    Gender = models.CharField(max_length=20,default="")
     StartTime = models.TimeField()
     EndTime = models.TimeField()
     State = models.CharField(max_length=100,default="")

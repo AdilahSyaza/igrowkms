@@ -101,9 +101,7 @@
         {% else %}
         
           <div class="container">
-            <h5>Filter Workshop By Location and Venue:</h5>
-
-            <p><a href="{% url 'workshop:Location' %}">Location and Venue</a></p>
+           
             <h5>Filter Workshop By Tags: </h5>
               <a href="{% url 'workshop:Workshop_SoilTag' %}" class="link-primary" target="_blank">Enable Soil Tags</a> ||
               <a href="{% url 'workshop:Workshop_PlantTag' %}" class="link-primary" target="_blank">Enable Plant Tags</a> ||
@@ -119,9 +117,9 @@
         <div class="container">
         <div class="row">
           <table border="1" class="table">
-            <input type="radio" id="venue1" name="Venue" value="Google Meet">&nbsp; Google Meet &nbsp;
-            <input type="radio" id="venue2" name="Venue" value="WeBex"> &nbsp;Webex &nbsp;
-            <input type="radio" id="venue3" name="Venue" value="Zoom">&nbsp;Zoom &nbsp;
+            <input type="radio"  name="Venue" value="Google Meet">&nbsp; Google Meet &nbsp;
+            <input type="radio"  name="Venue" value="WeBex"> &nbsp;Webex &nbsp;
+            <input type="radio"  name="Venue" value="Zoom">&nbsp;Zoom &nbsp;
             &nbsp;
             <select id="inputLocation" name="State" required>
                 <option selected disabled=true>--select state --</option>
@@ -154,6 +152,7 @@
               <th scope="col">Programme Name</th>
               <th scope="col">Speaker</th>
               <th scope="col">Description</th>
+              <th scope="col">Gender</th>
               <th scope="col">Date</th>
               <th scope="col">Start Time</th>
               <th scope="col">End Time</th>
@@ -172,6 +171,7 @@
               <th scope="row" value="{{ data.ProgrammeName }}">{{ data.ProgrammeName }}</th>
               <th scope="row" value="{{ data.Speaker }}">{{ data.Speaker }}</th>
               <th scope="row" value="{{ data.Description }}">{{ data.Description }}</th>
+              <th scope="row" value="{{ data.Gender }}">{{ data.Gender }}</th>
               <th scope="row" value="{{ data.Date }}">{{ data.Date }}</th>
               <th scope="row" value="{{ data.StartTime }}">{{ data.StartTime }}</th>
               <th scope="row" value="{{ data.EndTime }}">{{ data.EndTime }}</th>
