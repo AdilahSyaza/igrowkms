@@ -29,6 +29,7 @@ def workshop(request):
        searchgender=Workshop.objects.filter(Gender=Gender)
        searchstate=Workshop.objects.filter(State=State)
        #searchfilter=Workshop.objects.filter(Gender=Gender,State=State)
+       #searchfilter=Workshop.objects.filter(Gender=Gender & State=State)
        return render(request,'workshop.html', {'person':person,'data':searchgender,'data':searchstate})
     try:
             data=Workshop.objects.all()
