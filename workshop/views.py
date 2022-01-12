@@ -24,11 +24,12 @@ from django.db import IntegrityError
 def workshop(request):
     if request.method=="POST":
        person=Person.objects.get(Email=request.session['Email'])
-       Venue=request.POST.get('Venue')
+       Gender=request.POST.get('Gender')
        State=request.POST.get('State')
-       searchvenue=Workshop.objects.filter(Venue=Venue)
+       searchgender=Workshop.objects.filter(Gender=Gender)
        searchstate=Workshop.objects.filter(State=State)
-       return render(request,'workshop.html', {'person':person,'data':searchvenue,'data':searchstate})
+       #searchfilter=Workshop.objects.filter(Gender=Gender,State=State)
+       return render(request,'workshop.html', {'person':person,'data':searchgender,'data':searchstate})
     try:
             data=Workshop.objects.all()
             person=Person.objects.get(Email=request.session['Email'])
@@ -279,21 +280,21 @@ def Workshop_GeneralSoilTag(request):
     except Workshop.DoesNotExist:
         raise Http404('Data does not exist')
 
-def Location(request):
-    if request.method=="POST":
-       person=Person.objects.get(Email=request.session['Email'])
-       Venue=request.POST.get('Venue')
-       State=request.POST.get('State')
-       searchvenue=Workshop.objects.filter(Venue=Venue)
-       searchstate=Workshop.objects.filter(State=State)
-       return render(request,'Location.html', {'person':person,'data':searchvenue,'data':searchstate})
-    try:
-            data=Workshop.objects.all()
-            person=Person.objects.get(Email=request.session['Email'])
+#def Location(request):
+#    if request.method=="POST":
+ #      person=Person.objects.get(Email=request.session['Email'])
+ #      Venue=request.POST.get('Venue')
+ #      State=request.POST.get('State')
+  #     searchvenue=Workshop.objects.filter(Venue=Venue)
+  #     searchstate=Workshop.objects.filter(State=State)
+   #    return render(request,'Location.html', {'person':person,'data':searchvenue,'data':searchstate})
+  #  try:
+  #          data=Workshop.objects.all()
+  #          person=Person.objects.get(Email=request.session['Email'])
 
-            return render(request,'Location.html', {'person':person,'data':data})
-    except Workshop.DoesNotExist:
-            raise Http404('Data does not exist')  
+   #         return render(request,'Location.html', {'person':person,'data':data})
+  #  except Workshop.DoesNotExist:
+  #          raise Http404('Data does not exist')  
         
     
 

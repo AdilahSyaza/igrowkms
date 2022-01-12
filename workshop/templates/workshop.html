@@ -117,9 +117,9 @@
         <div class="container">
         <div class="row">
           <table border="1" class="table">
-            <input type="radio"  name="Venue" value="Google Meet">&nbsp; Google Meet &nbsp;
-            <input type="radio"  name="Venue" value="WeBex"> &nbsp;Webex &nbsp;
-            <input type="radio"  name="Venue" value="Zoom">&nbsp;Zoom &nbsp;
+            <input type="radio"  name="Gender" value="Male">&nbsp; Male &nbsp;
+            <input type="radio"  name="Gender" value="Female"> &nbsp;Female &nbsp;
+            
             &nbsp;
             <select id="inputLocation" name="State" required>
                 <option selected disabled=true>--select state --</option>
@@ -139,7 +139,7 @@
                 <option value="W.P. Kuala Lumpur">W.P. Kuala Lumpur</option>
               </select>
               &nbsp;&nbsp;
-              <button type="submit" class="btn btn-success " value="Filter" onclick="document.location='Location.html' ">Filter</button>
+              <button type="submit" class="btn btn-success " value="Filter" >Filter</button>
               <br>
               <br>
             </center>
@@ -151,8 +151,8 @@
               <!-- <th scope="col">Programme ID</th> -->
               <th scope="col">Programme Name</th>
               <th scope="col">Speaker</th>
-              <th scope="col">Description</th>
               <th scope="col">Gender</th>
+              <th scope="col">Description</th>
               <th scope="col">Date</th>
               <th scope="col">Start Time</th>
               <th scope="col">End Time</th>
@@ -170,8 +170,8 @@
               <!-- <th scope="row" value="{{ data.pk }}">{{ data.Session }}</th> -->
               <th scope="row" value="{{ data.ProgrammeName }}">{{ data.ProgrammeName }}</th>
               <th scope="row" value="{{ data.Speaker }}">{{ data.Speaker }}</th>
-              <th scope="row" value="{{ data.Description }}">{{ data.Description }}</th>
               <th scope="row" value="{{ data.Gender }}">{{ data.Gender }}</th>
+              <th scope="row" value="{{ data.Description }}">{{ data.Description }}</th>
               <th scope="row" value="{{ data.Date }}">{{ data.Date }}</th>
               <th scope="row" value="{{ data.StartTime }}">{{ data.StartTime }}</th>
               <th scope="row" value="{{ data.EndTime }}">{{ data.EndTime }}</th>
