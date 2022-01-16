@@ -31,24 +31,7 @@ class Feed(models.Model):
         
     def deleteRecordIgrow(self):
         super().delete()
-        
-
-    def showvideo(request):
-
-        lastvideo = video.objects.last()
-        videofile = lastvideo.videofile
     
-        form = SharingForm(request.POST or None, request.FILES or None)
-        if form.is_valid():
-            form.save()
-
-        context= {'videofile': videofile, 'form': form}
-
-        return render(request, 'LOGIN/sharing.html', context)
-    #def __str__(self):
-       # return self.Message + ": " + str(self.videofile)
-
-
 
 class Comment(models.Model):
     class Meta:
@@ -75,7 +58,6 @@ class FeedSoilTagging(models.Model):
 
     FeedSoilTag = models.ForeignKey(Feed, related_name="soilTagging", on_delete=models.CASCADE)    
     soilTag = models.ForeignKey(SoilTag, on_delete=models.CASCADE)
-    # soilTag = models.ForeignKey(SoilTag, related_name="soilTagName", on_delete=models.CASCADE)
     
     class Meta:  
         unique_together = [['FeedSoilTag', 'soilTag']]
