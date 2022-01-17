@@ -24,8 +24,7 @@ class Person(models.Model):
     Gender = models.CharField(max_length=1)
     MaritalStatus = models.CharField(max_length=150)
     UserLevel = models.CharField(max_length=150)
-    # cuba
-    # friends = models.ManyToManyField("Person", blank=True)
+
 
     def save(self):
         super().save()
