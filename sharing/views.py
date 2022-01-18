@@ -2,7 +2,7 @@ from django.http.response import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 # from LOGIN.models import Person as FarmingPerson
-# from LOGIN.models import Feed, Booking, Workshop, Group, Member 
+# from LOGIN.models import Feed, Booking, Workshop, Group_tbl, Member 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -14,7 +14,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from cryptography.fernet import Fernet
 from .models import Feed, Comment
-from group.models import Group, GroupMembership
+from group.models import Group_tbl, GroupMembership
 from member.models import Person, SoilTag, PlantTag
 from sharing.models import FeedSoilTagging, FeedPlantTagging
 
@@ -29,8 +29,8 @@ def mainSharing(request):
         user_group = GroupMembership.objects.filter(GroupMember_id=user)
         
         
-        # group = Group.objects.filter(GroupMember_id=user)
-        # feed=Feed.objects.filter(Group__in=user_group.GroupName)
+        # group = Group_tbl.objects.filter(GroupMember_id=user)
+        # feed=Feed.objects.filter(Group_tbl__in=user_group.GroupName)
 
         soilTags = SoilTag.objects.all()
         return render(request,'MainSharing.html',{'feed':feed ,'soilTags':soilTags, 'user_group':user_group})
@@ -41,7 +41,7 @@ def mainSharing(request):
 
 def sharingGroup(request, pk):
     
-    group_forum = Group.objects.get(id=pk)
+    group_forum = Group_tbl.objects.get(id=pk)
     creator=Person.objects.get(Email=request.session['Email'])
     soilTagList=SoilTag.objects.all()
     plantTagList=PlantTag.objects.all()
@@ -153,7 +153,7 @@ def deleteSharing(request,pk):
 
 
 def viewForum(request, pk):
-    data = Group.objects.get(id=pk)
+    data = Group_tbl.objects.get(id=pk)
     # soilTags = FeedSoilTagging.objects.all()
     feed = Feed.objects.filter(Group = data)
 
@@ -163,7 +163,7 @@ def viewForum(request, pk):
 def addComment(request, pk):
     commenter=Person.objects.get(Email=request.session['Email'])
     feed = Feed.objects.get(id=pk)
-    group_id = feed.Group.id
+    group_id = feed.Group_tbl.id
     
     if request.method=='POST':
         
@@ -182,7 +182,7 @@ def addComment(request, pk):
 def updateComment(request, pk):
    
     comment = Comment.objects.get(id=pk)
-    group_id=comment.Feed.Group.id
+    group_id=comment.Feed.Group_tbl.id
     feed = comment.Feed
     if request.method=='POST':
        
@@ -197,7 +197,7 @@ def updateComment(request, pk):
 
 def deleteComment(request,pk):
     comment = Comment.objects.get(id=pk)
-    group_id=comment.Feed.Group.id
+    group_id=comment.Feed.Group_tbl.id
     feed = comment.Feed
     try:
         comment=Comment.objects.get(id=pk)
@@ -220,7 +220,7 @@ def deleteComment(request,pk):
 
 def Sharing_GeneralSoilTag(request, pk):
 
-    data = Group.objects.get(id=pk)
+    data = Group_tbl.objects.get(id=pk)
     feed = Feed.objects.filter(Group = data)
 
     if request.method=='POST':
@@ -256,7 +256,7 @@ def Sharing_GeneralSoilTag(request, pk):
 
 def Sharing_PlantTag(request, pk):
 
-    data = Group.objects.get(id=pk)
+    data = Group_tbl.objects.get(id=pk)
     feed = Feed.objects.filter(Group = data)
 
     if request.method=='POST':

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.contrib.syndication.views import Feed
 from datetime import datetime
-from group.models import Group
+from group.models import Group_tbl
 from member.models import Person, SoilTag, PlantTag
 
 # Create your models here.
@@ -17,7 +17,7 @@ class Feed(models.Model):
     Photo = models.ImageField(upload_to ='uploads/', blank=True,null=True, default="")
     Video = models.FileField(upload_to='uploads/', blank=True, null=True, default="")
     created_at = models.DateTimeField(default=datetime.now, blank=True)
-    Group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    Group = models.ForeignKey(Group_tbl, on_delete=models.CASCADE)
     Creator = models.ForeignKey(Person, on_delete=models.CASCADE)
 
 

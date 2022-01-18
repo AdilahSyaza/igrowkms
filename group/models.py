@@ -9,7 +9,7 @@ from member.models import Person, SoilTag, PlantTag
 
 # Create your models here.
 
-class Group(models.Model):
+class Group_tbl(models.Model):
     
     Name = models.CharField(max_length=150)
     About = models.CharField(max_length=1000)
@@ -31,12 +31,12 @@ class Group(models.Model):
         super().delete()
     
     class Meta:
-        db_table = 'group'
+        db_table = 'group_tbl'
 
 
 class GroupMembership(models.Model):
     
-    GroupName = models.ForeignKey(Group, on_delete=models.CASCADE)
+    GroupName = models.ForeignKey(Group_tbl, on_delete=models.CASCADE)
     GroupMember = models.ForeignKey(Person, on_delete=models.CASCADE)
     # joined_on = models.DateTimeField(default=datetime.now, blank=True)
     joined_on = models.DateTimeField(auto_now_add=True, blank=True)
@@ -53,7 +53,7 @@ class GroupMembership(models.Model):
 
 class GroupSoilTagging(models.Model):
 
-    GroupSoilTag = models.ForeignKey(Group, related_name="soilTagging", on_delete=models.CASCADE)    
+    GroupSoilTag = models.ForeignKey(Group_tbl, related_name="soilTagging", on_delete=models.CASCADE)    
     soilTag = models.ForeignKey(SoilTag, on_delete=models.CASCADE)
    
     class Meta:  
@@ -72,7 +72,7 @@ class GroupSoilTagging(models.Model):
 
 class GroupPlantTagging(models.Model):
 
-    GroupPlantTag = models.ForeignKey(Group, related_name="plantTagging", on_delete=models.CASCADE)    
+    GroupPlantTag = models.ForeignKey(Group_tbl, related_name="plantTagging", on_delete=models.CASCADE)    
     plantTag = models.ForeignKey(PlantTag, on_delete=models.CASCADE)
    
     class Meta:  

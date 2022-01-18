@@ -12,7 +12,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from cryptography.fernet import Fernet
 from django.db import IntegrityError
-from .models import Group, GroupMembership, GroupPlantTagging, GroupSoilTagging
+from .models import Group_tbl, GroupMembership, GroupPlantTagging, GroupSoilTagging
 from .forms import GroupForm
 from member.models import Person, SoilTag, PlantTag
 
@@ -23,13 +23,13 @@ def mainGroup(request):
         
         person=Person.objects.get(Email=request.session['Email'])
         # cuba
-        group=Group.objects.all()
+        group=Group_tbl.objects.all()
         fss =FileSystemStorage()
         # file = fss.save(Media.name, Media)
         uploaded_file = fss.url(group)
         return render(request,'MainGroup.html',{'group':group, 'uploaded_file':uploaded_file, 'person':person})
 
-    except Group.DoesNotExist:
+    except Group_tbl.DoesNotExist:
         raise Http404('Data does not exist')
 
 
@@ -45,8 +45,8 @@ def group(request):
         fss =FileSystemStorage()
         file = fss.save(Media.name, Media)
 
-        groupID = Group(Name=Name,About=About,Media=Media,Username=Username).save()
-        group = Group.objects.get(id=groupID)
+        groupID = Group_tbl(Name=Name,About=About,Media=Media,Username=Username).save()
+        group = Group_tbl.objects.get(id=groupID)
 
         soilTagsID = request.POST.getlist('SoilTag')
         plantTagsID = request.POST.getlist('PlantTag')
@@ -70,18 +70,18 @@ def myGroup(request):
     try:
         Username=Person.objects.get(Email=request.session['Email'])
         # ambil group yg user create
-        group=Group.objects.filter(Username=Username)
+        group=Group_tbl.objects.filter(Username=Username)
         # ambil group yg user join
         groupMembership=GroupMembership.objects.filter(GroupMember=Username)
         return render(request,'MyGroup.html',{'group':group,'groupMembership':groupMembership})
-    except Group.DoesNotExist:
+    except Group_tbl.DoesNotExist:
         raise Http404('Data does not exist')
 
 
 # cuba
 def showGroup(request):
 
-    lastGroup = Group.objects.last()
+    lastGroup = Group_tbl.objects.last()
 
     Media = lastGroup.Media
     
@@ -99,7 +99,7 @@ def showGroup(request):
 
 def joinGroup(request, pk):
     try:
-        group = Group.objects.get(id=pk)
+        group = Group_tbl.objects.get(id=pk)
         user=Person.objects.get(Email=request.session['Email'])
         userName = user.Name
         groupName = group.Name
@@ -107,7 +107,7 @@ def joinGroup(request, pk):
         messages.success(request,'The joining of ' + userName + ' in group ' + groupName + ' is succesful..!')
         # return render(request,'MainGroup.html', {'group':group, 'uploaded_file':uploaded_file, 'person':person})
         return redirect('group:MainGroup')
-    except Group.DoesNotExist:
+    except Group_tbl.DoesNotExist:
         raise Http404('Data does not exist')
 
     except IntegrityError:
@@ -118,10 +118,10 @@ def joinGroup(request, pk):
 def deleteGroup(request, pk):
     
     try:
-        group=Group.objects.get(id=pk)
-        group2=Group.objects.get(id=pk)
+        group=Group_tbl.objects.get(id=pk)
+        group2=Group_tbl.objects.get(id=pk)
         
-        data=Group.objects.all()
+        data=Group_tbl.objects.all()
         if request.method=='POST':
             group.deleteRecordIgrow()
             group2.deleteRecordFarming()
@@ -131,15 +131,15 @@ def deleteGroup(request, pk):
         else:
             return render(request, 'deleteGroup.html', {'group':group})
         
-    except Group.DoesNotExist:
+    except Group_tbl.DoesNotExist:
         messages.success(request,'No record of the workshop!')
         return redirect('group:MyGroup')
 
 
 def updateGroup(request, pk):
     try:
-        group=Group.objects.get(id=pk)
-        # group_farming = Group.objects.get(id=pk)
+        group=Group_tbl.objects.get(id=pk)
+        # group_farming = Group_tbl.objects.get(id=pk)
         soilTag=GroupSoilTagging.objects.filter(GroupSoilTag=group)
         plantTag=GroupPlantTagging.objects.filter(GroupPlantTag=group)
         
@@ -199,14 +199,14 @@ def updateGroup(request, pk):
         else :
             return render(request,'UpdateGroup.html', {'data':group, 'SoilTag':soilTagList, 'currentSoilTag':soilTag, 'PlantTag':plantTagList, 'currentPlantTag':plantTag})
     
-    except Group.DoesNotExist:
+    except Group_tbl.DoesNotExist:
             raise Http404('Data does not exist')
 
 
 def Group_SoilTag(request):
 
     person=Person.objects.get(Email=request.session['Email'])
-    group=Group.objects.all()
+    group=Group_tbl.objects.all()
     fss =FileSystemStorage()
     uploaded_file = fss.url(group)
         
@@ -234,7 +234,7 @@ def Group_SoilTag(request):
 def Group_PlantTag(request):
 
     person=Person.objects.get(Email=request.session['Email'])
-    group=Group.objects.all()
+    group=Group_tbl.objects.all()
     fss =FileSystemStorage()
     uploaded_file = fss.url(group)
 

@@ -1,7 +1,7 @@
 from django.http.response import Http404
 from django.shortcuts import render, redirect, get_object_or_404
 # from LOGIN.models import Person as FarmingPerson
-# from LOGIN.models import Feed, Booking, Workshop, Group, Member 
+# from LOGIN.models import Feed, Booking, Workshop, Group_tbl, Member 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
