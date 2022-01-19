@@ -153,6 +153,8 @@ def updateGroup(request, pk):
             group.Name=request.POST.get('Name')
             group.About=request.POST.get('About')
             group.Media = request.FILES['Photo']
+            group.Age = request.POST.get('Age')
+            group.State=request.POST.get('State')
             fss = FileSystemStorage()
                     
             currentSoilTag=GroupSoilTagging.objects.filter(GroupSoilTag=group)

@@ -74,6 +74,39 @@
       <br/>
 
       <div class="col-md-6">
+        <label for="inputAge" class="form-label">Age Class : </label>
+        <select id="inputAge" name="Age" required>
+          <option value="Teenagers">Teenagers</option>
+          <option value="Young Adults">Young Adults</option>
+          <option value="Adults">Adults</option>
+          <option value="Senior">Senior</option>
+          <option value="No Age Restriction">No Age Restriction</option>
+        </select>
+      </div>
+      <br/>
+
+      <div class="col-md-6">
+        <label for="inputLocation" class="form-label">Location : </label>
+        <select id="inputLocation" name="State" required>
+          <option value="Johor">Johor</option>
+          <option value="Kedah">Kedah</option>
+          <option value="Kelantan">Kelantan</option>
+          <option value="Melaka">Melaka</option>
+          <option value="Negeri Sembilan">Negeri Sembilan</option>
+          <option value="Pahang">Pahang</option>
+          <option value="Pulau Pinang">Pulau Pinang</option>
+          <option value="Perak">Perak</option>
+          <option value="Perlis">Perlis</option>
+          <option value="Sabah">Sabah</option>
+          <option value="Sarawak">Sarawak</option>
+          <option value="Selangor">Selangor</option>
+          <option value="Terengganu">Terengganu</option>
+          <option value="W.P. Kuala Lumpur">W.P. Kuala Lumpur</option>
+        </select>
+      </div>
+      <br/><br/>
+
+      <div class="col-md-6">
         <label for="inputSoil" class="form-label">Soil Tag : </label><br>
         {% for soilTag in SoilTag %}
         <input type="checkbox" name="SoilTag" value="{{soilTag.id}}" id="{{soilTag.id}}"><label for="{{soilTag.id}}">{{soilTag.SoilTagName}}</label><br>

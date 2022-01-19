@@ -75,6 +75,39 @@
       <br/><br/>
 
       <div class="col-md-6">
+        <label for="inputAge" class="form-label">Age Class : </label>
+        <select id="inputAge" name="Age" required>
+          <option value="Teenagers">Teenagers</option>
+          <option value="Young Adults">Young Adults</option>
+          <option value="Adults">Adults</option>
+          <option value="Senior">Senior</option>
+          <option value="No Age Restriction">No Age Restriction</option>
+        </select>
+      </div>
+      <br/>
+
+      <div class="col-md-6">
+        <label for="inputLocation" class="form-label">Location : </label>
+        <select id="inputLocation" name="State" required>
+          <option value="Johor" id="{{locationTag.id}}">Johor</option>
+          <option value="Kedah" id="{{locationTag.id}}">Kedah</option>
+          <option value="Kelantan" id="{{locationTag.id}}">Kelantan</option>
+          <option value="Melaka" id="{{locationTag.id}}">Melaka</option>
+          <option value="Negeri Sembilan" id="{{locationTag.id}}">Negeri Sembilan</option>
+          <option value="Pahang" id="{{locationTag.id}}">Pahang</option>
+          <option value="Pulau Pinang" id="{{locationTag.id}}">Pulau Pinang</option>
+          <option value="Perak" id="{{locationTag.id}}">Perak</option>
+          <option value="Perlis" id="{{locationTag.id}}">Perlis</option>
+          <option value="Sabah}" id="{{locationTag.id}}">Sabah</option>
+          <option value="Sarawak}" id="{{locationTag.id}}">Sarawak</option>
+          <option value="Selangor" id="{{locationTag.id}}">Selangor</option>
+          <option value="Terengganu" id="{{locationTag.id}}">Terengganu</option>
+          <option value="W.P. Kuala Lumpur" id="{{locationTag.id}}">W.P. Kuala Lumpur</option>
+        </select>
+      </div>
+      <br/><br/>
+
+      <div class="col-md-6">
         {% if currentSoilTag %}
           <b>Current soil tags:</b> 
           {% for currentSoilTag in currentSoilTag %}

@@ -131,6 +131,8 @@
                   <th scope="col">About</th>
                   <th scope="col">Media</th>
                   <th scope="col">Owner</th>
+                  <th scope="col">Age Class</th>
+                  <th scope="col">Location</th>
                   <th scope="col">Tagging Details</th>
                   <th scope="col">Action</th>
                   
@@ -143,6 +145,9 @@
                   <th scope="row" value="{{ group.About }}">{{ group.About }}</th>
                   <th><img src="{{MEDIA_URL}}/{{group.Media}}" width="120"/></th>
                   <th scope="row" <a href="{{ group.Username.Name }}">{{ group.Username.Name }}</a></th>
+                  <th scope="row" value="{{ group.Age }}">{{ group.Age }}</th>
+                  <th scope="row" value="{{ group.State }}">{{ group.State }}</th>
+
                   <th>
                     {% if group.soilTagging.all %}
                       <!-- <i>Soil Tagging:</i> -->

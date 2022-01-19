@@ -81,6 +81,37 @@
                               <textarea class="form-control" id="inputSharing" name="Message" rows="10" cols="10" placeholder="Enter feed" value="{{ feed.Message }}" required></textarea>
                             </div>
                             <br/><br/>
+                            <div>
+                              <label class="col-md-6" for="id_Gender">Gender:</label>
+                          <div class="custom-control custom-radio text-left">
+                            <input type="radio" id="customRadio1" name="Gender" class="custom-control-input" value="M" required>
+                            <label class="custom-control-label" for="customRadio1">Male</label>
+                          </div>
+                            <div class="custom-control custom-radio text-left">
+                              <input type="radio" id="customRadio2" name="Gender" class="custom-control-input" value="F">
+                              <label class="custom-control-label" for="customRadio2">Female</label>
+                            </div>
+                            <br/>
+                            <div class="col-md-6">
+                              <label for="inputLocation" class="form-label">Location : </label>
+                              <select id="inputLocation" name="State" required>
+                                <option value="Johor">Johor</option>
+                                <option value="Kedah">Kedah</option>
+                                <option value="Kelantan">Kelantan</option>
+                                <option value="Melaka">Melaka</option>
+                                <option value="Negeri Sembilan">Negeri Sembilan</option>
+                                <option value="Pahang">Pahang</option>
+                                <option value="Pulau Pinang">Pulau Pinang</option>
+                                <option value="Perak">Perak</option>
+                                <option value="Perlis">Perlis</option>
+                                <option value="Sabah">Sabah</option>
+                                <option value="Sarawak">Sarawak</option>
+                                <option value="Selangor">Selangor</option>
+                                <option value="Terengganu">Terengganu</option>
+                                <option value="W.P. Kuala Lumpur">W.P. Kuala Lumpur</option>
+                              </select>
+                            </div>
+                            <br/>
                             <div class="col-12">
                               <label for="inputImage" class="form-label">Photo</label>
                               <input type="file" class="form-control" id="inputImage" name="Photo" placeholder="Enter image" >
