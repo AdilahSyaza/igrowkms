@@ -23,18 +23,17 @@ from django.db import IntegrityError
 #workshop
 def workshop(request):
     if request.method=="POST":
+       
        person=Person.objects.get(Email=request.session['Email'])
        Gender=request.POST.get('Gender')
        State=request.POST.get('State')
-       searchgender=Workshop.objects.filter(Gender=Gender)
-       searchstate=Workshop.objects.filter(State=State)
-       #searchfilter=Workshop.objects.filter(Gender=Gender,State=State)
-       #searchfilter=Workshop.objects.filter(Gender=Gender & State=State)
-       return render(request,'workshop.html', {'person':person,'data':searchgender,'data':searchstate})
+       searchobj=Workshop.objects.raw('select * from Workshop where Gender="'+Gender+'" and State="'+State+'"')
+       return render(request,'workshop.html', {'person':person,'data':searchobj})
+    
     try:
             data=Workshop.objects.all()
             person=Person.objects.get(Email=request.session['Email'])
-
+            searchobj=Workshop.objects.raw('select * from Workshop') 
             return render(request,'workshop.html', {'person':person,'data':data})
     except Workshop.DoesNotExist:
             raise Http404('Data does not exist') 
