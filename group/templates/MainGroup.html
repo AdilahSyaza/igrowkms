@@ -115,6 +115,50 @@
                         </div>
                           {% endif %}
 
+                        <form method="POST" class="center">
+                            {% csrf_token %}
+                          
+                          <br/><br/>
+                          <center>
+                            <div class="container">
+                            <div class="row">
+                              <table border="1" class="table">
+                                <div class="col-md-6">
+                                  
+                                  <select id="inputAge" name="Age" required>
+                                    <option selected disabled=true>--select age class --</option>
+                                    <option value="Teenagers">Teenagers</option>
+                                    <option value="Young Adults">Young Adults</option>
+                                    <option value="Adults">Adults</option>
+                                    <option value="Senior">Senior</option>
+                                    <option value="No Age Restriction">No Age Restriction</option>
+                                  </select>
+                                </div>
+                                <br/>&nbsp;
+                                <select id="inputLocation" name="State" required>
+                                    <option selected disabled=true>--select state --</option>
+                                    <option>Johor</option>
+                                    <option>Kedah</option>
+                                    <option>Kelantan</option>
+                                    <option >Melaka</option>
+                                    <option >Negeri Sembilan</option>
+                                    <option >Pahang</option>
+                                    <option >Pulau Pinang</option>
+                                    <option>Perak</option>
+                                    <option >Perlis</option>
+                                    <option >Sabah</option>
+                                    <option >Sarawak</option>
+                                    <option >Selangor</option>
+                                    <option >Terengganu</option>
+                                    <option >W.P. Kuala Lumpur</option>
+                                </select>
+                                  &nbsp;&nbsp;
+                                <button type="submit" class="btn btn-success " value="Filter" >Filter</button>
+                                <br>
+                                <br>
+                            </center>
+                          </form>
+
 {% endblock content %}
 
 {% block body %}

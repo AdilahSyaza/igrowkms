@@ -42,10 +42,12 @@ def group(request):
         Name=request.POST.get('Name')
         About=request.POST.get('About')
         Media = request.FILES['Photo']
+        Age = request.POST.get('Age')
+        State = request.POST.get('State')
         fss =FileSystemStorage()
         file = fss.save(Media.name, Media)
 
-        groupID = Group_tbl(Name=Name,About=About,Media=Media,Username=Username).save()
+        groupID = Group_tbl(Name=Name,About=About,Media=Media,Age=Age,State=State,Username=Username).save()
         group = Group_tbl.objects.get(id=groupID)
 
         soilTagsID = request.POST.getlist('SoilTag')
