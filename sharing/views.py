@@ -163,7 +163,7 @@ def viewForum(request, pk):
 def addComment(request, pk):
     commenter=Person.objects.get(Email=request.session['Email'])
     feed = Feed.objects.get(id=pk)
-    group_id = feed.Group_tbl.id
+    group_id = feed.Group.id
     
     if request.method=='POST':
         
@@ -182,7 +182,7 @@ def addComment(request, pk):
 def updateComment(request, pk):
    
     comment = Comment.objects.get(id=pk)
-    group_id=comment.Feed.Group_tbl.id
+    group_id=comment.Feed.Group.id
     feed = comment.Feed
     if request.method=='POST':
        
@@ -197,7 +197,7 @@ def updateComment(request, pk):
 
 def deleteComment(request,pk):
     comment = Comment.objects.get(id=pk)
-    group_id=comment.Feed.Group_tbl.id
+    group_id=comment.Feed.Group.id
     feed = comment.Feed
     try:
         comment=Comment.objects.get(id=pk)
