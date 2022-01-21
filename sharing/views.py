@@ -28,9 +28,6 @@ def mainSharing(request):
         user=Person.objects.get(Email=request.session['Email'])
         user_group = GroupMembership.objects.filter(GroupMember_id=user)
         
-        
-        # group = Group_tbl.objects.filter(GroupMember_id=user)
-        # feed=Feed.objects.filter(Group_tbl__in=user_group.GroupName)
 
         soilTags = SoilTag.objects.all()
         return render(request,'MainSharing.html',{'feed':feed ,'soilTags':soilTags, 'user_group':user_group})
@@ -227,19 +224,9 @@ def Sharing_GeneralSoilTag(request, pk):
         
         soilTagsID = request.POST.get('SoilTag')
         soilTagging = SoilTag.objects.get(id=soilTagsID)
-        # plantTagsID = request.POST.getlist('PlantTag')
-        # feedFiltered = FeedSoilTagging.objects.filter(FeedSoilTag = feed)
 
-        # filtered_feedSoilTagging = FeedSoilTagging.objects.filter(FeedSoilTag=feed).filter(soilTag=soilTagging)
-        # filtered_feedSoilTagging = feedFiltered.filter(soilTag=soilTagging)
-        
-        # filtered_feed = FeedSoilTagging.objects.filter(id__in = [FeedSoilTag.id for FeedSoilTag in Feed.objects.filter(Group = data)])
-        # filtered_feedSoilTagging = filtered_feed.filter(soilTag = soilTagging)
-
-        
         filtered_Soiltag = FeedSoilTagging.objects.filter(soilTag=soilTagging)
-        # filtered_feed = filtered_Soiltag.filter(FeedSoilTag=feed)
-        # filtered_feed = filtered_Soiltag.filter(id__in = [FeedSoilTag.id for FeedSoilTag in feed])
+
         filtered_feed = filtered_Soiltag.filter(FeedSoilTag__in=feed)
 
         return render(request,'FilteredForum.html', {'data':data, 'filtered_feed':filtered_feed, 'chosen_soilTag':soilTagging, 'ori_feed':feed})
@@ -278,25 +265,3 @@ def Sharing_PlantTag(request, pk):
         return render(request, 'Forum.html', {'feed': feed, 'data':data, 'context_PlantTags':context})   
 
 
-# def Sharing_PlantTag(request, plantTag):
-#         try:
-#             person=Person.objects.get(Email=request.session['Email'])
-#             dataWorkshopFilter=PlantTag.objects.filter(plantTag=plantTag)
-#             if dataWorkshopFilter:
-#                 for setdata in dataWorkshopFilter:
-#                     data=Workshop.objects.filter(id=setdata.PlantTagWorkshop.id)
-#             else:
-#                 data = ''
-            
-#             context = {
-#             "Herb": "Herb",
-#             "Shrub": "Shrub",
-#             "Tree": "Tree",
-#             "Creeper": "Creeper",
-#             "Climber": "Climber",
-#             "Fruit": "Fruit"
-#         }
-            
-#             return render(request,'workshop_plantTags.html', {'person':person,'data':data, 'context':context, 'plantTag':plantTag})
-#         except Workshop.DoesNotExist:
-#             raise Http404('Data does not exist')
