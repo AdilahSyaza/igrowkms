@@ -70,11 +70,11 @@
         <br/><br/> 
           <label class="required" for="id_Gender">Gender:</label>
       <div class="custom-control custom-radio text-left">
-        <input type="radio" id="customRadio1" name="Gender" class="custom-control-input" value="Male" required>
+        <input type="radio" id="customRadio1" name="Gender" class="custom-control-input" value="M" required>
         <label class="custom-control-label" for="customRadio1">Male</label>
       </div>
         <div class="custom-control custom-radio text-left">
-          <input type="radio" id="customRadio2" name="Gender" class="custom-control-input" value="Female">
+          <input type="radio" id="customRadio2" name="Gender" class="custom-control-input" value="F">
           <label class="custom-control-label" for="customRadio2">Female</label>
         </div>
         </div>
@@ -112,6 +112,7 @@
         {% endif %}
         <label for="inputLocation" class="form-label">Location : </label>
         <select id="inputLocation" name="State" required>
+          <option selected disabled=true>--select state --</option>
           <option value="Johor" id="{{locationTag.id}}">Johor</option>
           <option value="Kedah" id="{{locationTag.id}}">Kedah</option>
           <option value="Kelantan" id="{{locationTag.id}}">Kelantan</option>
@@ -121,8 +122,8 @@
           <option value="Pulau Pinang" id="{{locationTag.id}}">Pulau Pinang</option>
           <option value="Perak" id="{{locationTag.id}}">Perak</option>
           <option value="Perlis" id="{{locationTag.id}}">Perlis</option>
-          <option value="Sabah}" id="{{locationTag.id}}">Sabah</option>
-          <option value="Sarawak}" id="{{locationTag.id}}">Sarawak</option>
+          <option value="Sabah" id="{{locationTag.id}}">Sabah</option>
+          <option value="Sarawak" id="{{locationTag.id}}">Sarawak</option>
           <option value="Selangor" id="{{locationTag.id}}">Selangor</option>
           <option value="Terengganu" id="{{locationTag.id}}">Terengganu</option>
           <option value="W.P. Kuala Lumpur" id="{{locationTag.id}}">W.P. Kuala Lumpur</option>

@@ -115,6 +115,50 @@
                         </div>
                           {% endif %}
 
+                        <form method="POST" class="center">
+                            {% csrf_token %}
+                          
+                          <br/><br/>
+                          <center>
+                            <div class="container">
+                            <div class="row">
+                              <table border="1" class="table">
+                                <div class="col-md-6">
+                                  
+                                  <select id="inputAge" name="Age" required>
+                                    <option selected disabled=true>--select age class --</option>
+                                    <option value="Teenagers">Teenagers</option>
+                                    <option value="Young Adults">Young Adults</option>
+                                    <option value="Adults">Adults</option>
+                                    <option value="Senior">Senior</option>
+                                    <option value="No Age Restriction">No Age Restriction</option>
+                                  </select>
+                                </div>
+                                <br/>&nbsp;
+                                <select id="inputLocation" name="State" required>
+                                    <option selected disabled=true>--select state --</option>
+                                    <option>Johor</option>
+                                    <option>Kedah</option>
+                                    <option>Kelantan</option>
+                                    <option >Melaka</option>
+                                    <option >Negeri Sembilan</option>
+                                    <option >Pahang</option>
+                                    <option >Pulau Pinang</option>
+                                    <option>Perak</option>
+                                    <option >Perlis</option>
+                                    <option >Sabah</option>
+                                    <option >Sarawak</option>
+                                    <option >Selangor</option>
+                                    <option >Terengganu</option>
+                                    <option >W.P. Kuala Lumpur</option>
+                                </select>
+                                  &nbsp;&nbsp;
+                                <button type="submit" class="btn btn-success " value="Filter" >Filter</button>
+                                <br>
+                                <br>
+                            </center>
+                          </form>
+
 {% endblock content %}
 
 {% block body %}
@@ -131,6 +175,8 @@
                   <th scope="col">About</th>
                   <th scope="col">Media</th>
                   <th scope="col">Owner</th>
+                  <th scope="col">Age Class</th>
+                  <th scope="col">Location</th>
                   <th scope="col">Tagging Details</th>
                   <th scope="col">Action</th>
                   
@@ -143,6 +189,9 @@
                   <th scope="row" value="{{ group.About }}">{{ group.About }}</th>
                   <th><img src="{{MEDIA_URL}}/{{group.Media}}" width="120"/></th>
                   <th scope="row" <a href="{{ group.Username.Name }}">{{ group.Username.Name }}</a></th>
+                  <th scope="row" value="{{ group.Age }}">{{ group.Age }}</th>
+                  <th scope="row" value="{{ group.State }}">{{ group.State }}</th>
+
                   <th>
                     {% if group.soilTagging.all %}
                       <!-- <i>Soil Tagging:</i> -->

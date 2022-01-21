@@ -15,7 +15,8 @@ class Group_tbl(models.Model):
     About = models.CharField(max_length=1000)
     Media = models.ImageField(upload_to='uploads/',default="")
     Username = models.ForeignKey(Person, on_delete=models.CASCADE)
-
+    Age = models.CharField(max_length=100,default="")
+    State = models.CharField(max_length=100,default="")
 
     def save(self):
         # group = self
