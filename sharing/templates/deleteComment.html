@@ -63,22 +63,37 @@
         <label for="inputNewSharing" class="form-label">Message : </label>
         <input class="form-control" id="inputSharing" value="{{ comment.Message }}" name="Message" rows="10" cols="10" disabled></textarea>
       </div>
-      <br/><br/>
-      <div class="col-md-6">
-        <label for="inputImage" class="form-label">Date : </label>
-        <input class="form-control" type="file" img src="/media/" id="inputImage" value="{{ comment.Picture }}"  disabled></textarea>
+      <br/>
+      <!-- <div class="col-md-6">
+        <label for="inputImage" class="form-label">Picture : </label>
+        <input class="form-control" type="file" img src="/media/" id="inputImage" value="{{ comment.Pictures }}"  disabled></textarea>
       </div>
       <br/><br/>
       <div class="col-md-6">
         <label for="inputVideo" class="form-label">Video : </label>
         <input type="file" class="form-control" id="inputVideo" value="{{ comment.Video }}" name="Video" rows="10" cols="10" disabled></textarea>
-      </div>
-      <br/><br/>
-      <div class="col-md-6">
-        <label for="inputGraph" class="form-label">Graph : </label>
-        <input type="file" class="form-control" id="inputGraph" value="{{ feed.Graph }}" name="Graph" rows="10" cols="10" disabled></textarea>
-      </div>
-      <br/>
+      </div> -->
+      {% if comment.Pictures %}
+      <label for="inputImage" class="form-label">Picture : </label>
+      <br>
+            <img
+                  style="border: 1px solid black;"
+                  src="{{MEDIA_URL}}/{{comment.Pictures}}"
+                  width="300"
+                  height="300"
+                  alt="pic"
+              />
+              <br>
+          {% endif %}
+          <br/>
+          {% if comment.Video %}
+          <label for="inputVideo" class="form-label">Video : </label>
+          <br>
+            <video width="500px" height="500px" controls style="border: 1px solid black;">
+              <source src="{{MEDIA_URL}}/{{comment.Video}}" type="video/mp4">
+            </video>
+            <br>
+          {% endif %}
       <div class="col-12">
         <button type="submit" class="btn btn-success" value="DeleteComment">Delete</button>
       </div>

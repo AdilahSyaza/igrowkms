@@ -165,8 +165,9 @@ def addComment(request, pk):
     if request.method=='POST':
         
         Message=request.POST.get('Message')
-        Picture=request.POST.get('Pictures')
-        Video=request.POST.get('Video')
+        Picture=request.FILES.get('Pictures',None)
+        Video=request.FILES.get('Video',None)
+        fss =FileSystemStorage()
         
         Comment(Message=Message,Pictures=Picture,Video=Video,Commenter=commenter,Feed=feed).save(),
         # messages.success(request,'The comment is save succesfully..!')
@@ -184,8 +185,9 @@ def updateComment(request, pk):
     if request.method=='POST':
        
        comment.Message=request.POST.get('Message')
-       comment.Photo=request.POST.get('Picture')
-       comment.Video=request.POST.get('Video')
+       comment.Photo=request.FILES.get('Picture',None)
+       comment.Video=request.FILES.get('Video',None)
+       fss =FileSystemStorage()
        comment.save()
     #    messages.success(request,"The comment of is updated succesfully..!")
        return redirect('sharing:Forum', group_id)

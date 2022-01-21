@@ -207,6 +207,22 @@
                 {% for comment in feed.comments.all %}
                   <b>{{ comment.Commenter.Name }}</b>
                 {{ comment.Message }}
+                {% if comment.Pictures %}
+            <img
+                  style="border: 1px solid black;"
+                  src="{{MEDIA_URL}}/{{comment.Pictures}}"
+                  width="300"
+                  height="300"
+                  alt="pic"
+              />
+              <br>
+          {% endif %}
+          {% if comment.Video %}
+            <video width="500px" height="500px" controls style="border: 1px solid black;">
+              <source src="{{MEDIA_URL}}/{{comment.Video}}" type="video/mp4">
+            </video>
+            <br>
+          {% endif %}
                 {% if request.session.Email == comment.Commenter.Email %}
                 <a href="{% url 'sharing:UpdateComment' comment.id %}" class="card-link">Edit</a>
                 <a href="{% url 'sharing:DeleteComment' comment.id %}" class="card-link">Delete</a>
@@ -226,7 +242,7 @@
   </div>
 </div>
 </div>
-
+<br/><br/>
 
 </body>
 </html>

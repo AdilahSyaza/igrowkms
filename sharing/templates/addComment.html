@@ -70,7 +70,7 @@
                         <div class="tab-pane fade show active" id="sharing" role="tabpanel" aria-labelledby="comment-tab">
                         <div class="container my-3 bg-light">
                           <label for="exampleFormControlTextarea1" style="font-size: 2em;" >Add Comment</label>
-                          <form method="POST" class="container row g-3" >
+                          <form method="POST" class="container row g-3" enctype="multipart/form-data">
                             {% csrf_token %}
                             <div class="col-md-6">
                               <label for="inputComment" class="form-label">Message</label>
@@ -79,12 +79,12 @@
                             <br/><br/>
                             <div class="col-12">
                               <label for="inputImage" class="form-label">Picture</label>
-                              <input type="file" class="form-control" id="inputImage" name="Pictures" placeholder="Enter image" value="{{ comment.Pictures }}">
+                              <input type="file" class="form-control" id="inputImage" name="Pictures" placeholder="Enter image">
                             </div>
                             <br/><br/>
                             <div class="col-12">
                               <label for="inputVideo" class="form-label">Video</label>
-                              <input type="file" class="form-control" id="inputVideo" name="Video" placeholder="Enter video" value="{{ comment.Video }}">
+                              <input type="file" class="form-control" id="inputVideo" name="Video" placeholder="Enter video">
                             </div>
                             <br/><br/>
                             <br/><br/><br/><br/>
