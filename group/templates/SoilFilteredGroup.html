@@ -69,10 +69,11 @@
                           </div>
   
                           <div class="col-12">
-                            <a href="{% url 'group:Group' %}" class="link-primary">New Group</a> 
-                          </div><tr></tr>
-                          <div class="col-12">
-                            <a href="{% url 'group:MyGroup' %}" class="link-primary">My Group</a> 
+                            <a class="btn btn-primary" href="{% url 'group:Group' %}" role="button">New Group</a>
+                            <!-- <a href="{% url 'group:Group' %}" class="link-primary">New Group</a>  -->
+                          
+                            <a class="btn btn-primary" href="{% url 'group:MyGroup' %}" role="button">My Group</a>
+                            <!-- <a href="{% url 'group:MyGroup' %}" class="link-primary">My Group</a>  -->
                           </div>
                           <br/>
                           <div class="container"><h9>Filter based on tags: {{chosen_soilTag.SoilTagName}}</h9></div>

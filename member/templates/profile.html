@@ -1,199 +1,202 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-    <style>
-      .content {
-        max-width: 500px;
-        margin: auto;
-                }
-      form{
-        border:4px solid black;
-        margin: 0 auto;
-        padding: 60px;
-        width: fit-content;
-          }
-    </style>
+  <style>
+    .content {
+      max-width: 500px;
+      margin: auto;
+    }
+
+    form {
+      border: 4px solid black;
+      margin: 0 auto;
+      padding: 60px;
+      width: fit-content;
+    }
+  </style>
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
 </head>
-  
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
-   <h1 class="p-3 mb-2 bg-success text-white text-center">iGROW Knowledge Management System</h1>
-
-   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-   <script>
-    </script>
+<body>
+  <h1 class="p-3 mb-2 bg-success text-white text-center">iGROW Knowledge Management System</h1>
+  <div>
     <b>
+      <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="{% url 'Home' %}" role="tab"
+            aria-controls="home" aria-selected="true">Home</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="sharing-tab" data-bs-toggle="tab" href="{% url 'sharing:MainSharing' %}"
+            role="tab" aria-controls="sharing" aria-selected="true">Sharing</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="discussion-tab" data-bs-toggle="tab" href="{% url 'group:MainGroup' %}"
+            role="tab" aria-controls="discussion" aria-selected="true">Group</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="friends-tab" data-bs-toggle="tab" href="{% url 'MainMember' %}" role="tab"
+            aria-controls="friends" aria-selected="true">Member</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="workshop-tab" data-bs-toggle="tab" href="{% url 'workshop:Workshop' %}"
+            role="tab" aria-controls="workshop" aria-selected="true">Workshop</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="sugggestionTag-tab" data-bs-toggle="tab" href="{% url 'TagSuggestion' %}" role="tab" aria-controls="sugggestionTag" aria-selected="true">Suggestion</a>
+         </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'View' %}" role="tab"
+            aria-controls="profile" aria-selected="true">Profile</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'Logout' %}" role="tab"
+            aria-controls="logout" aria-selected="true">Logout</a>
+        </li>
+      </ul>
+    </b>
+  </div>
+
+  <br />
+
+  <h1 class="margin-left text-center">Profile</h1>
+
+  <form class="form-horizontal" method="POST"><input type="hidden" name="csrfmiddlewaretoken" value="LUo8yACYeqTzOUYPx81ouuqmkcDTGHdxJkRjbmc5wCVtI7LYrhK5sUxWg2LWIEWX">
+
+    {% csrf_token %}
+    <div class="form-row field-Email mb-3 row">
+
       <div>
-        <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist" >
-          <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="{% url 'Home' %}" role="tab" aria-controls="home" aria-selected="true">Home</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="sharing-tab" data-bs-toggle="tab" href="{% url 'sharing:MainSharing' %}" role="tab" aria-controls="sharing" aria-selected="true">Sharing</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="discussion-tab" data-bs-toggle="tab" href="{% url 'group:MainGroup' %}" role="tab" aria-controls="discussion" aria-selected="true">Group</a>
-          </li>
-          <li class="nav-item" role="presentation">
-           <a class="nav-link active" id="friends-tab" data-bs-toggle="tab" href="{% url 'MainMember' %}" role="tab" aria-controls="friends" aria-selected="true">Member</a>
-          </li>
-          <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="workshop-tab" data-bs-toggle="tab" href="{% url 'workshop:Workshop' %}" role="tab" aria-controls="workshop" aria-selected="true">Workshop</a>
-           </li>
-           <li class="nav-item" role="presentation">
-            <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'View' %}" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
-           </li>
-          </li>
-        </ul>
+        <label class="required" for="id_Email">Email:</label>
+        <input type="text" name="Email" value="{{ person.Email }}" class="vTextField" maxlength="150" required="" id="id_Email">
       </div>
-    <br/>
- 
-      <h1 class="margin-left text-center">Profile</h1>
-     
-<form class="form-horizontal" method="POST" ><input type="hidden" name="csrfmiddlewaretoken" value="LUo8yACYeqTzOUYPx81ouuqmkcDTGHdxJkRjbmc5wCVtI7LYrhK5sUxWg2LWIEWX">
-  
-  {% csrf_token %}
-      <div class="form-row field-Email mb-3 row">
-      
-        <div>
-          <label class="required" for="id_Email">Email:</label>
-            <input type="text" name="Email" value="{{ person.Email }}"  class="vTextField" maxlength="150" required="" id="id_Email">
-        </div>
-      </div>
-      <div class="form-row field-Password mb-3 row">
-        <div>
+    </div>
+    <div class="form-row field-Password mb-3 row">
+      <div>
         <label class="required" for="id_Password">Password:</label>
-            <input type="text" name="Password" value="{{ password }}" class="vTextField" minlength="8" maxlength="20" required="" id="id_Password">
-            <small id="passwordHelpInline" class="text-muted">Must be 8-20 characters long.</small>
-        </div>
+        <input type="text" name="Password" value="{{ password }}" class="vTextField" minlength="8" maxlength="20" required="" id="id_Password">
+        <small id="passwordHelpInline" class="text-muted">Must be 8-20 characters long.</small>
       </div>
-      <div class="form-row field-Username mb-3 row">
-        <div>
+    </div>
+    <div class="form-row field-Username mb-3 row">
+      <div>
         <label class="required" for="id_Username">Username:</label>
-            <input type="text" name="Username" value="{{ person.Username }}" class="vTextField" maxlength="150" required="" id="id_Username">
-        </div>
+        <input type="text" name="Username" value="{{ person.Username }}" class="vTextField" maxlength="150" required="" id="id_Username">
       </div>
-      <div class="form-row field-Name mb-3 row">
-        <div>
+    </div>
+    <div class="form-row field-Name mb-3 row">
+      <div>
         <label class="required" for="id_Name">Name:</label>
-            <input type="text" name="Name" value="{{ person.Name }}" class="vTextField" maxlength="150" required="" id="id_Name">
-          </div>
+        <input type="text" name="Name" value="{{ person.Name }}" class="vTextField" maxlength="150" required="" id="id_Name">
       </div>
-      <div class="form-row field-DateOfBirth mb-3 row">
-        <div>
-          <label class="required" for="id_DateOfBirth">Date Of Birth:</label>
-            <input type="date" name="DateOfBirth" value="{{ person.DateOfBirth|date:"Y-m-d" }}" class="vTextField" maxlength="150" required="" id="id_DateOfBirth">
-        </div>
+    </div>
+    <div class="form-row field-DateOfBirth mb-3 row">
+      <div>
+        <label class="required" for="id_DateOfBirth">Date Of Birth:</label>
+        <input type="date" name="DateOfBirth" value="{{ person.DateOfBirth|date:"Y-m-d" }}" class="vTextField" maxlength="150" required="" id="id_DateOfBirth">
       </div>
-      <div class="form-row field-Age mb-3 row">
-        <div>
-          <label class="required" for="id_Age">Age:</label>
-            <input type="number" name="Age" value="{{ person.Age }}" class="vIntegerField" required="" id="id_Age">
-        </div>
+    </div>
+    <div class="form-row field-Age mb-3 row">
+      <div>
+        <label class="required" for="id_Age">Age:</label>
+        <input type="number" name="Age" value="{{ person.Age }}" class="vIntegerField" required="" id="id_Age">
       </div>
-      <div class="form-row field-District mb-3 row">                       
-        <div>        
-          <label class="required" for="id_District">District:</label>
-            <input type="text" name="District" value="{{ person.District }}" class="vTextField" maxlength="150" required="" id="id_District">
-        </div>
+    </div>
+    <div class="form-row field-District mb-3 row">
+      <div>
+        <label class="required" for="id_District">District:</label>
+        <input type="text" name="District" value="{{ person.District }}" class="vTextField" maxlength="150" required="" id="id_District">
       </div>
-      <div class="form-row field-State mb-3 row">                                                                                                               
-      <div>                                                           
-          <label class="required" for="id_State">State:</label>
-            <input type="text" name="State" value="{{ person.State }}" class="vTextField" maxlength="150" required="" id="id_State">                                                                                                                  
-        </div>
+    </div>
+    <div class="form-row field-State mb-3 row">
+      <div>
+        <label class="required" for="id_State">State:</label>
+        <input type="text" name="State" value="{{ person.State }}" class="vTextField" maxlength="150" required="" id="id_State">
       </div>
-      <div class="form-row field-Occupation mb-3 row">
-        <div>
-          <label class="required" for="id_Occupation">Occupation:</label>
-          <input type="text" name="Occupation" value="{{ person.Occupation }}" class="vTextField" maxlength="150" required="" id="id_Occupation">
-        </div>
+    </div>
+    <div class="form-row field-Occupation mb-3 row">
+      <div>
+        <label class="required" for="id_Occupation">Occupation:</label>
+        <input type="text" name="Occupation" value="{{ person.Occupation }}" class="vTextField" maxlength="150" required="" id="id_Occupation">
       </div>
-      <div class="form-row field-About mb-3 row">
-        <div>
-          <label class="required" for="id_About">About:</label>
-            <input type="text" name="About" value="{{ person.About }}" class="vTextField" maxlength="150" required="" id="id_About">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
-        </div>
+    </div>
+    <div class="form-row field-About mb-3 row">
+      <div>
+        <label class="required" for="id_About">About:</label>
+        <input type="text" name="About" value="{{ person.About }}" class="vTextField" maxlength="150" required="" id="id_About">
       </div>
-      <div class="form-row field-Gender mb-3 row">
-        <div>
-          <label class="required" for="id_Gender">Current Gender:</label>
-            <input type="text" value="{{ person.Gender }}" class="vTextField" maxlength="1" required="" id="id_Gender" disabled>
-        </div>
-
+    </div>
+    <div class="form-row field-Gender mb-3 row">
+      <div>
+        <label class="required" for="id_Gender">Current Gender:</label>
+        <input type="text" value="{{ person.Gender }}" class="vTextField" maxlength="1" required="" id="id_Gender" disabled>
       </div>
 
-      <div class="form-row field-Gender mb-3 row">
-        <div>
-          <label class="required" for="id_Gender">Gender:</label>
-      <div class="custom-control custom-radio text-left">
-        <input type="radio" id="customRadio1" name="Gender" class="custom-control-input" value="M" required checked>
-        <label class="custom-control-label" for="customRadio1">Male</label>
-      </div>
+    </div>
+
+    <div class="form-row field-Gender mb-3 row">
+      <div>
+        <label class="required" for="id_Gender">Gender:</label>
+        <div class="custom-control custom-radio text-left">
+          <input type="radio" id="customRadio1" name="Gender" class="custom-control-input" value="M" required checked>
+          <label class="custom-control-label" for="customRadio1">Male</label>
+        </div>
         <div class="custom-control custom-radio text-left">
           <input type="radio" id="customRadio2" name="Gender" class="custom-control-input" value="F">
           <label class="custom-control-label" for="customRadio2">Female</label>
         </div>
-        </div>
-
       </div>
 
-      <div class="form-row field-MaritalStatus mb-3 row">
-          <div>
-           <label class="required" for="id_MaritalStatus">Current Marital Status:</label>
-            <input type="text" value="{{ person.MaritalStatus }}" class="vTextField" maxlength="150" required="" id="id_MaritalStatus" disabled>
-          </div>
-          </div>
-          <div class="form-row field-MaritalStatus mb-3 row">
-          <div>
-          <label for="inputState"class="container text-left" name="MaritalStatus" >Marital Status</label>
+    </div>
+
+    <div class="form-row field-MaritalStatus mb-3 row">
+      <div>
+        <label class="required" for="id_MaritalStatus">Current Marital Status:</label>
+        <input type="text" value="{{ person.MaritalStatus }}" class="vTextField" maxlength="150" required="" id="id_MaritalStatus" disabled>
+      </div>
+    </div>
+    <div class="form-row field-MaritalStatus mb-3 row">
+      <div>
+        <label for="inputState" class="container text-left" name="MaritalStatus">Marital Status</label>
         <select id="MaritalStatus" class="form-control" name="MaritalStatus" required>
           <option selected>Choose marital status</option>
-            <option value="Married" name="MaritalStatus" >Married</option> 
-            <option value="Unmarried" name="MaritalStatus" selected>Unmarried</option>
-            <option value="Divorced" name="MaritalStatus" >Divorced</option>
+          <option value="Married" name="MaritalStatus">Married</option>
+          <option value="Unmarried" name="MaritalStatus" selected>Unmarried</option>
+          <option value="Divorced" name="MaritalStatus">Divorced</option>
         </select>
       </div>
-      </div>
+    </div>
 
     <button type="submit" class="btn btn-success" href="{% url 'View' %}" onclick="return formValidate()">Edit</button>
- 
-</form>
+
+  </form>
+
+</body>
 
 <script type="text/javascript">
 
-  function formValidate()
-{
-  var age = document.getElementById("age").value;
-    if( isNaN(age) || age < 1  )
-   {
-     alert( "Please provide your age in correct format!" );
-    //  age.focus();
-    document.getElementById("age").focus()
-     return false;
-   }
-   return true;
-}
+  function formValidate() {
+    var age = document.getElementById("age").value;
+    if (isNaN(age) || age < 1) {
+      alert("Please provide your age in correct format!");
+      //  age.focus();
+      document.getElementById("age").focus()
+      return false;
+    }
+    return true;
+  }
 
 </script>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
