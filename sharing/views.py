@@ -27,12 +27,7 @@ def mainSharing(request):
         feed=Feed.objects.all()
         user=Person.objects.get(Email=request.session['Email'])
         user_group = GroupMembership.objects.filter(GroupMember_id=user)
-        Skill=request.POST.get('Skill')
-        State=request.POST.get('State')
         
-        
-        # group = Group_tbl.objects.filter(GroupMember_id=user)
-        # feed=Feed.objects.filter(Group_tbl__in=user_group.GroupName)
 
         soilTags = SoilTag.objects.all()
         return render(request,'MainSharing.html',{'feed':feed ,'soilTags':soilTags, 'user_group':user_group})
@@ -52,18 +47,14 @@ def sharingGroup(request, pk):
         taggingSoil=SoilTag.objects.all()
         Title=request.POST.get('Title')
         Message=request.POST.get('Message')
-        Skill=request.POST.get('Skill')
-        State=request.POST.get('State')
         # Photo=request.FILES['Photo']
         # Video=request.FILES['Video']
         Photo=request.FILES.get('Photo',None)
         Video=request.FILES.get('Video', None)
         fss =FileSystemStorage()
         
-        
-        feed_id = Feed(Title=Title,Message=Message,Photo=Photo,Video=Video,Group=group_forum,Creator=creator,State=State,Skill=Skill).save()
+        feed_id = Feed(Title=Title,Message=Message,Photo=Photo,Video=Video,Group=group_forum,Creator=creator).save()
         feed = Feed.objects.get(id=feed_id)
-        #searchshare=feed.objects.filter('select * from feed where Skill="'+Skill+'" and State="'+State+'"')
 
         soilTagsID = request.POST.getlist('SoilTag')
         plantTagsID = request.POST.getlist('PlantTag')
@@ -97,8 +88,6 @@ def updateSharing(request, pk):
     if request.method=='POST':
         feed.Title=request.POST['Title']
         feed.Message=request.POST.get('Message')
-        Skill=request.POST.get('Skill')
-        State=request.POST.get('State')
         feed.Photo=request.FILES.get('Photo',None)
         feed.Video=request.FILES.get('Video', None)
         fss =FileSystemStorage()
@@ -161,35 +150,24 @@ def deleteSharing(request,pk):
 
 
 def viewForum(request, pk):
-    if request.method=="POST":
-        data = Group_tbl.objects.get(id=pk)
-        Skill=request.POST.get('Skill')
-        State=request.POST.get('State')
-        # soilTags = FeedSoilTagging.objects.all()
-        feed = Feed.objects.filter(Group = data)
-        searchshare=Feed.objects.raw('select * from Feed where Skill="'+Skill+'" and State="'+State+'"')
-        return render(request, 'Forum.html', {'feed': feed, 'data':data,'feed':searchshare})
-    try:
-            data = Group_tbl.objects.get(id=pk)
-            feed=Feed.objects.all()
-            person=Person.objects.get(Email=request.session['Email'])
-            searchshare=Feed.objects.raw('select * from Feed')
-            return render(request,'Forum.html', {'person':person,'data':data,'feed':feed})
-    except Feed.DoesNotExist:
-            raise Http404('Data does not exist') 
-    
+    data = Group_tbl.objects.get(id=pk)
+    # soilTags = FeedSoilTagging.objects.all()
+    feed = Feed.objects.filter(Group = data)
+
+    return render(request, 'Forum.html', {'feed': feed, 'data':data})
 
 
 def addComment(request, pk):
     commenter=Person.objects.get(Email=request.session['Email'])
     feed = Feed.objects.get(id=pk)
-    group_id = feed.Group_tbl.id
+    group_id = feed.Group.id
     
     if request.method=='POST':
         
         Message=request.POST.get('Message')
-        Picture=request.POST.get('Pictures')
-        Video=request.POST.get('Video')
+        Picture=request.FILES.get('Pictures',None)
+        Video=request.FILES.get('Video',None)
+        fss =FileSystemStorage()
         
         Comment(Message=Message,Pictures=Picture,Video=Video,Commenter=commenter,Feed=feed).save(),
         # messages.success(request,'The comment is save succesfully..!')
@@ -202,13 +180,14 @@ def addComment(request, pk):
 def updateComment(request, pk):
    
     comment = Comment.objects.get(id=pk)
-    group_id=comment.Feed.Group_tbl.id
+    group_id=comment.Feed.Group.id
     feed = comment.Feed
     if request.method=='POST':
        
        comment.Message=request.POST.get('Message')
-       comment.Photo=request.POST.get('Picture')
-       comment.Video=request.POST.get('Video')
+       comment.Photo=request.FILES.get('Picture',None)
+       comment.Video=request.FILES.get('Video',None)
+       fss =FileSystemStorage()
        comment.save()
     #    messages.success(request,"The comment of is updated succesfully..!")
        return redirect('sharing:Forum', group_id)
@@ -217,7 +196,7 @@ def updateComment(request, pk):
 
 def deleteComment(request,pk):
     comment = Comment.objects.get(id=pk)
-    group_id=comment.Feed.Group_tbl.id
+    group_id=comment.Feed.Group.id
     feed = comment.Feed
     try:
         comment=Comment.objects.get(id=pk)
@@ -247,19 +226,9 @@ def Sharing_GeneralSoilTag(request, pk):
         
         soilTagsID = request.POST.get('SoilTag')
         soilTagging = SoilTag.objects.get(id=soilTagsID)
-        # plantTagsID = request.POST.getlist('PlantTag')
-        # feedFiltered = FeedSoilTagging.objects.filter(FeedSoilTag = feed)
 
-        # filtered_feedSoilTagging = FeedSoilTagging.objects.filter(FeedSoilTag=feed).filter(soilTag=soilTagging)
-        # filtered_feedSoilTagging = feedFiltered.filter(soilTag=soilTagging)
-        
-        # filtered_feed = FeedSoilTagging.objects.filter(id__in = [FeedSoilTag.id for FeedSoilTag in Feed.objects.filter(Group = data)])
-        # filtered_feedSoilTagging = filtered_feed.filter(soilTag = soilTagging)
-
-        
         filtered_Soiltag = FeedSoilTagging.objects.filter(soilTag=soilTagging)
-        # filtered_feed = filtered_Soiltag.filter(FeedSoilTag=feed)
-        # filtered_feed = filtered_Soiltag.filter(id__in = [FeedSoilTag.id for FeedSoilTag in feed])
+
         filtered_feed = filtered_Soiltag.filter(FeedSoilTag__in=feed)
 
         return render(request,'FilteredForum.html', {'data':data, 'filtered_feed':filtered_feed, 'chosen_soilTag':soilTagging, 'ori_feed':feed})
@@ -298,25 +267,3 @@ def Sharing_PlantTag(request, pk):
         return render(request, 'Forum.html', {'feed': feed, 'data':data, 'context_PlantTags':context})   
 
 
-# def Sharing_PlantTag(request, plantTag):
-#         try:
-#             person=Person.objects.get(Email=request.session['Email'])
-#             dataWorkshopFilter=PlantTag.objects.filter(plantTag=plantTag)
-#             if dataWorkshopFilter:
-#                 for setdata in dataWorkshopFilter:
-#                     data=Workshop.objects.filter(id=setdata.PlantTagWorkshop.id)
-#             else:
-#                 data = ''
-            
-#             context = {
-#             "Herb": "Herb",
-#             "Shrub": "Shrub",
-#             "Tree": "Tree",
-#             "Creeper": "Creeper",
-#             "Climber": "Climber",
-#             "Fruit": "Fruit"
-#         }
-            
-#             return render(request,'workshop_plantTags.html', {'person':person,'data':data, 'context':context, 'plantTag':plantTag})
-#         except Workshop.DoesNotExist:
-#             raise Http404('Data does not exist')
