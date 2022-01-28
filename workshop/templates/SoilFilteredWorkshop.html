@@ -1,80 +1,97 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<style>
-  tr:nth-child(even) {background-color: #f2f2f2;}
-</style>
+  <style>
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+  </style>
+
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+  <h1 class="p-3 mb-2 bg-success text-white text-center">iGROW Knowledge Management System</h1>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 
 </head>
-  
-   <!-- Required meta tags -->
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<body>
 
-   <h1 class="p-3 mb-2 bg-success text-white text-center">iGROW Knowledge Management System</h1>
-
-   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-   <b>
+  <b>
     <div>
-      <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist" >
+      <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="{% url 'Home' %}" role="tab" aria-controls="home" aria-selected="true">Home</a>
+          <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="{% url 'Home' %}" role="tab"
+            aria-controls="home" aria-selected="true">Home</a>
         </li>
         <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="sharing-tab" data-bs-toggle="tab" href="{% url 'sharing:MainSharing' %}" role="tab" aria-controls="sharing" aria-selected="true">Sharing</a>
+          <a class="nav-link active" id="sharing-tab" data-bs-toggle="tab" href="{% url 'sharing:MainSharing' %}"
+            role="tab" aria-controls="sharing" aria-selected="true">Sharing</a>
         </li>
         <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="discussion-tab" data-bs-toggle="tab" href="{% url 'group:MainGroup' %}" role="tab" aria-controls="discussion" aria-selected="true">Group</a>
+          <a class="nav-link active" id="discussion-tab" data-bs-toggle="tab" href="{% url 'group:MainGroup' %}"
+            role="tab" aria-controls="discussion" aria-selected="true">Group</a>
         </li>
         <li class="nav-item" role="presentation">
-         <a class="nav-link active" id="friends-tab" data-bs-toggle="tab" href="{% url 'MainMember' %}" role="tab" aria-controls="friends" aria-selected="true">Member</a>
+          <a class="nav-link active" id="friends-tab" data-bs-toggle="tab" href="{% url 'MainMember' %}" role="tab"
+            aria-controls="friends" aria-selected="true">Member</a>
         </li>
         <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="workshop-tab" data-bs-toggle="tab" href="{% url 'workshop:Workshop' %}" role="tab" aria-controls="workshop" aria-selected="true">Workshop</a>
-         </li>
-         <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'View' %}" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
-         </li>
-         <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'Logout' %}" role="tab" aria-controls="logout" aria-selected="true">Logout</a>
-         </li>
+          <a class="nav-link active" id="workshop-tab" data-bs-toggle="tab" href="{% url 'workshop:Workshop' %}"
+            role="tab" aria-controls="workshop" aria-selected="true">Workshop</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'View' %}" role="tab"
+            aria-controls="profile" aria-selected="true">Profile</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'Logout' %}" role="tab"
+            aria-controls="logout" aria-selected="true">Logout</a>
+        </li>
         </li>
       </ul>
     </div>
-   </b>
-  <br/>
- <br/>
-    <p class="h4 text-center">Workshop</p>
-    <br/>
+  </b>
+  <br />
+  <br />
+  <p class="h4 text-center">Workshop</p>
+  <br />
+  {% csrf_token %}
+  {% block body %}
+
+  <div class="container">
+    {% if person.UserLevel == 'Admin' %}
+    <a class="btn btn-primary" href="{% url 'workshop:CreateWorkshop' %}" role="button">Create Workshop</a>
+    <!-- <a href="{% url 'workshop:CreateWorkshop' %}" class="link-primary">Create</a> ||  -->
+    <a class="btn btn-primary" href="{% url 'workshop:MyWorkshop' %}" role="button">View Your Workshop</a>
+    <!-- <a href="{% url 'workshop:MyWorkshop' %}" class="link-primary">View Your Workshop</a>  -->
+    {% endif %}
+  </div>
+
+  <br />
+  <div class="container">
+    <h9>Filter based on tags: {{chosen_soilTag.SoilTagName}}</h9>
+  </div>
+  <br />
+
+  <form method="POST" class="center">
     {% csrf_token %}
-    {% block body %}
-  
+
+    <br /><br />
     <div class="container">
-      {% if person.UserLevel == 'Admin' %}
-      <a href="{% url 'workshop:CreateWorkshop' %}" class="link-primary">Create</a> || 
-      <a href="{% url 'workshop:MyWorkshop' %}" class="link-primary">View Your Workshop</a> 
-      {% endif %}
-    </div>
-
-    <br/>
-    <div class="container"><h9>Filter based on tags: {{chosen_soilTag.SoilTagName}}</h9></div>
-    <br/>
-
-      <form method="POST" class="center">
-        {% csrf_token %}
-      
-      <br/><br/>
-      <div class="container">
       <div class="row">
         <table class="table">
           <thead>
             <tr>
-           
+
               <th scope="col">Programme Name</th>
               <th scope="col">Speaker</th>
               <th scope="col">Description</th>
@@ -90,7 +107,8 @@
             {% csrf_token %}
             {% for data in filteredWorkshop %}
             <tr class="table">
-              <th scope="row" value="{{ data.WorkshopSoilTag.ProgrammeName }}">{{ data.WorkshopSoilTag.ProgrammeName }}</th>
+              <th scope="row" value="{{ data.WorkshopSoilTag.ProgrammeName }}">{{ data.WorkshopSoilTag.ProgrammeName }}
+              </th>
               <th scope="row" value="{{ data.WorkshopSoilTag.Speaker }}">{{ data.WorkshopSoilTag.Speaker }}</th>
               <th scope="row" value="{{ data.WorkshopSoilTag.Description }}">{{ data.WorkshopSoilTag.Description }}</th>
               <th scope="row" value="{{ data.WorkshopSoilTag.Date }}">{{ data.WorkshopSoilTag.Date }}</th>
@@ -98,37 +116,38 @@
               <th scope="row" value="{{ data.WorkshopSoilTag.EndTime }}">{{ data.WorkshopSoilTag.EndTime }}</th>
               <th>
                 {%for ori_workshop in ori_workshop %}
-                
-                  {% if data.WorkshopSoilTag == ori_workshop %}
 
-                    {% if ori_workshop.soilTagging.all %}                    
-                      <i>
-                        {% for soilTags in ori_workshop.soilTagging.all %}
-                        {{soilTags.soilTag.SoilTagName}}  {% if not forloop.last %},{% endif %} 
-                        {% endfor %}
-                      </i>
-                    {% endif %}
+                {% if data.WorkshopSoilTag == ori_workshop %}
 
-                    {% if ori_workshop.plantTagging.all %}                      
-                      <i>
-                        {% for plantTags in ori_workshop.plantTagging.all %}
-                        {{plantTags.plantTag.PlantTagName}}  {% if not forloop.last %},{% endif %} 
-                        {% endfor %}
-                      </i>
-                    {% endif %}
+                {% if ori_workshop.soilTagging.all %}
+                <i>
+                  {% for soilTags in ori_workshop.soilTagging.all %}
+                  {{soilTags.soilTag.SoilTagName}} {% if not forloop.last %},{% endif %}
+                  {% endfor %}
+                </i>
+                {% endif %}
 
-                  {% endif %}
+                {% if ori_workshop.plantTagging.all %}
+                <i>
+                  {% for plantTags in ori_workshop.plantTagging.all %}
+                  {{plantTags.plantTag.PlantTagName}} {% if not forloop.last %},{% endif %}
+                  {% endfor %}
+                </i>
+                {% endif %}
 
-                {% endfor %} 
-            </th>
+                {% endif %}
+
+                {% endfor %}
+              </th>
               {% if person.Email == data.WorkshopSoilTag.PIC.Email %}
               <th><a href="{% url 'workshop:UpdateWorkshop' data.WorkshopSoilTag.id %}" class="card-link">Edit</a></th>
-              <th><a href="{% url 'workshop:DeleteWorkshop' data.WorkshopSoilTag.id %}" class="card-link">Delete</a></th>              
+              <th><a href="{% url 'workshop:DeleteWorkshop' data.WorkshopSoilTag.id %}" class="card-link">Delete</a>
+              </th>
               {% else %}
               <th scope="row"> &nbsp; </th>
               <th scope="row"> &nbsp; </th>
               {% endif %}
-              
+
               {% if person.UserLevel == 'User' %}
               <th>
                 <a href="{% url 'workshop:Booking' data.WorkshopSoilTag.id %}" class="card-link">Book</a>
@@ -138,26 +157,33 @@
             {% endfor %}
           </tbody>
         </table>
-        
+
+      </div>
+    </div>
+
+  </form>
+
+
+  {% if not filteredWorkshop %}
+  <div class="container">
+    <hr>
+    <h7 style="text-align: center; color: red;"><i>No workshop related to this {{ chosen_soilTag.SoilTagName }} tag </i>
+    </h7>
+    <hr>
   </div>
-</div>
- 
-</form> 
+  {% endif %}
 
-<hr>
-{% if not filteredWorkshop %}
-<div class="container">
-    <h7 style="text-align: center;"><i>No workshop related to this {{ chosen_soilTag.SoilTagName }} tag </i></h7>
-</div>
-{% endif %}
+  {% if messages %}
+  <div class="container">
+    {% for msg in messages %}
+    <b>{{msg}}</b>
+    {% endfor %}
+  </div>
+  {% endif %}
 
-<hr>
 
-{% if messages %}
-{% for msg in messages %}
-<b>{{msg}}</b>
-{% endfor %}
-{% endif %}
-{% endblock body %}
+  {% endblock body %}
+
+</body>
 
 </html>

@@ -1,110 +1,131 @@
-
 <!doctype html>
 <html lang="en">
-    <head>
-        <style>
-            form{
-                border:4px solid black;
-                margin: 0 auto;
-                padding: 40px;
-                width: fit-content;
-            }
-        </style>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"0>
-        
-    </head>
-  
-   <!-- Required meta tags -->
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+<head>
+  <style>
+    form {
+      border: 4px solid black;
+      margin: 0 auto;
+      padding: 40px;
+      width: fit-content;
+    }
+  </style>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" 0>
 
-   <h1 class="p-3 mb-2 bg-success text-white text-center">iGROW Knowledge Management System</h1>
+</head>
 
-   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-   <b>
-    <div>
-      <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist" >
-        <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="{% url 'Home' %}" role="tab" aria-controls="home" aria-selected="true">Home</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="sharing-tab" data-bs-toggle="tab" href="{% url 'sharing:MainSharing' %}" role="tab" aria-controls="sharing" aria-selected="true">Sharing</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="discussion-tab" data-bs-toggle="tab" href="{% url 'group:MainGroup' %}" role="tab" aria-controls="discussion" aria-selected="true">Group</a>
-        </li>
-        <li class="nav-item" role="presentation">
-         <a class="nav-link active" id="friends-tab" data-bs-toggle="tab" href="{% url 'MainMember' %}" role="tab" aria-controls="friends" aria-selected="true">Member</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="workshop-tab" data-bs-toggle="tab" href="{% url 'workshop:Workshop' %}" role="tab" aria-controls="workshop" aria-selected="true">Workshop</a>
-         </li>
-         <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'View' %}" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
-         </li>
-        </li>
-      </ul>
-    </div>
-  <br/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+  integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+<h1 class="p-3 mb-2 bg-success text-white text-center">iGROW Knowledge Management System</h1>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+  integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js"
+  integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
+<b>
+  <div>
+    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="{% url 'Home' %}" role="tab"
+          aria-controls="home" aria-selected="true">Home</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="sharing-tab" data-bs-toggle="tab" href="{% url 'sharing:MainSharing' %}"
+          role="tab" aria-controls="sharing" aria-selected="true">Sharing</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="discussion-tab" data-bs-toggle="tab" href="{% url 'group:MainGroup' %}"
+          role="tab" aria-controls="discussion" aria-selected="true">Group</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="friends-tab" data-bs-toggle="tab" href="{% url 'MainMember' %}" role="tab"
+          aria-controls="friends" aria-selected="true">Member</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="workshop-tab" data-bs-toggle="tab" href="{% url 'workshop:Workshop' %}"
+          role="tab" aria-controls="workshop" aria-selected="true">Workshop</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'View' %}" role="tab"
+          aria-controls="profile" aria-selected="true">Profile</a>
+      </li>
+      </li>
+    </ul>
+  </div>
+  <br />
 
   {% block content %}
-  <div class="container">
-    <div class="row">
-      <div class="col-sm">
-        <div class="container">
-          <div class="row">
-            <div class="col-8">
-              <body>  
-                {% csrf_token %}
-<br/>
-                          <form action= "{% url 'MainSearchbar' %}" method="get">
-                            <input type="text" name="search" placeholder="Search member"/>
-                            <button type="submit">Search</button>
-                        </form>
-                          {% endblock content %}  
-                          {% block body %}
 
-{{ error }}
+  <body>
+    <div class="container">
 
-{% if Name %}
-    <center><h1>Search Result Found</h1></center>
-    <br>
-{% for i in Name %}
-<center><a href="/Member{{ i.slug }}"> 
-  <h2>Name: {{ i.Name}} </h2>
-  <h5>Username: {{ i.Username}} </h5>
-  <h5>District: {{ i.District }}</h5> 
-  <h5>State: {{ i.State }}</h5> 
-  <h5>Occupation: {{ i.Occupation}}</h5> 
-  <h7> <a href= "{% url 'sendMemberRequest' i.id %}"> Send member request</a></h7> 
-  <br/>
-  <hr>
-  <br/>
-</a></center>
-{% endfor %}
-    {% else %}
-        <center>
-          <h2>Name: {{ sentRequestUser.Name}} </h2>
-          <h5>Username: {{ sentRequestUser.Username}} </h5>
-          <h5>District: {{ sentRequestUser.District }}</h5> 
-          <h5>State: {{ sentRequestUser.State }}</h5> 
-          <h5>Occupation: {{ sentRequestUser.Occupation}}</h5> 
-        </center>
-{% endif %}
+      {% csrf_token %}
+      <br />
+      <form action="{% url 'MainSearchbar' %}" method="get">
+        <input type="text" name="search" placeholder="Search member" />
+        <button type="submit">Search</button>
+      </form>
+      <br />
+      {% endblock content %}
+      {% block body %}
 
-<hr>
-{% if messages %}
-{% for msg in messages %}
-<b>{{msg}}</b>
-{% endfor %}
-{% endif %}
-<hr />
-               
-{% endblock body %}
-   </html>
+      {{ error }}
+
+      {% if Name %}
+      <center>
+        <br/>
+        <h1>Search Result Found</h1>
+      </center>
+      <br>
+      {% for i in Name %}
+
+      <center>
+        <hr>
+        <h2>Name: {{ i.Name}} </h2>
+        <h5>Username: {{ i.Username}} </h5>
+        <h5>District: {{ i.District }}</h5>
+        <h5>State: {{ i.State }}</h5>
+        <h5>Occupation: {{ i.Occupation}}</h5>
+        <h7> <a href="{% url 'sendMemberRequest' i.id %}"> Send member request</a></h7>
+        <br />
+        <hr>
+      </center>
+      <br />
+      {% endfor %}
+      {% else %}
+      <center>
+        <h2>Name: {{ sentRequestUser.Name}} </h2>
+        <h5>Username: {{ sentRequestUser.Username}} </h5>
+        <h5>District: {{ sentRequestUser.District }}</h5>
+        <h5>State: {{ sentRequestUser.State }}</h5>
+        <h5>Occupation: {{ sentRequestUser.Occupation}}</h5>
+      </center>
+      {% endif %}
+
+      <hr>
+      {% if messages %}
+      <center>
+      {% for msg in messages %}
+      <b style="color: red;">{{msg}}</b>
+      {% endfor %}
+    </center>
+      {% endif %}
+      <hr />
+
+    </div>
+  </body>
+
+  {% endblock body %}
+
+</html>
