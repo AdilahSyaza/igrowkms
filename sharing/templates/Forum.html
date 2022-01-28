@@ -77,6 +77,68 @@
     padding-bottom: 20px;
   }
 }
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default radio button */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: green;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: white;
+}
 </style>
 </head>
 <body>
@@ -130,10 +192,62 @@
                           <h5>Filter Sharing By Tags: </h5>
                           <a href="{% url 'sharing:Sharing_GeneralSoilTag' data.id %}" class="link-primary" target="_blank">Enable Soil Tags</a> ||
                           <a href="{% url 'sharing:Sharing_PlantTag' data.id %}" class="link-primary" target="_blank">Enable Plant Tags</a> ||
+                          
+                          
                         </div>
+                        <form method="POST" class="center">
+                          {% csrf_token %}
+                        <div class="container">
+                        <h5>Filter by Farming Skill Level || State</h5>
+                                <label class="container">Beginner
+                                  <input type="radio" checked="checked" name="Skill" value="Beginner">
+                                  <span class="checkmark"></span>
+                                </label>
+                                <label class="container">Average
+                                  <input type="radio"  name="Skill" value="Average">
+                                  <span class="checkmark"></span>
+                                </label>
+                                <label class="container">Skilled
+                                  <input type="radio"  name="Skill" value="Skilled">
+                                  <span class="checkmark"></span>
+                                </label>
+                                <label class="container">Specialist
+                                  <input type="radio"  name="Skill" value="Specialist">
+                                  <span class="checkmark"></span>
+                                </label>
+                                <label class="container">Expert
+                                  <input type="radio"  name="Skill" value="Expert">
+                                  <span class="checkmark"></span>
+                                </label>
+                                <select id="inputLocation" name="State" required>
+                                    <option selected disabled=true>--select state --</option>
+                                    <option>Johor</option>
+                                    <option>Kedah</option>
+                                    <option>Kelantan</option>
+                                    <option >Melaka</option>
+                                    <option >Negeri Sembilan</option>
+                                    <option >Pahang</option>
+                                    <option >Pulau Pinang</option>
+                                    <option>Perak</option>
+                                    <option >Perlis</option>
+                                    <option >Sabah</option>
+                                    <option >Sarawak</option>
+                                    <option >Selangor</option>
+                                    <option >Terengganu</option>
+                                    <option >W.P. Kuala Lumpur</option>
+                                  </select>
+                                  &nbsp;&nbsp; <br>
+                                  <button type="submit" class="btn btn-success " value="Filter">Filter</button>
+                                  <br>
+                                  <br>
+                                </div>
+                                </form>
+                        
                           {% endif %}
                           
-
+                  
+                           
+                               
 <!-- <div class="header">
   <h2>Sharing</h2>
 </div> -->
@@ -149,7 +263,10 @@
         
           <h1>{{feed.Title}}</h1>
           <h4><i>By {{feed.Creator.Name}}</i></h4>
+          <h9>Farming Skill: {{feed.Skill}}</h9>
+          <h9>Location: {{feed.State}}</h9>
           <h9>{{feed.created_at}}</h9>
+
           <br/>
           <p><b>{{feed.Message}}</b></p>
           {% if feed.Photo %}
@@ -207,22 +324,6 @@
                 {% for comment in feed.comments.all %}
                   <b>{{ comment.Commenter.Name }}</b>
                 {{ comment.Message }}
-                {% if comment.Pictures %}
-            <img
-                  style="border: 1px solid black;"
-                  src="{{MEDIA_URL}}/{{comment.Pictures}}"
-                  width="300"
-                  height="300"
-                  alt="pic"
-              />
-              <br>
-          {% endif %}
-          {% if comment.Video %}
-            <video width="500px" height="500px" controls style="border: 1px solid black;">
-              <source src="{{MEDIA_URL}}/{{comment.Video}}" type="video/mp4">
-            </video>
-            <br>
-          {% endif %}
                 {% if request.session.Email == comment.Commenter.Email %}
                 <a href="{% url 'sharing:UpdateComment' comment.id %}" class="card-link">Edit</a>
                 <a href="{% url 'sharing:DeleteComment' comment.id %}" class="card-link">Delete</a>
@@ -242,7 +343,7 @@
   </div>
 </div>
 </div>
-<br/><br/>
+
 
 </body>
 </html>
