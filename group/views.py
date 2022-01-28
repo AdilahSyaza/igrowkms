@@ -19,19 +19,11 @@ from member.models import Person, SoilTag, PlantTag
 
 #group
 def mainGroup(request):
-    if request.method=='POST':
-        person=Person.objects.get(Email=request.session['Email'])
-        Age = request.POST.get('Age')
-        State = request.POST.get('State')
-        searchgp=Group_tbl.objects.raw('select * from Group_tbl where Age="'+Age+'" and State="'+State+'"')
-        return render(request,'MainGroup.html', {'person':person,'group':searchgp})
-    
     try:
         
         person=Person.objects.get(Email=request.session['Email'])
         # cuba
         group=Group_tbl.objects.all()
-        searchgp=Group_tbl.objects.raw('select * from Group_tbl')
         fss =FileSystemStorage()
         # file = fss.save(Media.name, Media)
         uploaded_file = fss.url(group)
