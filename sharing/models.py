@@ -14,7 +14,7 @@ class Feed(models.Model):
         db_table = 'Feed'
     Title = models.CharField(max_length=255)
     Message = models.CharField(max_length=255)
-    Gender = models.CharField(max_length=20,default="")
+    Skill = models.CharField(max_length=20,default="")
     State = models.CharField(max_length=100,default="")
     Photo = models.ImageField(upload_to ='uploads/', blank=True,null=True, default="")
     Video = models.FileField(upload_to='uploads/', blank=True, null=True, default="")
