@@ -2,112 +2,135 @@
 
 <!doctype html>
 <html lang="en">
-<head></head>
 
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+</head>
 
-<h1 class="p-3 mb-2 bg-success text-white text-center">iGROW Knowledge Management System</h1>
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-
-<b>
-  <div>
-    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist" >
-      <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="{% url 'Home' %}" role="tab" aria-controls="home" aria-selected="true">Home</a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="sharing-tab" data-bs-toggle="tab" href="{% url 'sharing:MainSharing' %}" role="tab" aria-controls="sharing" aria-selected="true">Sharing</a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="discussion-tab" data-bs-toggle="tab" href="{% url 'group:MainGroup' %}" role="tab" aria-controls="discussion" aria-selected="true">Group</a>
-      </li>
-      <li class="nav-item" role="presentation">
-       <a class="nav-link active" id="friends-tab" data-bs-toggle="tab" href="{% url 'MainMember' %}" role="tab" aria-controls="friends" aria-selected="true">Member</a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="workshop-tab" data-bs-toggle="tab" href="{% url 'workshop:Workshop' %}"role="tab" aria-controls="workshop" aria-selected="true">Workshop</a>
-       </li>
-       <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'View' %}" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
-       </li>
-    </ul>
+{% block content %}
+<body>
+  <h1 class="p-3 mb-2 bg-success text-white text-center">iGROW Knowledge Management System</h1>
+  <b>
+    <div>
+      <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="{% url 'Home' %}" role="tab"
+            aria-controls="home" aria-selected="true">Home</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="sharing-tab" data-bs-toggle="tab" href="{% url 'sharing:MainSharing' %}"
+            role="tab" aria-controls="sharing" aria-selected="true">Sharing</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="discussion-tab" data-bs-toggle="tab" href="{% url 'group:MainGroup' %}"
+            role="tab" aria-controls="discussion" aria-selected="true">Group</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="friends-tab" data-bs-toggle="tab" href="{% url 'MainMember' %}" role="tab"
+            aria-controls="friends" aria-selected="true">Member</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="workshop-tab" data-bs-toggle="tab" href="{% url 'workshop:Workshop' %}"
+            role="tab" aria-controls="workshop" aria-selected="true">Workshop</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'View' %}" role="tab"
+            aria-controls="profile" aria-selected="true">Profile</a>
+        </li>
+      </ul>
+    </div>
+  </b>
+  <br/>
+  
+  <div class="container bg-light" style="text-align: center;">
+    <label for="exampleFormControlTextarea1" style="font-size: 2em; text-align: center;">Update Sharing</label>
+    <br/>
   </div>
-<br/>
-                          {% block content %}
-                          <div class="container">
-                          <label for="exampleFormControlTextarea1" style="font-size: 2em;" >Update Sharing</label>
-                          <form method="POST" class="container row g-3" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            
-                            <div class="col-12">
-                              <label for="inputTitle" class="container text-left">Title</label>
-                              <input type="text" class="form-control" id="title" name="Title" value="{{ feed.Title }}" required>
-                            </div>
-                            <div class="col-md-6">
-                              <label for="inputNewSharing" class="form-label">Message</label>
-                              <input class="form-control" id="inputSharing" name="Message" rows="10" cols="10" value="{{ feed.Message }}" required></textarea>
-                            </div>
-                            <br/><br/>
-                            <div class="col-12">
-                              <label for="inputImage" class="form-label">Photo</label>
-                              <input type="file" class="form-control" id="inputImage" name="Photo">
-                            </div>
-                            <br/><br/>
-                            <div class="col-12">
-                              <label for="inputVideo" class="form-label">Video</label>
-                              <input type="file" class="form-control" id="inputVideo" name="Video" placeholder="Enter video">
-                            </div>
-                            <br/><br/>
 
-                            <div class="col-md-6">
-                              {% if currentSoilTag %}
-                                <b>Current tags:</b> 
-                                {% for currentSoilTag in currentSoilTag %}
-                                  <p><b>{{currentSoilTag.soilTag.SoilTagName}}</b></p>
-                                {% endfor %}
-                              {% endif %}
-                              <label for="inputSoil" class="form-label">New Soil Tag : </label><br>
-                              {% for soilTag in SoilTag %}
-                              <input type="checkbox" name="SoilTag" value="{{soilTag.id}}" id="{{soilTag.id}}"><label for="{{soilTag.id}}">{{soilTag.SoilTagName}}</label><br>
-                              {% endfor %}
-                            </div>
-                            <br/><br/>
+  <div class="container">
+  
+    <form method="POST" class="container row g-3" enctype="multipart/form-data">
+      {% csrf_token %}
 
-                            <div class="col-md-6">
-                              {% if currentPlantTag %}
-                                <b>Current tags:</b> 
-                                {% for currentPlantTag in currentPlantTag %}
-                                  <p><b>{{currentPlantTag.plantTag.PlantTagName}}</b></p>
-                                {% endfor %}
-                              {% endif %}
-                              <label for="inputPlant" class="form-label">New Plant Tag : </label><br>
-                              {% for plantTag in PlantTag %}
-                              <input type="checkbox" name="PlantTag" value="{{plantTag.id}}" id="{{plantTag.id}}"><label for="{{plantTag.id}}">{{plantTag.PlantTagName}}</label><br>
-                              {% endfor %}
-                            </div>
-                            <br/><br/>
+      <div class="col-12">
+        <label for="inputTitle" class="container text-left">Title</label>
+        <input type="text" class="form-control" id="title" name="Title" value="{{ feed.Title }}" required>
+      </div>
+      <div class="col-md-6">
+        <label for="inputNewSharing" class="form-label">Message</label>
+        <input class="form-control" id="inputSharing" name="Message" rows="10" cols="10" value="{{ feed.Message }}"
+          required></textarea>
+      </div>
+      <br /><br />
+      <div class="col-12">
+        <label for="inputImage" class="form-label">Photo</label>
+        <input type="file" class="form-control" id="inputImage" name="Photo">
+      </div>
+      <br /><br />
+      <div class="col-12">
+        <label for="inputVideo" class="form-label">Video</label>
+        <input type="file" class="form-control" id="inputVideo" name="Video" placeholder="Enter video">
+      </div>
+      <br /><br />
 
-                            <div class="col-12">
-                              <button type="submit" class="btn btn-success" value="Sharing">Save</button>
-                            </div>
+      <div class="col-md-6">
+        {% if currentSoilTag %}
+        <br/>
+        <b>Current tags:</b>
+        {% for currentSoilTag in currentSoilTag %}
+        <p><b>{{currentSoilTag.soilTag.SoilTagName}}</b></p>
+        {% endfor %}
+        {% endif %}
+        <label for="inputSoil" class="form-label">New Soil Tag : </label><br>
+        {% for soilTag in SoilTag %}
+        <input type="checkbox" name="SoilTag" value="{{soilTag.id}}" id="{{soilTag.id}}"><label
+          for="{{soilTag.id}}">{{soilTag.SoilTagName}}</label><br>
+        {% endfor %}
+      </div>
+      <br />
 
-                          </form>
-                        </div>
-                        <div class="container">
-                          {% if messages %}
-                          {% for msg in messages %}
-                          <b>{{msg}}</b>
-                          {% endfor %}
-                          {% endif %}
-                        </div>
-                          
-                      
-                          {% endblock %}
+      <div class="col-md-6">
+        {% if currentPlantTag %}
+        <br/>
+        <b>Current tags:</b>
+        {% for currentPlantTag in currentPlantTag %}
+        <p><b>{{currentPlantTag.plantTag.PlantTagName}}</b></p>
+        {% endfor %}
+        {% endif %}
+        <label for="inputPlant" class="form-label">New Plant Tag : </label><br>
+        {% for plantTag in PlantTag %}
+        <input type="checkbox" name="PlantTag" value="{{plantTag.id}}" id="{{plantTag.id}}"><label
+          for="{{plantTag.id}}">{{plantTag.PlantTagName}}</label><br>
+        {% endfor %}
+      </div>
+      <br />
+
+      <div class="col-12">
+        <br/>
+        <button type="submit" class="btn btn-success" value="Sharing">Save</button>
+      </div>
+
+    </form>
+  </div>
+
+  {% if messages %}
+  <div class="container">   
+    {% for msg in messages %}
+    <b>{{msg}}</b>
+    {% endfor %} 
+  </div>
+  {% endif %}
+
+  <br/><br/>
+</body>
+{% endblock %}
+
+</html>

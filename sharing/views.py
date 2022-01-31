@@ -159,11 +159,9 @@ def viewForum(request, pk):
         searchshare=Feed.objects.raw('select * from Feed where Skill="'+Skill+'" and State="'+State+'"')
         return render(request, 'Forum.html', {'feed': feed, 'data':data,'feed':searchshare})
     try:
-            data=Feed.objects.all()
             data = Group_tbl.objects.get(id=pk)
-            person=Person.objects.get(Email=request.session['Email'])
-            searchshare=Feed.objects.raw('select * from Feed') 
-            return render(request,'Forum.html', {'person':person,'data':data})
+            feed = Feed.objects.filter(Group = data)
+            return render(request,'Forum.html', {'feed':feed,'data':data})
     except Feed.DoesNotExist:
             raise Http404('Data does not exist') 
 

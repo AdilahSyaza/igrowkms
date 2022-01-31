@@ -72,9 +72,9 @@
 </b>
 <br />
 {% block content %}
-<div class="container">
 
   <body>
+    <div class="container">
     {% csrf_token %}
     <div class="container bg-light" style="text-align: center;">
       <label for="exampleFormControlTextarea1" style="font-size: 2em;">Sharing</label>     
@@ -129,11 +129,11 @@
       {% endfor %}
       {% endfor %}
     </table>
+    <br/>
 
-
+  </div>
 </body>
-</div>
-<br/>
+
 {% endblock body %}
 
 </html>
