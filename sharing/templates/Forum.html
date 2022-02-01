@@ -93,6 +93,7 @@
     padding-bottom: 20px;
   }
 }
+
 .container {
   display: block;
   position: relative;
@@ -178,7 +179,7 @@
       <div class="container">
         <label for="inputSoil" class="form-label">Soil Tag : </label><br>
         {% for soilTag in context_SoilTags.SoilTags %}
-        <input type="radio" name="SoilTag" value="{{ soilTag.id }}">{{ soilTag.SoilTagName }} <br>
+        <input type="radio" name="SoilTag" value="{{ soilTag.id }}" required>{{ soilTag.SoilTagName }} <br>
         {% endfor %}
       </div>
       <div class="col-12">
@@ -194,7 +195,7 @@
       <div class="container">
         <label for="inputPlant" class="form-label">Plant Tag : </label><br>
         {% for plantTag in context_PlantTags.PlantTags %}
-        <input type="radio" name="PlantTag" value="{{ plantTag.id }}">{{ plantTag.PlantTagName }} <br>
+        <input type="radio" name="PlantTag" value="{{ plantTag.id }}" required>{{ plantTag.PlantTagName }} <br>
         {% endfor %}
       </div>
       <div class="col-12">
@@ -303,8 +304,11 @@
 
           {% if feed.Creator.Email == request.session.Email %}
           <br>
-          <a href="{% url 'sharing:UpdateSharing' feed.id %}" class="card-link">Edit</a>
-          <a href="{% url 'sharing:DeleteSharing' feed.id %}" class="card-link">Delete</a>
+          <div>
+            <a href="{% url 'sharing:UpdateSharing' feed.id %}" class="card-link">Edit</a>
+            <a href="{% url 'sharing:DeleteSharing' feed.id %}" class="card-link">Delete</a>
+          </div>
+          
           {% endif %}
 
           <br />
@@ -314,10 +318,16 @@
           {% if not feed.comments.all %}
           No comments Yet...
           <br />
-          <a href="{% url 'sharing:AddComment' feed.id %}">Add Comment</a>
+          <div class="col-12">
+          <a class="btn btn-info btn-sm" href="{% url 'sharing:AddComment' feed.id %}" role="button">Add Comment</a>
+        </div>
+          <!-- <a href="{% url 'sharing:AddComment' feed.id %}">Add Comment</a> -->
 
           {% else %}
-          <a href="{% url 'sharing:AddComment' feed.id %}">Add Comment</a>
+          <div class="col-12">
+          <a class="btn btn-info btn-sm" href="{% url 'sharing:AddComment' feed.id %}" role="button">Add Comment</a>
+        </div>
+          <!-- <a href="{% url 'sharing:AddComment' feed.id %}">Add Comment</a> -->
           <br />
           {% for comment in feed.comments.all %}
           <b>{{ comment.Commenter.Name }}</b>
@@ -334,8 +344,11 @@
           <br>
           {% endif %}
           {% if request.session.Email == comment.Commenter.Email %}
-          <a href="{% url 'sharing:UpdateComment' comment.id %}" class="card-link">Edit</a>
-          <a href="{% url 'sharing:DeleteComment' comment.id %}" class="card-link">Delete</a>
+          <div>
+            <a href="{% url 'sharing:UpdateComment' comment.id %}" class="card-link">Edit</a>
+            <a href="{% url 'sharing:DeleteComment' comment.id %}" class="card-link">Delete</a>
+          </div>
+        
           {% endif %}
           <br />
           <hr>

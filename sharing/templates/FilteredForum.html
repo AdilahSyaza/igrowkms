@@ -1,196 +1,220 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
-  <h1 class="p-3 mb-2 bg-success text-white text-center">iGROW Knowledge Management System</h1>
-
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
-  <b>
-   <div>
-     <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist" >
-       <li class="nav-item" role="presentation">
-         <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="{% url 'Home' %}" role="tab" aria-controls="home" aria-selected="true">Home</a>
-       </li>
-       <li class="nav-item" role="presentation">
-         <a class="nav-link active" id="sharing-tab" data-bs-toggle="tab" href="{% url 'sharing:MainSharing' %}" role="tab" aria-controls="sharing" aria-selected="true">Sharing</a>
-       </li>
-       <li class="nav-item" role="presentation">
-         <a class="nav-link active" id="discussion-tab" data-bs-toggle="tab" href="{% url 'group:MainGroup' %}" role="tab" aria-controls="discussion" aria-selected="true">Group</a>
-       </li>
-       <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="friends-tab" data-bs-toggle="tab" href="{% url 'MainMember' %}" role="tab" aria-controls="friends" aria-selected="true">Member</a>
-       </li>
-       <li class="nav-item" role="presentation">
-         <a class="nav-link active" id="workshop-tab" data-bs-toggle="tab" href="{% url 'workshop:Workshop' %}" role="tab" aria-controls="workshop" aria-selected="true">Workshop</a>
-        </li>
-        <li class="nav-item" role="presentation">
-         <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'View' %}" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
-        </li>
-        <li class="nav-item" role="presentation">
-          <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'Logout' %}" role="tab" aria-controls="logout" aria-selected="true">Logout</a>
-         </li>
-       </li>
-     </ul>
-   </div>
-  </b>
- <br/>
-<br/>
-<style>
 
-.header {
-  padding: 2px;
-  font-size: 30px;
-  text-align: center;
-  background: white;
-}
+  <style>
+    .header {
+      padding: 2px;
+      font-size: 30px;
+      text-align: center;
+      background: white;
+    }
 
-.leftcolumn {   
-  float: left;
-  width: 100%;
-}
+    .leftcolumn {
+      float: left;
+      width: 100%;
+    }
 
-.card {
-   background-color: white;
-   padding: 20px;
-   margin-top: 20px;
-}
+    .card {
+      background-color: white;
+      padding: 20px;
+      margin-top: 20px;
+    }
 
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
 
-@media screen and (max-width: 800px) {
-  .leftcolumn, .rightcolumn {   
-    width: 100%;
-    padding: 0;
-    padding-bottom: 20px;
-  }
-}
-</style>
+    @media screen and (max-width: 800px) {
+
+      .leftcolumn,
+      .rightcolumn {
+        width: 100%;
+        padding: 0;
+        padding-bottom: 20px;
+      }
+    }
+  </style>
 </head>
+
+
 <body>
+  <h1 class="p-3 mb-2 bg-success text-white text-center">iGROW Knowledge Management System</h1>
 
+  <b>
+    <div>
+      <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="{% url 'Home' %}" role="tab"
+            aria-controls="home" aria-selected="true">Home</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="sharing-tab" data-bs-toggle="tab" href="{% url 'sharing:MainSharing' %}"
+            role="tab" aria-controls="sharing" aria-selected="true">Sharing</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="discussion-tab" data-bs-toggle="tab" href="{% url 'group:MainGroup' %}"
+            role="tab" aria-controls="discussion" aria-selected="true">Group</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="friends-tab" data-bs-toggle="tab" href="{% url 'MainMember' %}" role="tab"
+            aria-controls="friends" aria-selected="true">Member</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="workshop-tab" data-bs-toggle="tab" href="{% url 'workshop:Workshop' %}"
+            role="tab" aria-controls="workshop" aria-selected="true">Workshop</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'View' %}" role="tab"
+            aria-controls="profile" aria-selected="true">Profile</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="{% url 'Logout' %}" role="tab"
+            aria-controls="logout" aria-selected="true">Logout</a>
+        </li>
 
- 
-<body>  
-  <div class="header">
-                {% csrf_token %}
-                          <div class="container my-3 bg-light">
-                            <label for="exampleFormControlTextarea1" style="font-size: 2em;" >{{data.Name}}</label> <br/>
-                            <!-- <label for="exampleFormControlTextarea1" style="font-size: 2em;" >Groud ID: {{data.id}}</label> -->
-                          </div>
+      </ul>
     </div>
-                          <div class="container">
-                            <a href="{% url 'sharing:SharingGroup' data.id %}" class="link-primary" target="_blank">New Sharing</a> 
-                          </div><br/>
-
-
-                          <div class="container"><h9>Filter based on tags: {{chosen_soilTag.SoilTagName}}</h9></div>
-
-{% for feed in filtered_feed reversed %}
-<div class="container">
-<div class="row">
-  <div class="leftcolumn">
-    <div class="card">
+  </b>
+  <br />
+  <br />
+  <div class="header">
     {% csrf_token %}
-    
-      
-        
+    <div class="container my-3 bg-light">
+      <label for="exampleFormControlTextarea1" style="font-size: 2em;">{{data.Name}}</label> <br />
+      <!-- <label for="exampleFormControlTextarea1" style="font-size: 2em;" >Groud ID: {{data.id}}</label> -->
+    </div>
+  </div>
+  <div class="container">
+    <a href="{% url 'sharing:SharingGroup' data.id %}" class="link-primary" target="_blank">New Sharing</a>
+  </div><br />
+
+
+  <div class="container">
+    <h9>Filter based on tags: {{chosen_soilTag.SoilTagName}}</h9>
+  </div>
+
+  {% for feed in filtered_feed reversed %}
+  <div class="container">
+    <div class="row">
+      <div class="leftcolumn">
+        <div class="card">
+          {% csrf_token %}
+
           <h1>{{feed.FeedSoilTag.Title}}</h1>
           <h4><i>By {{feed.FeedSoilTag.Creator.Name}}</i></h4>
           <h9>{{feed.FeedSoilTag.created_at}}</h9>
-          <br/>
+          <br />
           <p><b>{{feed.FeedSoilTag.Message}}</b></p>
-          <img
+          <!-- <img
                 src="{{ feed.FeedSoilTag.Photo }}"
                 class="rounded-circle"
                 width="30"
                 height="30"
                 alt=""
-            />
+            /> -->
+          {% if feed.FeedSoilTag.Photo %}
+          <img style="border: 1px solid black;" src="{{MEDIA_URL}}/{{feed.FeedSoilTag.Photo}}" width="300" height="300"
+            alt="pic" />
+          <br>
+          {% endif %}
+          {% if feed.FeedSoilTag.Video %}
+          <video width="500px" height="500px" controls style="border: 1px solid black;">
+            <source src="{{MEDIA_URL}}/{{feed.FeedSoilTag.Video}}" type="video/mp4">
+          </video>
+          <br>
+          {% endif %}
 
-            {%for ori_feed in ori_feed reversed%}
+          {%for ori_feed in ori_feed reversed%}
 
-            {% if feed.FeedSoilTag == ori_feed %}
+          {% if feed.FeedSoilTag == ori_feed %}
 
-            {% if ori_feed.soilTagging.all %}
-                <i>Soil Tagging:</i>
-                <i>
-                {% for soilTags in ori_feed.soilTagging.all %}
-                {{soilTags.soilTag.SoilTagName}}  {% if not forloop.last %},{% endif %} 
-                {% endfor %}
-              </i>
-              {% endif %}
+          {% if ori_feed.soilTagging.all %}
+          <i>Soil Tagging:</i>
+          <i>
+            {% for soilTags in ori_feed.soilTagging.all %}
+            {{soilTags.soilTag.SoilTagName}} {% if not forloop.last %},{% endif %}
+            {% endfor %}
+          </i>
+          {% endif %}
 
-              {% if ori_feed.plantTagging.all %}
-                <i>Plant Tagging:</i>
-                <i>
-                {% for plantTags in ori_feed.plantTagging.all %}
-                {{plantTags.plantTag.PlantTagName}}  {% if not forloop.last %},{% endif %} 
-                {% endfor %}
-              </i>            
-            {% endif %}
+          {% if ori_feed.plantTagging.all %}
+          <i>Plant Tagging:</i>
+          <i>
+            {% for plantTags in ori_feed.plantTagging.all %}
+            {{plantTags.plantTag.PlantTagName}} {% if not forloop.last %},{% endif %}
+            {% endfor %}
+          </i>
+          {% endif %}
 
-            {% endif %}
+          {% endif %}
 
-            {% endfor %} 
-            <!-- endfor for ori_feed -->
+          {% endfor %}
+          <!-- endfor for ori_feed -->
 
-            {% if feed.FeedSoilTag.Creator.Email == request.session.Email %}
+          {% if feed.FeedSoilTag.Creator.Email == request.session.Email %}
+          <div>
+            <br />
             <a href="{% url 'sharing:UpdateSharing' feed.id %}" class="card-link">Edit</a>
             <a href="{% url 'sharing:DeleteSharing' feed.id %}" class="card-link">Delete</a>
-            {% endif %}
+          </div>
 
-            <br/><br/>
-            <hr>
-            <h5>Comments...</h5>
-            <br/>
-            {% if not feed.FeedSoilTag.comments.all %}
-              No comments Yet... 
-              <br/>
-              <a href="{% url 'sharing:AddComment' feed.FeedSoilTag.id %}">Add Comment</a>
-            
-              {% else %}
-              <a href="{% url 'sharing:AddComment' feed.FeedSoilTag.id %}">Add Comment</a>
-              <br/>
-                {% for comment in feed.FeedSoilTag.comments.all %}
-                  <b>{{ comment.Commenter.Name }}</b>
-                {{ comment.Message }}
-                {% if request.session.Email == comment.Commenter.Email %}
-                <a href="{% url 'sharing:UpdateComment' comment.id %}" class="card-link">Edit</a>
-                <a href="{% url 'sharing:DeleteComment' comment.id %}" class="card-link">Delete</a>
-                {% endif %}
-                <br/>
-                <hr>
-                <br/>
+          {% endif %}
+          <br />
+          <hr>
+          <h5>Comments...</h5>
+          <br />
+          {% if not feed.FeedSoilTag.comments.all %}
+          No comments Yet...
+          <br />
+          <a href="{% url 'sharing:AddComment' feed.FeedSoilTag.id %}">Add Comment</a>
 
-                {% endfor %}
+          {% else %}
+          <a href="{% url 'sharing:AddComment' feed.FeedSoilTag.id %}">Add Comment</a>
+          <br />
+          {% for comment in feed.FeedSoilTag.comments.all %}
+          <b>{{ comment.Commenter.Name }}</b>
+          {{ comment.Message }}
+          {% if request.session.Email == comment.Commenter.Email %}
+          <a href="{% url 'sharing:UpdateComment' comment.id %}" class="card-link">Edit</a>
+          <a href="{% url 'sharing:DeleteComment' comment.id %}" class="card-link">Delete</a>
+          {% endif %}
+          <br />
+          <hr>
+          <br />
+
+          {% endfor %}
 
 
-            {% endif %}
+          {% endif %}
 
+        </div>
+        {% endfor %}
       </div>
-    {% endfor %}
+    </div>
   </div>
-</div>
-</div>
 
-{% if not filtered_feed %}
-<div class="container">
+  {% if not filtered_feed %}
+  <div class="container">
     <h7 style="text-align: center;"><i>No sharing related to this {{ chosen_soilTag.SoilTagName }} tag </i></h7>
-</div>
-{% endif %}
-<br/>
+  </div>
+  {% endif %}
+  <br />
+  
 </body>
+
 </html>
