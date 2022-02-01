@@ -99,8 +99,7 @@
               <th><a class="btn btn-secondary" href="{% url 'workshop:UpdateWorkshop' data.id %}" role="button">Edit</a></th>
               <th><a class="btn btn-danger" href="{% url 'workshop:DeleteWorkshop' data.id %}" role="button">Delete</a></th>
               <!-- <th><a href="{% url 'workshop:WorkshopParticipant' data.id %}" class="card-link" target="_blank">View Participant List</a></th>  -->
-              <th><a class="btn btn-info" href="{% url 'workshop:WorkshopParticipant' data.id %}" role="button"
-                  target="_blank">Participants</a></th>
+              <th><a class="btn btn-info" href="{% url 'workshop:WorkshopParticipant' data.id %}" role="button" target="_blank">Participants</a></th>
 
             </tr>
             {% endfor %}

@@ -99,7 +99,8 @@
               <th scope="row" value="{{ data.Participant.Occupation }}">{{ data.Participant.Occupation }}</th>
               <th scope="row" value="{{ data.Participant.Gender }}">{{ data.Participant.Gender }}</th>
               <th>
-                <a href="{% url 'ViewProfile' data.Participant.id %}" class="card-link" target="_blank">View Profile</a>
+                <a class="btn btn-info sm-btn" href="{% url 'ViewProfile' data.Participant.id %}" role="button">View Profile</a>
+                <!-- <a href="{% url 'ViewProfile' data.Participant.id %}" class="card-link" target="_blank">View Profile</a> -->
               </th>
             </tr>
             {% endfor %}
