@@ -1,116 +1,112 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+</head>
 
-  
-   <!-- Required meta tags -->
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<body>
 
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <script type="text/javascript">
 
-   <h1 class="p-3 mb-2 bg-success text-white text-center">iGROW Knowledge Management System</h1>
+    function formValidate() {
+      var age = document.getElementById("age").value;
+      if (isNaN(age) || age < 1) {
+        alert("Please provide your age in correct format!");
+        //  age.focus();
+        document.getElementById("age").focus()
+        return false;
+      }
+      return true;
+    }
 
-   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
- </head>
+  </script>
 
+  <div class="p-3 mb-2 bg-success text-white text-center">
+    <h1 class="p-3 mb-2 bg-success text-white text-center">iGROW Knowledge Management System</h1>
+  </div>
 
-   <body>
-
-
-<script type="text/javascript">
-
-    function formValidate()
-  {
-    var age = document.getElementById("age").value;
-      if( isNaN(age) || age < 1  )
-     {
-       alert( "Please provide your age in correct format!" );
-      //  age.focus();
-      document.getElementById("age").focus()
-       return false;
-     }
-     return true;
-  }
-
-</script>
-
-
-   <p class="h3 text-center align-content: center;">Templates Registration Form</p>
-   <hr/>
-   <br/>
-<form method="POST" class="container text-center" id="post-form">
-  {% csrf_token %}
+  <p class="h3 text-center align-content: center;">Registration Form</p>
+  <hr />
+  <br />
+  <form method="POST" class="container text-center" id="post-form">
+    {% csrf_token %}
 
     <!-- Email and Password -->
     <div class="form-row">
       <div class="form-group col-md-6">
-        <label for="inputEmail" class="container text-left" >Email</label>
+        <label for="inputEmail" class="container text-left">Email</label>
         <input type="email" class="form-control" id="email" placeholder="Enter email" name="Email" required>
       </div>
 
       <div class="form-group col-md-6">
-        <label for="inputPassword" class="container text-left" >Password</label>
-        <input type="password" class="form-control" id="Password" placeholder="Enter password" name="Pwd" minlength="8" maxlength="20" required>
+        <label for="inputPassword" class="container text-left">Password</label>
+        <input type="password" class="form-control" id="Password" placeholder="Enter password" name="Pwd" minlength="8"
+          maxlength="20" required>
         <small id="passwordHelpInline" class="text-muted">Must be 8-20 characters long.</small>
       </div>
     </div>
 
     <!-- Username and name -->
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="inputUsername" class="container text-left" >Username</label>
-      <input type="text" class="form-control" id="username" placeholder="Enter username" name="Username" required>
-    </div>
-    <div class="form-group col-md-6">
-        <label for="inputName" class="container text-left" >Name</label>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputUsername" class="container text-left">Username</label>
+        <input type="text" class="form-control" id="username" placeholder="Enter username" name="Username" required>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="inputName" class="container text-left">Name</label>
         <input type="text" class="form-control" id="name" placeholder="Enter name" name="Name" required>
       </div>
-  </div>
-
-  <!-- DOB and age -->
-  <div class="form-row">
-    <div class="form-group col-md-6">
-      <label for="inputDOB" class="container text-left">Date Of Birth</label>
-      <input type="date" class="form-control" id="dateofbirth" placeholder="Enter date of birth" name="DateOfBirth" required>
     </div>
-    <div class="form-group col-md-6">
-      <label for="inputAge" class="container text-left" >Age</label>
-      <input type="text" class="form-control" id="age" placeholder="Enter age" name="Age" required>
-    </div>
-  </div>
 
-  <!-- Gender and marital status -->
-<legend class="col-form-label col-sm-2 pt-0 text-left">Gender</legend>
-      <div class="custom-control custom-radio text-left">
-        <input type="radio" id="customRadio1" name="Gender" class="custom-control-input" value="M" required checked>
-        <label class="custom-control-label" for="customRadio1">Male</label>
+    <!-- DOB and age -->
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="inputDOB" class="container text-left">Date Of Birth</label>
+        <input type="date" class="form-control" id="dateofbirth" placeholder="Enter date of birth" name="DateOfBirth"
+          required>
       </div>
-      <div class="custom-control custom-radio text-left">
-        <input type="radio" id="customRadio2" name="Gender" class="custom-control-input" value="F">
-        <label class="custom-control-label" for="customRadio2">Female</label>
+      <div class="form-group col-md-6">
+        <label for="inputAge" class="container text-left">Age</label>
+        <input type="text" class="form-control" id="age" placeholder="Enter age" name="Age" required>
       </div>
+    </div>
+
+    <!-- Gender and marital status -->
+    <legend class="col-form-label col-sm-2 pt-0 text-left">Gender</legend>
+    <div class="custom-control custom-radio text-left">
+      <input type="radio" id="customRadio1" name="Gender" class="custom-control-input" value="M" required checked>
+      <label class="custom-control-label" for="customRadio1">Male</label>
+    </div>
+    <div class="custom-control custom-radio text-left">
+      <input type="radio" id="customRadio2" name="Gender" class="custom-control-input" value="F">
+      <label class="custom-control-label" for="customRadio2">Female</label>
+    </div>
     <br />
     <div class="form-row">
-    <div class="form-group col-md-4">
-        <label for="inputState"class="container text-left" name="MaritalStatus" >Marital Status</label>
+      <div class="form-group col-md-4">
+        <label for="inputState" class="container text-left" name="MaritalStatus">Marital Status</label>
         <select id="MaritalStatus" class="form-control" name="MaritalStatus" required>
           <option selected>Enter marital status</option>
-            <option value="Married" name="MaritalStatus" >Married</option> 
-            <option value="Unmarried" name="MaritalStatus" selected>Unmarried</option>
-            <option value="Divorced" name="MaritalStatus" >Divorced</option>
+          <option value="Married" name="MaritalStatus">Married</option>
+          <option value="Unmarried" name="MaritalStatus" selected>Unmarried</option>
+          <option value="Divorced" name="MaritalStatus">Divorced</option>
         </select>
       </div>
 
       <div class="form-group col-md-4">
-        <label for="inputUserLevel"class="container text-left" name="UserLevel" >User Level</label>
+        <label for="inputUserLevel" class="container text-left" name="UserLevel">User Level</label>
         <select id="UserLevel" class="form-control" name="UserLevel" required>
-            <option value="User" name="UserLevel" selected>User</option> 
-            <option value="Admin" name="UserLevel" >Admin</option>
+          <option value="User" name="UserLevel" selected>User</option>
+          <option value="Admin" name="UserLevel">Admin</option>
         </select>
       </div>
     </div>
@@ -122,7 +118,7 @@
         <input type="text" class="form-control" id="district" placeholder="Enter district" name="District" required>
       </div>
       <div class="form-group col-md-6">
-        <label for="inputState" class="container text-left" >State</label>
+        <label for="inputState" class="container text-left">State</label>
         <input type="text" class="form-control" id="state" placeholder="Enter state" name="State" required>
       </div>
     </div>
@@ -131,27 +127,32 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputOccupation" class="container text-left">Occupation</label>
-        <input type="text" class="form-control" id="occupation" placeholder="Enter occupation" name="Occupation" >
+        <input type="text" class="form-control" id="occupation" placeholder="Enter occupation" name="Occupation">
       </div>
       <div class="form-group col-md-6">
-        <label for="inputAbout" class="container text-left" >About</label>
+        <label for="inputAbout" class="container text-left">About</label>
         <input type="text" class="form-control" id="about" placeholder="Enter about" name="About" required>
       </div>
     </div>
     <!-- Submit -->
     <!-- <button type="submit" class="btn btn-success" value="Registration">Register</button> -->
     <button type="submit" class="btn btn-success" value="Reg" onclick="return formValidate()">Register</button>
-<br/><br/>
-{% if messages %}
-{% for msg in messages %}
-<b>{{msg}}</b>
-{% endfor %}
-{% endif %}
-<hr />
-<em>If you already a member <a href="{% url 'Loginpage' %}" >Login</a></em>
-<br/><br/><br/><br/>
+    <br /><br />
+    <hr />
+    <em>If you already a member <a href="{% url 'Loginpage' %}">Login</a></em>
+    <br /><br /><br /><br />
   </form>
+
+  {% if messages %}
+  <div class="container">
+    <hr>
+    {% for msg in messages %}
+    <b>{{msg}}</b>
+    {% endfor %}
+    <hr>
+  </div>
+  {% endif %}
+
 </body>
 
 </html>
-
