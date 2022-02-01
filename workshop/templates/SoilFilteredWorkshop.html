@@ -61,8 +61,10 @@
     </div>
   </b>
   <br />
-  <br />
-  <p class="h4 text-center">Workshop</p>
+
+  <div class="container my-3 bg-light" style="text-align: center;">
+    <label for="exampleFormControlTextarea1" style="font-size: 2em;">Workshop</label>
+  </div>
   <br />
   {% csrf_token %}
   {% block body %}
@@ -100,7 +102,9 @@
               <th scope="col">End Time</th>
               <th scope="col">Soil Tagging Detail</th>
               <th colspan="2" style="text-align: center;" scope="col">Action</th>
+              {% if person.UserLevel == 'User' %}
               <th scope="col"> &nbsp; </th>
+              {% endif %}
             </tr>
           </thead>
           <tbody>
@@ -140,9 +144,11 @@
                 {% endfor %}
               </th>
               {% if person.Email == data.WorkshopSoilTag.PIC.Email %}
-              <th><a href="{% url 'workshop:UpdateWorkshop' data.WorkshopSoilTag.id %}" class="card-link">Edit</a></th>
-              <th><a href="{% url 'workshop:DeleteWorkshop' data.WorkshopSoilTag.id %}" class="card-link">Delete</a>
-              </th>
+              <!-- <th><a href="{% url 'workshop:UpdateWorkshop' data.WorkshopSoilTag.id %}" class="card-link">Edit</a></th>
+              <th><a href="{% url 'workshop:DeleteWorkshop' data.WorkshopSoilTag.id %}" class="card-link">Delete</a></th> -->
+              <th><a class="btn btn-secondary" href="{% url 'workshop:UpdateWorkshop' data.WorkshopSoilTag.id %}" role="button">Edit</a></th>
+              <th><a class="btn btn-danger" href="{% url 'workshop:DeleteWorkshop' data.WorkshopSoilTag.id %}" role="button">Delete</a></th>
+              
               {% else %}
               <th scope="row"> &nbsp; </th>
               <th scope="row"> &nbsp; </th>
@@ -150,7 +156,8 @@
 
               {% if person.UserLevel == 'User' %}
               <th>
-                <a href="{% url 'workshop:Booking' data.WorkshopSoilTag.id %}" class="card-link">Book</a>
+                <!-- <a href="{% url 'workshop:Booking' data.WorkshopSoilTag.id %}" class="card-link">Book</a> -->
+                <a class="btn btn-primary" href="{% url 'workshop:Booking' data.WorkshopSoilTag.id %}" role="button">Book</a>
               </th>
               {% endif %}
             </tr>
