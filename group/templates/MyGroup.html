@@ -142,12 +142,10 @@
 
           {% if groupMembership.GroupMember.id != groupMembership.GroupName.Username.id %}
           <tr>
-            <th scope="row" value="{{ groupMembership.GroupName.Username.Name }}">{{
-              groupMembership.GroupName.Username.Name }}</th>
+            <th scope="row" value="{{ groupMembership.GroupName.Username.Name }}">{{ groupMembership.GroupName.Username.Name }}</th>
             <th scope="row" value="{{ groupMembership.GroupName.Name }}">{{ groupMembership.GroupName.Name }}</th>
             <th>
               <a class="btn btn-outline-secondary btn-sm" href="{% url 'sharing:Forum' groupMembership.GroupName.id %}" role="button">View Group</a>
-              <a href="{% url 'sharing:Forum' groupMembership.GroupName.id %}" class="card-link">View Group</a>
             </th>
           </tr>
           {% endif %}

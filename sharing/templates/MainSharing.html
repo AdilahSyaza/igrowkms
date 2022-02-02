@@ -81,7 +81,6 @@
     </div>
     <br/>
     <div class="col-12">
-      <!-- <a href="{% url 'group:MyGroup' %}" class="link-primary">My Group</a> -->
       <a class="btn btn-primary" href="{% url 'group:MyGroup' %}" role="button">My Group</a>
     </div>
     <br/>
@@ -113,14 +112,12 @@
           <th scope="row" value="{{ feed.Message }}">{{ feed.Message }}</th>
           <td style='white-space: nowrap'>
             {% if feed.Creator.Email == request.session.Email %}
-            <!-- <a href="{% url 'sharing:UpdateSharing' feed.id %}" class="card-link" target="_blank">Edit</a> || 
-            <a href="{% url 'sharing:DeleteSharing' feed.id %}" class="card-link">Delete</a> -->
             <a class="btn btn-secondary" href="{% url 'sharing:UpdateSharing' feed.id %}" role="button">Edit</a>
             <a class="btn btn-danger" href="{% url 'sharing:DeleteSharing' feed.id %}" role="button">Delete</a>
             {% endif %}
           </td>
           <th>
-            <a href="{% url 'sharing:Forum' feed.Group.id %}" class="card-link">View Group Forum</a>
+            <a class="btn btn-info" href="{% url 'sharing:Forum' feed.Group.id %}" role="button">View Group Forum</a>
           </th>
 
         </tr>

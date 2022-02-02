@@ -42,7 +42,6 @@
   {% if request.session.Email %}
 
   <div class="box">
-    <div class="container">
       <p>
         Hello there!
         {{request.session.Email}} &nbsp;&nbsp;
@@ -51,10 +50,6 @@
       </p>
       <a class="btn btn-danger" href="{% url 'Logout' %}" role="button">Logout</a>
       <a class="btn btn-info" href="{% url 'Home' %}" role="button">Home</a>
-
-      <!-- <a href="{% url 'Logout' %}">Logout</a>
-  <a href="{% url 'Home' %}">Home</a> -->
-    </div>
   </div>
 
   {% else %}
