@@ -102,6 +102,7 @@
         <button type="submit" class="btn btn-success " value="Filter">Filter</button>
       </div>
     </form>
+    <br/>
   </div>
 
   {% elif context_PlantTags %}
@@ -120,6 +121,7 @@
         <button type="submit" class="btn btn-success " value="Filter">Filter</button>
       </div>
     </form>
+    <br/>
   </div>
 
   {% else %}
@@ -129,11 +131,46 @@
     <h5>Filter Workshop By Tags: </h5>
     <a href="{% url 'workshop:Workshop_SoilTag' %}" class="link-primary">Enable Soil Tags</a> ||
     <a href="{% url 'workshop:Workshop_PlantTag' %}" class="link-primary">Enable Plant Tags</a>
+
+    <form method="POST" class="center">
+      {% csrf_token %}
+  
+      <br /><br />
+      <center>
+        <div class="container">
+          <div class="row">
+            <table border="1" class="table">
+              <input type="radio" name="Gender" value="M">&nbsp; Male &nbsp;
+              <input type="radio" name="Gender" value="F"> &nbsp;Female &nbsp;
+              &nbsp;
+              <select id="inputLocation" name="State" required>
+                <option selected disabled=true>--select state --</option>
+                <option>Johor</option>
+                <option>Kedah</option>
+                <option>Kelantan</option>
+                <option>Melaka</option>
+                <option>Negeri Sembilan</option>
+                <option>Pahang</option>
+                <option>Pulau Pinang</option>
+                <option>Perak</option>
+                <option>Perlis</option>
+                <option>Sabah</option>
+                <option>Sarawak</option>
+                <option>Selangor</option>
+                <option>Terengganu</option>
+                <option>W.P. Kuala Lumpur</option>
+              </select>
+              &nbsp;&nbsp;
+              <button type="submit" class="btn btn-success " value="Filter">Filter</button>
+              <br>
+              <br>
+      </center>
+    </form>
   </div>
 
   {% endif %}
 
-  <form method="POST" class="center">
+  <!-- <form method="POST" class="center">
     {% csrf_token %}
 
     <br /><br />
@@ -166,7 +203,7 @@
             <br>
             <br>
     </center>
-  </form>
+  </form> -->
   <div class="container">
     <div class="row">
       <table class="table">
