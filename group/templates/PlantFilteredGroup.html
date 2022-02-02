@@ -103,7 +103,7 @@
                 <tr>
                   <th scope="row" value="{{ group.GroupPlantTag.Name }}">{{ group.GroupPlantTag.Name }}</th>
                   <th scope="row" value="{{ group.GroupPlantTag.About }}">{{ group.GroupPlantTag.About }}</th>              
-                  <th scope="row" <a href="{{ MEDIA_URL }}">{{ MEDIA_URL }}</a></th>
+                  <th><img src="{{MEDIA_URL}}/{{group.GroupPlantTag.Media}}" width="120" /></th>
                   <th scope="row" <a href="{{ group.GroupPlantTag.Username.Name }}">{{ group.GroupPlantTag.Username.Name }}</a></th>
                   <th>
                       {%for ori_group in ori_group %}

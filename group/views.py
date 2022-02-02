@@ -29,11 +29,9 @@ def mainGroup(request):
     try:
         
         person=Person.objects.get(Email=request.session['Email'])
-        # cuba
         group=Group_tbl.objects.all()
         searchgp=Group_tbl.objects.raw('select * from Group_tbl')
         fss =FileSystemStorage()
-        # file = fss.save(Media.name, Media)
         uploaded_file = fss.url(group)
         return render(request,'MainGroup.html',{'group':group, 'uploaded_file':uploaded_file, 'person':person})
 
